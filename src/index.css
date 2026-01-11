@@ -154,3 +154,20 @@ select:focus {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--secondary);
 }
+
+/* Select dropdown styling for dark theme */
+select {
+    background-color: rgba(15, 23, 42, 0.95) !important;
+}
+
+select option {
+    background-color: #1e293b;
+    color: #ffffff;
+    padding: 10px;
+}
+
+select option:hover,
+select option:checked {
+    background-color: #3b82f6;
+    color: #ffffff;
+}

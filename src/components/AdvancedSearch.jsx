@@ -23,6 +23,11 @@ const AdvancedSearch = ({ onSearch, onFilterChange, filters, states }) => {
         backgroundPosition: 'right 12px center'
     };
 
+    const optionStyle = {
+        backgroundColor: '#1a1a2e',
+        color: '#ffffff'
+    };
+
     return (
         <div className="glass-panel" style={{ padding: '20px', marginBottom: '30px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
