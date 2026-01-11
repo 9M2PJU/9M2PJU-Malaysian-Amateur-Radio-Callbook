@@ -1,0 +1,34 @@
+[
+    {
+        "callsign": "9M2PJU",
+        "name": "HAZWAN",
+        "location": "KUALA LUMPUR",
+        "email": "example@email.com",
+        "phone": "+6012-3456789",
+        "address": "123, Jalan Radio, Bukit Antarabangsa, 68000 Ampang, Selangor"
+    },
+    {
+        "callsign": "9W2XYZ",
+        "name": "ALI",
+        "location": "SELANGOR",
+        "email": "ali@example.com",
+        "phone": "",
+        "address": ""
+    },
+    {
+        "callsign": "9M2ABC",
+        "name": "SITI",
+        "location": "PENANG",
+        "email": "siti@example.com",
+        "phone": "+6019-8765432",
+        "address": "45, Lorong Dipole, George Town, 10350 Penang"
+    },
+    {
+        "callsign": "9W2TEST",
+        "name": "AHMAD",
+        "location": "JOHOR",
+        "email": "",
+        "phone": "",
+        "address": "77, Jalan Yagi, Skudai, 81300 Johor Bahru"
+    }
+]

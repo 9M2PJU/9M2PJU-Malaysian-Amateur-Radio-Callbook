@@ -1,0 +1,20 @@
+[
+    {
+        "callsign": "9M2PJU",
+        "name": "HAZWAN",
+        "location": "KUALA LUMPUR",
+        "email": "example@email.com"
+    },
+    {
+        "callsign": "9W2XYZ",
+        "name": "ALI",
+        "location": "SELANGOR",
+        "email": "ali@example.com"
+    },
+    {
+        "callsign": "9M2ABC",
+        "name": "SITI",
+        "location": "PENANG",
+        "email": "siti@example.com"
+    }
+]

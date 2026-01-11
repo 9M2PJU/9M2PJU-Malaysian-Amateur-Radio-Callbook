@@ -1,0 +1,32 @@
+{
+  "name": "9m2pju-malaysian-amateur-radio-call-book",
+  "version": "1.0.0",
+  "description": "Malaysian amateur radio callsigns directory. Contains callsigns, names, addresses and contact emails.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/9M2PJU/9M2PJU-Malaysian-Amateur-Radio-Call-Book.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/9M2PJU/9M2PJU-Malaysian-Amateur-Radio-Call-Book/issues"
+  },
+  "homepage": "https://github.com/9M2PJU/9M2PJU-Malaysian-Amateur-Radio-Call-Book#readme",
+  "dependencies": {
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-icons": "^5.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.1.2",
+    "vite": "^7.3.1"
+  }
+}
