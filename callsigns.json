@@ -8,7 +8,8 @@
         "address": "123, Jalan Radio, Bukit Antarabangsa, 68000 Ampang, Selangor",
         "website": "https://hamradio.my",
         "facebook": "https://facebook.com/9m2pju",
-        "qrz": "https://www.qrz.com/db/9M2PJU"
+        "qrz": "https://www.qrz.com/db/9M2PJU",
+        "addedDate": "2026-01-10"
     },
     {
         "callsign": "9W2XYZ",
@@ -19,7 +20,8 @@
         "address": "56, Jalan Antenna, Shah Alam, 40000 Selangor",
         "website": "https://9w2xyz.com",
         "facebook": "https://facebook.com/9w2xyz",
-        "qrz": "https://www.qrz.com/db/9W2XYZ"
+        "qrz": "https://www.qrz.com/db/9W2XYZ",
+        "addedDate": "2026-01-05"
     },
     {
         "callsign": "9M2ABC",
@@ -30,7 +32,8 @@
         "address": "45, Lorong Dipole, George Town, 10350 Penang",
         "website": "https://9m2abc.my",
         "facebook": "https://facebook.com/9m2abc",
-        "qrz": "https://www.qrz.com/db/9M2ABC"
+        "qrz": "https://www.qrz.com/db/9M2ABC",
+        "addedDate": "2025-12-15"
     },
     {
         "callsign": "9W2TEST",
@@ -41,6 +44,7 @@
         "address": "77, Jalan Yagi, Skudai, 81300 Johor Bahru",
         "website": "https://9w2test.com",
         "facebook": "https://facebook.com/9w2test",
-        "qrz": "https://www.qrz.com/db/9W2TEST"
+        "qrz": "https://www.qrz.com/db/9W2TEST",
+        "addedDate": "2025-11-20"
     }
 ]
