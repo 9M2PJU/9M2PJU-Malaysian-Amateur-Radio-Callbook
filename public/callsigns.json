@@ -46,5 +46,29 @@
         "facebook": "https://facebook.com/9w2test",
         "qrz": "https://www.qrz.com/db/9W2TEST",
         "addedDate": "2025-11-20"
+    },
+    {
+        "callsign": "9W3HAM",
+        "name": "MOHD RAZIF",
+        "location": "KEDAH",
+        "email": "razif@example.com",
+        "phone": "+6014-5551234",
+        "address": "12, Lorong Antenna, Alor Setar, 05000 Kedah",
+        "website": "",
+        "facebook": "https://facebook.com/9w3ham",
+        "qrz": "https://www.qrz.com/db/9W3HAM",
+        "addedDate": "2026-01-08"
+    },
+    {
+        "callsign": "9W3NEW",
+        "name": "NUR AISYAH",
+        "location": "TERENGGANU",
+        "email": "aisyah@example.com",
+        "phone": "+6011-2223344",
+        "address": "88, Jalan Beam, Kuala Terengganu, 21000 Terengganu",
+        "website": "",
+        "facebook": "",
+        "qrz": "https://www.qrz.com/db/9W3NEW",
+        "addedDate": "2026-01-11"
     }
 ]
