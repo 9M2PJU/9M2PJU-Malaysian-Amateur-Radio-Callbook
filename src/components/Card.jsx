@@ -1,7 +1,30 @@
 import React from 'react';
-import { FaUser, FaMapMarkerAlt, FaEnvelope, FaPhone, FaHome, FaDownload, FaFacebook, FaGlobe, FaSearch } from 'react-icons/fa';
+import { FaUser, FaMapMarkerAlt, FaEnvelope, FaPhone, FaHome, FaDownload, FaFacebook, FaGlobe, FaSearch, FaClock } from 'react-icons/fa';
+
+// Determine license class info
+// 9M = Class A (Full License)
+// 9W2, 9W6, 9W8 = Class B
+// 9W3 = Class C
+const getLicenseClass = (callsign) => {
+    if (callsign.startsWith('9M')) return { name: 'Class A', color: '#22c55e', bg: 'rgba(34, 197, 94, 0.2)' };
+    if (callsign.startsWith('9W3')) return { name: 'Class C', color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.2)' };
+    if (callsign.startsWith('9W2') || callsign.startsWith('9W6') || callsign.startsWith('9W8')) return { name: 'Class B', color: '#3b82f6', bg: 'rgba(59, 130, 246, 0.2)' };
+    return { name: 'Other', color: '#6b7280', bg: 'rgba(107, 114, 128, 0.2)' };
+};
+
+// Check if recently added (within 30 days)
+const isRecentlyAdded = (addedDate) => {
+    if (!addedDate) return false;
+    const added = new Date(addedDate);
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    return added >= thirtyDaysAgo;
+};
 
 const Card = ({ data }) => {
+    const licenseClass = getLicenseClass(data.callsign);
+    const recentlyAdded = isRecentlyAdded(data.addedDate);
+
     const downloadVCard = () => {
         const vcard = `BEGIN:VCARD
 VERSION:3.0
@@ -27,21 +50,57 @@ END:VCARD`;
     };
 
     return (
-        <div className="glass-panel" style={{ padding: '24px', transition: 'all 0.3s ease', height: '100%', boxSizing: 'border-box' }}>
+        <div className="glass-panel" style={{ padding: '24px', transition: 'all 0.3s ease', height: '100%', boxSizing: 'border-box', position: 'relative' }}>
+            {/* Recently Added Badge */}
+            {recentlyAdded && (
+                <div style={{
+                    position: 'absolute',
+                    top: '-8px',
+                    right: '16px',
+                    background: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
+                    color: 'white',
+                    padding: '4px 12px',
+                    borderRadius: '12px',
+                    fontSize: '0.7rem',
+                    fontWeight: 'bold',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    boxShadow: '0 2px 8px rgba(34, 197, 94, 0.4)'
+                }}>
+                    <FaClock /> NEW
+                </div>
+            )}
+
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', flexWrap: 'wrap', gap: '8px' }}>
                 <h2 style={{ margin: 0, fontSize: '2rem', color: 'var(--primary)', letterSpacing: '1px' }}>
                     {data.callsign}
                 </h2>
-                <span style={{
-                    background: 'rgba(79, 172, 254, 0.2)',
-                    color: 'var(--secondary)',
-                    padding: '4px 12px',
-                    borderRadius: '20px',
-                    fontSize: '0.8rem',
-                    fontWeight: '600'
-                }}>
-                    MALAYSIA
-                </span>
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    {/* License Class Badge */}
+                    <span style={{
+                        background: licenseClass.bg,
+                        color: licenseClass.color,
+                        padding: '4px 12px',
+                        borderRadius: '20px',
+                        fontSize: '0.75rem',
+                        fontWeight: '600',
+                        border: `1px solid ${licenseClass.color}`
+                    }}>
+                        {licenseClass.name}
+                    </span>
+                    {/* Malaysia Badge */}
+                    <span style={{
+                        background: 'rgba(79, 172, 254, 0.2)',
+                        color: 'var(--secondary)',
+                        padding: '4px 12px',
+                        borderRadius: '20px',
+                        fontSize: '0.75rem',
+                        fontWeight: '600'
+                    }}>
+                        🇲🇾 MALAYSIA
+                    </span>
+                </div>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>

@@ -8,30 +8,39 @@
         "address": "123, Jalan Radio, Bukit Antarabangsa, 68000 Ampang, Selangor",
         "website": "https://hamradio.my",
         "facebook": "https://facebook.com/9m2pju",
-        "twitter": "https://x.com/9m2pju"
+        "qrz": "https://www.qrz.com/db/9M2PJU"
     },
     {
         "callsign": "9W2XYZ",
-        "name": "ALI",
+        "name": "ALI BIN AHMAD",
         "location": "SELANGOR",
         "email": "ali@example.com",
-        "phone": "",
-        "address": ""
+        "phone": "+6013-1234567",
+        "address": "56, Jalan Antenna, Shah Alam, 40000 Selangor",
+        "website": "https://9w2xyz.com",
+        "facebook": "https://facebook.com/9w2xyz",
+        "qrz": "https://www.qrz.com/db/9W2XYZ"
     },
     {
         "callsign": "9M2ABC",
-        "name": "SITI",
+        "name": "SITI AMINAH",
         "location": "PENANG",
         "email": "siti@example.com",
         "phone": "+6019-8765432",
-        "address": "45, Lorong Dipole, George Town, 10350 Penang"
+        "address": "45, Lorong Dipole, George Town, 10350 Penang",
+        "website": "https://9m2abc.my",
+        "facebook": "https://facebook.com/9m2abc",
+        "qrz": "https://www.qrz.com/db/9M2ABC"
     },
     {
         "callsign": "9W2TEST",
-        "name": "AHMAD",
+        "name": "AHMAD BIN ISMAIL",
         "location": "JOHOR",
-        "email": "",
-        "phone": "",
-        "address": "77, Jalan Yagi, Skudai, 81300 Johor Bahru"
+        "email": "ahmad@example.com",
+        "phone": "+6017-9876543",
+        "address": "77, Jalan Yagi, Skudai, 81300 Johor Bahru",
+        "website": "https://9w2test.com",
+        "facebook": "https://facebook.com/9w2test",
+        "qrz": "https://www.qrz.com/db/9W2TEST"
     }
 ]

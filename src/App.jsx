@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
-import Search from './components/Search';
+import AdvancedSearch from './components/AdvancedSearch';
+import StatsDashboard from './components/StatsDashboard';
 import Card from './components/Card';
 import Footer from './components/Footer';
 
@@ -10,6 +11,12 @@ function App() {
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [filters, setFilters] = useState({
+        state: '',
+        licenseClass: '',
+        recentOnly: ''
+    });
+    const [states, setStates] = useState([]);
 
     useEffect(() => {
         // Fetch the latest callsign data directly from the repository
@@ -25,6 +32,11 @@ function App() {
                 if (!Array.isArray(data)) throw new Error("Data format error: Expected an array");
                 setCallsigns(data);
                 setFiltered(data);
+
+                // Extract unique states
+                const uniqueStates = [...new Set(data.map(d => d.location.toUpperCase()))].sort();
+                setStates(uniqueStates);
+
                 setLoading(false);
             })
             .catch(err => {
@@ -34,19 +46,57 @@ function App() {
             });
     }, []);
 
+    // Apply all filters
+    const applyFilters = (term, currentFilters) => {
+        let results = [...callsigns];
+
+        // Text search
+        if (term) {
+            const upperTerm = term.toUpperCase();
+            results = results.filter(item =>
+                item.callsign.toUpperCase().includes(upperTerm) ||
+                item.name.toUpperCase().includes(upperTerm) ||
+                item.location.toUpperCase().includes(upperTerm)
+            );
+        }
+
+        // State filter
+        if (currentFilters.state) {
+            results = results.filter(item =>
+                item.location.toUpperCase() === currentFilters.state.toUpperCase()
+            );
+        }
+
+        // License class filter
+        if (currentFilters.licenseClass) {
+            results = results.filter(item =>
+                item.callsign.startsWith(currentFilters.licenseClass)
+            );
+        }
+
+        // Recently added filter
+        if (currentFilters.recentOnly) {
+            const days = parseInt(currentFilters.recentOnly);
+            const cutoffDate = new Date();
+            cutoffDate.setDate(cutoffDate.getDate() - days);
+            results = results.filter(item => {
+                if (!item.addedDate) return false;
+                return new Date(item.addedDate) >= cutoffDate;
+            });
+        }
+
+        setFiltered(results);
+    };
+
     const handleSearch = (term) => {
         setSearchTerm(term);
-        if (!term) {
-            setFiltered(callsigns);
-            return;
-        }
-        const upperTerm = term.toUpperCase();
-        const results = callsigns.filter(item =>
-            item.callsign.toUpperCase().includes(upperTerm) ||
-            item.name.toUpperCase().includes(upperTerm) ||
-            item.location.toUpperCase().includes(upperTerm)
-        );
-        setFiltered(results);
+        applyFilters(term, filters);
+    };
+
+    const handleFilterChange = (filterName, value) => {
+        const newFilters = { ...filters, [filterName]: value };
+        setFilters(newFilters);
+        applyFilters(searchTerm, newFilters);
     };
 
     return (
@@ -54,7 +104,7 @@ function App() {
             <Navbar />
 
             <main className="container" style={{ minHeight: '80vh' }}>
-                <div style={{ textAlign: 'center', margin: '40px 0 60px' }}>
+                <div style={{ textAlign: 'center', margin: '40px 0 40px' }}>
                     <h1 style={{
                         fontSize: 'clamp(2rem, 5vw, 3.5rem)',
                         fontWeight: '800',
@@ -71,7 +121,18 @@ function App() {
                     </p>
                 </div>
 
-                <Search onSearch={handleSearch} />
+                {/* Statistics Dashboard */}
+                {!loading && !error && callsigns.length > 0 && (
+                    <StatsDashboard data={callsigns} />
+                )}
+
+                {/* Advanced Search */}
+                <AdvancedSearch
+                    onSearch={handleSearch}
+                    onFilterChange={handleFilterChange}
+                    filters={filters}
+                    states={states}
+                />
 
                 {loading && (
                     <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
@@ -107,11 +168,44 @@ function App() {
                     </div>
                 )}
 
+                {/* Results count */}
+                {!loading && !error && (
+                    <div style={{
+                        marginBottom: '20px',
+                        color: 'var(--text-muted)',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                    }}>
+                        <span>Showing {filtered.length} of {callsigns.length} operators</span>
+                        {(searchTerm || filters.state || filters.licenseClass || filters.recentOnly) && (
+                            <button
+                                onClick={() => {
+                                    setSearchTerm('');
+                                    setFilters({ state: '', licenseClass: '', recentOnly: '' });
+                                    setFiltered(callsigns);
+                                }}
+                                style={{
+                                    background: 'transparent',
+                                    border: '1px solid var(--glass-border)',
+                                    color: 'var(--text-muted)',
+                                    padding: '6px 12px',
+                                    borderRadius: '6px',
+                                    cursor: 'pointer',
+                                    fontSize: '0.85rem'
+                                }}
+                            >
+                                Clear Filters
+                            </button>
+                        )}
+                    </div>
+                )}
+
                 {!loading && !error && (
                     <div style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                        gap: '20px'
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+                        gap: '24px'
                     }}>
                         {filtered.map((item, index) => (
                             <Card key={index} data={item} />
@@ -120,8 +214,10 @@ function App() {
                 )}
 
                 {!loading && !error && filtered.length === 0 && (
-                    <div style={{ textAlign: 'center', color: 'var(--text-muted)', marginTop: '40px' }}>
-                        No callsigns found for "{searchTerm}"
+                    <div style={{ textAlign: 'center', color: 'var(--text-muted)', marginTop: '40px', padding: '40px' }}>
+                        <div style={{ fontSize: '3rem', marginBottom: '16px' }}>📡</div>
+                        <h3>No operators found</h3>
+                        <p>Try adjusting your search or filters</p>
                     </div>
                 )}
             </main>
