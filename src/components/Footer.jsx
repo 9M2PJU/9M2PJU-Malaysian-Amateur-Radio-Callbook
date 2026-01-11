@@ -10,9 +10,9 @@ const Footer = () => {
             marginTop: '40px'
         }}>
             <p>
-                &copy; {new Date().getFullYear()} 9M2PJU Malaysian Amateur Radio Call Book.
+                &copy; {new Date().getFullYear()} Malaysian Amateur Radio Call Book
                 <br />
-                <span style={{ fontSize: '0.8em' }}>Open Source Project - Hosted on GitHub Pages</span>
+                <span style={{ fontSize: '0.9em' }}>Made for 🇲🇾 by <a href="https://hamradio.my" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)', textDecoration: 'none' }}>9M2PJU</a></span>
             </p>
         </footer>
     );
