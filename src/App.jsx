@@ -24,7 +24,7 @@ function App() {
         setSearchTerm(term);
         const upperTerm = term.toUpperCase();
         const results = callsigns.filter(item =>
-            item.callsign.includes(upperTerm) ||
+            item.callsign.toUpperCase().includes(upperTerm) ||
             item.name.toUpperCase().includes(upperTerm) ||
             item.location.toUpperCase().includes(upperTerm)
         );
