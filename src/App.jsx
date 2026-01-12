@@ -44,6 +44,7 @@ function App() {
                 website: item.website || '',
                 facebook: item.facebook || '',
                 qrz: item.qrz || '',
+                dmrId: item.dmr_id || '',
                 addedDate: item.added_date
             }));
 

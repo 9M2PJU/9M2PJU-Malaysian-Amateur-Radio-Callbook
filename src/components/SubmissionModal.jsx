@@ -18,7 +18,8 @@ const SubmissionModal = ({ isOpen, onClose }) => {
         address: '',
         website: '',
         facebook: '',
-        qrz: ''
+        qrz: '',
+        dmrId: ''
     });
     const [submitting, setSubmitting] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -91,6 +92,7 @@ const SubmissionModal = ({ isOpen, onClose }) => {
                         website: normalizeUrl(formData.website),
                         facebook: normalizeUrl(formData.facebook),
                         qrz: normalizeUrl(formData.qrz),
+                        dmr_id: formData.dmrId || null,
                         added_date: new Date().toISOString().split('T')[0]
                     })
                     .eq('callsign', formData.callsign.toUpperCase());
@@ -110,6 +112,7 @@ const SubmissionModal = ({ isOpen, onClose }) => {
                         website: normalizeUrl(formData.website),
                         facebook: normalizeUrl(formData.facebook),
                         qrz: normalizeUrl(formData.qrz),
+                        dmr_id: formData.dmrId || null,
                         added_date: new Date().toISOString().split('T')[0]
                     });
 
@@ -336,6 +339,18 @@ const SubmissionModal = ({ isOpen, onClose }) => {
                                 value={formData.qrz}
                                 onChange={handleChange}
                                 placeholder="qrz.com/db/9M2ABC"
+                                style={inputStyle}
+                            />
+                        </div>
+
+                        <div style={{ marginBottom: '20px' }}>
+                            <label style={labelStyle}>DMR ID (Optional)</label>
+                            <input
+                                type="text"
+                                name="dmrId"
+                                value={formData.dmrId}
+                                onChange={handleChange}
+                                placeholder="5020XXX"
                                 style={inputStyle}
                             />
                         </div>

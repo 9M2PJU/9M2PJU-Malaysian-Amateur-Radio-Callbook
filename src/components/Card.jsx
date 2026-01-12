@@ -100,6 +100,22 @@ END:VCARD`;
                     }}>
                         🇲🇾 MALAYSIA
                     </span>
+                    {/* DMR ID Badge */}
+                    {data.dmrId && (
+                        <span style={{
+                            background: 'rgba(168, 85, 247, 0.2)',
+                            color: '#a855f7',
+                            padding: '4px 12px',
+                            borderRadius: '20px',
+                            fontSize: '0.75rem',
+                            fontWeight: '600',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '4px'
+                        }}>
+                            🆔 {data.dmrId}
+                        </span>
+                    )}
                 </div>
             </div>
 
