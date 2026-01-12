@@ -45,6 +45,7 @@ function App() {
                 facebook: item.facebook || '',
                 qrz: item.qrz || '',
                 dmrId: item.dmr_id || '',
+                martsId: item.marts_id || '',
                 addedDate: item.added_date
             }));
 

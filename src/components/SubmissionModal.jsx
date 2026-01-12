@@ -19,7 +19,8 @@ const SubmissionModal = ({ isOpen, onClose }) => {
         website: '',
         facebook: '',
         qrz: '',
-        dmrId: ''
+        dmrId: '',
+        martsId: ''
     });
     const [submitting, setSubmitting] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -93,6 +94,7 @@ const SubmissionModal = ({ isOpen, onClose }) => {
                         facebook: normalizeUrl(formData.facebook),
                         qrz: normalizeUrl(formData.qrz),
                         dmr_id: formData.dmrId || null,
+                        marts_id: formData.martsId || null,
                         added_date: new Date().toISOString().split('T')[0]
                     })
                     .eq('callsign', formData.callsign.toUpperCase());
@@ -113,6 +115,7 @@ const SubmissionModal = ({ isOpen, onClose }) => {
                         facebook: normalizeUrl(formData.facebook),
                         qrz: normalizeUrl(formData.qrz),
                         dmr_id: formData.dmrId || null,
+                        marts_id: formData.martsId || null,
                         added_date: new Date().toISOString().split('T')[0]
                     });
 
@@ -351,6 +354,18 @@ const SubmissionModal = ({ isOpen, onClose }) => {
                                 value={formData.dmrId}
                                 onChange={handleChange}
                                 placeholder="5020XXX"
+                                style={inputStyle}
+                            />
+                        </div>
+
+                        <div style={{ marginBottom: '20px' }}>
+                            <label style={labelStyle}>MARTS ID (Optional)</label>
+                            <input
+                                type="text"
+                                name="martsId"
+                                value={formData.martsId}
+                                onChange={handleChange}
+                                placeholder="xxxx"
                                 style={inputStyle}
                             />
                         </div>

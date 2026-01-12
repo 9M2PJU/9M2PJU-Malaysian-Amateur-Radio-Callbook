@@ -147,7 +147,7 @@ END:VCARD`;
                 )}
 
                 {/* Social Media Section */}
-                {(data.facebook || data.qrz || data.dmrId) && (
+                {(data.facebook || data.qrz || data.dmrId || data.martsId) && (
                     <div style={{ display: 'flex', gap: '12px', marginTop: '8px', paddingTop: '8px', borderTop: '1px solid var(--glass-border)', flexWrap: 'wrap', alignItems: 'center' }}>
                         {data.facebook && (
                             <a href={data.facebook} target="_blank" rel="noopener noreferrer" style={{ color: '#1877f2', fontSize: '1.5rem' }} title="Facebook">
@@ -172,6 +172,21 @@ END:VCARD`;
                                 fontWeight: '600'
                             }}>
                                 🆔 DMR ID: {data.dmrId}
+                            </div>
+                        )}
+                        {data.martsId && (
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '6px',
+                                background: 'rgba(236, 72, 153, 0.15)',
+                                color: '#ec4899',
+                                padding: '4px 12px',
+                                borderRadius: '6px',
+                                fontSize: '0.9rem',
+                                fontWeight: '600'
+                            }}>
+                                🎫 MARTS ID: {data.martsId}
                             </div>
                         )}
                     </div>
