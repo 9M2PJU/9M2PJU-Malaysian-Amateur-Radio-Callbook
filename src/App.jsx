@@ -144,7 +144,7 @@ function App() {
                         Malaysian Amateur<br />Radio Directory
                     </h1>
                     <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem' }}>
-                        The Modern Interactive Callbook
+                        The modern "yellow pages" for Malaysian amateur radio
                     </p>
                 </div>
 
