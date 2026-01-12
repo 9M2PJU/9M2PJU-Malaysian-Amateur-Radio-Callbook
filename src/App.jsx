@@ -6,9 +6,17 @@ import StatsDashboard from './components/StatsDashboard';
 import Card from './components/Card';
 import Footer from './components/Footer';
 
+const MALAYSIAN_STATES = [
+    'JOHOR', 'KEDAH', 'KELANTAN', 'MELAKA', 'NEGERI SEMBILAN',
+    'PAHANG', 'PERAK', 'PERLIS', 'PULAU PINANG', 'SABAH',
+    'SARAWAK', 'SELANGOR', 'TERENGGANU', 'KUALA LUMPUR', 'LABUAN', 'PUTRAJAYA'
+];
+
 function App() {
     const [callsigns, setCallsigns] = useState([]);
-    const [filtered, setFiltered] = useState([]);
+    const [page, setPage] = useState(0);
+    const [hasMore, setHasMore] = useState(true);
+    const [totalCount, setTotalCount] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -17,23 +25,56 @@ function App() {
         licenseClass: '',
         recentOnly: ''
     });
-    const [states, setStates] = useState([]);
+    // States are static list for dropdown, fetching once
+    const [states, setStates] = useState(MALAYSIAN_STATES);
+
+    const ITEMS_PER_PAGE = 50;
 
     useEffect(() => {
-        fetchCallsigns();
+        // Initial fetch
+        fetchCallsigns(0, searchTerm, filters, true);
     }, []);
 
-    const fetchCallsigns = async () => {
+    const fetchCallsigns = async (pageToFetch, term, currentFilters, reset = false) => {
         try {
             setLoading(true);
-            const { data, error } = await supabase
+            let query = supabase
                 .from('callsigns')
-                .select('*')
-                .order('created_at', { ascending: false });
+                .select('*', { count: 'exact' });
+
+            // Apply Filters
+            if (term) {
+                const cleanTerm = term.trim();
+                query = query.or(`callsign.ilike.%${cleanTerm}%,name.ilike.%${cleanTerm}%,location.ilike.%${cleanTerm}%`);
+            }
+
+            if (currentFilters.state) {
+                query = query.eq('location', currentFilters.state);
+            }
+
+            if (currentFilters.licenseClass) {
+                if (currentFilters.licenseClass === 'A') query = query.ilike('callsign', '9M%');
+                if (currentFilters.licenseClass === 'B') query = query.or('callsign.ilike.9W2%,callsign.ilike.9W6%,callsign.ilike.9W8%');
+                if (currentFilters.licenseClass === 'C') query = query.ilike('callsign', '9W3%');
+            }
+
+            if (currentFilters.recentOnly) {
+                const days = parseInt(currentFilters.recentOnly);
+                const cutoffDate = new Date();
+                cutoffDate.setDate(cutoffDate.getDate() - days);
+                query = query.gte('added_date', cutoffDate.toISOString().split('T')[0]);
+            }
+
+            // Pagination
+            const from = pageToFetch * ITEMS_PER_PAGE;
+            const to = from + ITEMS_PER_PAGE - 1;
+
+            const { data, error, count } = await query
+                .order('created_at', { ascending: false })
+                .range(from, to);
 
             if (error) throw error;
 
-            // Transform data to match existing format (snake_case to camelCase)
             const transformedData = data.map(item => ({
                 callsign: item.callsign,
                 name: item.name,
@@ -49,13 +90,15 @@ function App() {
                 addedDate: item.added_date
             }));
 
-            setCallsigns(transformedData);
-            setFiltered(transformedData);
+            if (reset) {
+                setCallsigns(transformedData);
+            } else {
+                setCallsigns(prev => [...prev, ...transformedData]);
+            }
 
-            // Extract unique states
-            const uniqueStates = [...new Set(transformedData.map(d => d.location.toUpperCase()))].sort();
-            setStates(uniqueStates);
-
+            setTotalCount(count);
+            setHasMore(transformedData.length === ITEMS_PER_PAGE);
+            setPage(pageToFetch);
             setLoading(false);
         } catch (err) {
             console.error('Error fetching data:', err);
@@ -64,65 +107,21 @@ function App() {
         }
     };
 
-    // Apply all filters
-    const applyFilters = (term, currentFilters) => {
-        let results = [...callsigns];
-
-        // Text search
-        if (term) {
-            const upperTerm = term.toUpperCase();
-            results = results.filter(item =>
-                item.callsign.toUpperCase().includes(upperTerm) ||
-                item.name.toUpperCase().includes(upperTerm) ||
-                item.location.toUpperCase().includes(upperTerm)
-            );
-        }
-
-        // State filter
-        if (currentFilters.state) {
-            results = results.filter(item =>
-                item.location.toUpperCase() === currentFilters.state.toUpperCase()
-            );
-        }
-
-        // License class filter
-        if (currentFilters.licenseClass) {
-            if (currentFilters.licenseClass === 'A') {
-                results = results.filter(item => item.callsign.startsWith('9M'));
-            } else if (currentFilters.licenseClass === 'B') {
-                results = results.filter(item =>
-                    item.callsign.startsWith('9W2') ||
-                    item.callsign.startsWith('9W6') ||
-                    item.callsign.startsWith('9W8')
-                );
-            } else if (currentFilters.licenseClass === 'C') {
-                results = results.filter(item => item.callsign.startsWith('9W3'));
-            }
-        }
-
-        // Recently added filter
-        if (currentFilters.recentOnly) {
-            const days = parseInt(currentFilters.recentOnly);
-            const cutoffDate = new Date();
-            cutoffDate.setDate(cutoffDate.getDate() - days);
-            results = results.filter(item => {
-                if (!item.addedDate) return false;
-                return new Date(item.addedDate) >= cutoffDate;
-            });
-        }
-
-        setFiltered(results);
-    };
-
     const handleSearch = (term) => {
         setSearchTerm(term);
-        applyFilters(term, filters);
+        // Reset to page 0 for new search
+        fetchCallsigns(0, term, filters, true);
     };
 
     const handleFilterChange = (filterName, value) => {
         const newFilters = { ...filters, [filterName]: value };
         setFilters(newFilters);
-        applyFilters(searchTerm, newFilters);
+        // Reset to page 0 for new filter
+        fetchCallsigns(0, searchTerm, newFilters, true);
+    };
+
+    const loadMore = () => {
+        fetchCallsigns(page + 1, searchTerm, filters, false);
     };
 
     return (
@@ -147,7 +146,7 @@ function App() {
                     </p>
                 </div>
 
-                {/* Statistics Dashboard */}
+                {/* Statistics Dashboard - Note: Only shows stats for loaded data now to prevent scraping */}
                 {!loading && !error && callsigns.length > 0 && (
                     <StatsDashboard data={callsigns} />
                 )}
@@ -160,7 +159,7 @@ function App() {
                     states={states}
                 />
 
-                {loading && (
+                {loading && page === 0 && (
                     <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
                         <div style={{ fontSize: '1.5rem', marginBottom: '10px' }}>Loading Directory...</div>
                         <div>Fetching data from database</div>
@@ -203,13 +202,16 @@ function App() {
                         justifyContent: 'space-between',
                         alignItems: 'center'
                     }}>
-                        <span>Showing {filtered.length} of {callsigns.length} operators</span>
+                        <span>Showing {callsigns.length} of {totalCount} operators</span>
                         {(searchTerm || filters.state || filters.licenseClass || filters.recentOnly) && (
                             <button
                                 onClick={() => {
                                     setSearchTerm('');
                                     setFilters({ state: '', licenseClass: '', recentOnly: '' });
-                                    setFiltered(callsigns);
+                                    // Reset handled by useEffect dependence on state changes? No, passed explicit
+                                    handleSearch(''); // Reset search
+                                    // Filter reset effectively done by setFilters but we need to trigger fetch
+                                    fetchCallsigns(0, '', { state: '', licenseClass: '', recentOnly: '' }, true);
                                 }}
                                 style={{
                                     background: 'transparent',
@@ -227,19 +229,44 @@ function App() {
                     </div>
                 )}
 
-                {!loading && !error && (
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-                        gap: '24px'
-                    }}>
-                        {filtered.map((item, index) => (
-                            <Card key={index} data={item} />
-                        ))}
-                    </div>
+                {/* Grid */}
+                {(!loading || page > 0) && !error && (
+                    <>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+                            gap: '24px'
+                        }}>
+                            {callsigns.map((item, index) => (
+                                <Card key={`${item.callsign}-${index}`} data={item} />
+                            ))}
+                        </div>
+
+                        {/* Load More Button */}
+                        {hasMore && (
+                            <div style={{ textAlign: 'center', marginTop: '40px', marginBottom: '40px' }}>
+                                <button
+                                    onClick={loadMore}
+                                    disabled={loading}
+                                    style={{
+                                        background: 'transparent',
+                                        border: '1px solid var(--primary)',
+                                        color: 'var(--primary)',
+                                        padding: '12px 32px',
+                                        borderRadius: '30px',
+                                        fontSize: '1rem',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.3s ease'
+                                    }}
+                                >
+                                    {loading ? 'Loading...' : 'Load More Operators'}
+                                </button>
+                            </div>
+                        )}
+                    </>
                 )}
 
-                {!loading && !error && filtered.length === 0 && (
+                {!loading && !error && callsigns.length === 0 && (
                     <div style={{ textAlign: 'center', color: 'var(--text-muted)', marginTop: '40px', padding: '40px' }}>
                         <div style={{ fontSize: '3rem', marginBottom: '16px' }}>📡</div>
                         <h3>No operators found</h3>
