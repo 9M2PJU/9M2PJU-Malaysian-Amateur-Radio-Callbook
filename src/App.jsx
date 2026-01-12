@@ -71,6 +71,7 @@ function App() {
 
             const { data, error, count } = await query
                 .order('added_date', { ascending: false })
+                .order('created_at', { ascending: false })
                 .order('callsign', { ascending: true })
                 .range(from, to);
 
