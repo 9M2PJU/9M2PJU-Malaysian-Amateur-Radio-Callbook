@@ -100,22 +100,6 @@ END:VCARD`;
                     }}>
                         🇲🇾 MALAYSIA
                     </span>
-                    {/* DMR ID Badge */}
-                    {data.dmrId && (
-                        <span style={{
-                            background: 'rgba(168, 85, 247, 0.2)',
-                            color: '#a855f7',
-                            padding: '4px 12px',
-                            borderRadius: '20px',
-                            fontSize: '0.75rem',
-                            fontWeight: '600',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '4px'
-                        }}>
-                            🆔 {data.dmrId}
-                        </span>
-                    )}
                 </div>
             </div>
 
@@ -163,8 +147,8 @@ END:VCARD`;
                 )}
 
                 {/* Social Media Section */}
-                {(data.facebook || data.qrz) && (
-                    <div style={{ display: 'flex', gap: '12px', marginTop: '8px', paddingTop: '8px', borderTop: '1px solid var(--glass-border)' }}>
+                {(data.facebook || data.qrz || data.dmrId) && (
+                    <div style={{ display: 'flex', gap: '12px', marginTop: '8px', paddingTop: '8px', borderTop: '1px solid var(--glass-border)', flexWrap: 'wrap', alignItems: 'center' }}>
                         {data.facebook && (
                             <a href={data.facebook} target="_blank" rel="noopener noreferrer" style={{ color: '#1877f2', fontSize: '1.5rem' }} title="Facebook">
                                 <FaFacebook />
@@ -174,6 +158,21 @@ END:VCARD`;
                             <a href={data.qrz} target="_blank" rel="noopener noreferrer" style={{ color: '#ff9800', fontSize: '1.5rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px' }} title="QRZ.com">
                                 <FaSearch /> QRZ
                             </a>
+                        )}
+                        {data.dmrId && (
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '6px',
+                                background: 'rgba(168, 85, 247, 0.15)',
+                                color: '#a855f7',
+                                padding: '4px 12px',
+                                borderRadius: '6px',
+                                fontSize: '0.9rem',
+                                fontWeight: '600'
+                            }}>
+                                🆔 DMR ID: {data.dmrId}
+                            </div>
                         )}
                     </div>
                 )}
