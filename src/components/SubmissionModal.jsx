@@ -360,6 +360,7 @@ const SubmissionModal = ({ isOpen, onClose }) => {
                             )}
                         </button>
 
+                        {/* Privacy Warning */}
                         <div style={{
                             marginTop: '20px',
                             padding: '15px',
@@ -368,11 +369,32 @@ const SubmissionModal = ({ isOpen, onClose }) => {
                             borderRadius: '4px'
                         }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#ff4444', fontWeight: 'bold', marginBottom: '8px' }}>
-                                <FaExclamationTriangle /> Privacy Disclaimer
+                                <FaExclamationTriangle /> ⚠️ Privacy Warning
                             </div>
-                            <p style={{ margin: 0, fontSize: '0.85rem', color: '#ffaaaa' }}>
-                                By submitting, you agree to have this information published publicly.
-                                The maintainer is not responsible for any privacy breach or misuse.
+                            <p style={{ margin: '0 0 10px 0', fontSize: '0.85rem', color: '#ffaaaa' }}>
+                                <strong>By clicking Submit, you understand and agree that:</strong>
+                            </p>
+                            <ul style={{ margin: '0 0 10px 0', paddingLeft: '20px', fontSize: '0.85rem', color: '#ffaaaa', lineHeight: '1.6' }}>
+                                <li>All information you provide will be <strong>publicly visible</strong> to everyone on the internet</li>
+                                <li>Your data will be stored in our database and displayed on this website</li>
+                                <li>The maintainer is not responsible for any privacy breach or misuse of published information</li>
+                            </ul>
+                        </div>
+
+                        {/* Contact Info */}
+                        <div style={{
+                            marginTop: '15px',
+                            padding: '15px',
+                            background: 'rgba(79, 172, 254, 0.1)',
+                            borderLeft: '4px solid var(--primary)',
+                            borderRadius: '4px'
+                        }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--primary)', fontWeight: 'bold', marginBottom: '8px' }}>
+                                📧 Need to Update or Delete Your Info?
+                            </div>
+                            <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                                If you need to correct any information or request deletion of your entry,
+                                please email: <a href="mailto:9m2pju@hamradio.my" style={{ color: 'var(--primary)' }}>9m2pju@hamradio.my</a>
                             </p>
                         </div>
                     </form>
