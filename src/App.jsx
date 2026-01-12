@@ -29,7 +29,7 @@ function App() {
             const { data, error } = await supabase
                 .from('callsigns')
                 .select('*')
-                .order('added_date', { ascending: false });
+                .order('created_at', { ascending: false });
 
             if (error) throw error;
 
