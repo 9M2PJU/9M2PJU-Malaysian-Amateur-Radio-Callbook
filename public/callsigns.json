@@ -70,5 +70,29 @@
         "facebook": "https://www.facebook.com/Mohdarisbernawi",
         "qrz": "https://www.qrz.com/db/9M2IR",
         "addedDate": "2026-01-12"
+    },
+    {
+        "callsign": "9M2MT",
+        "name": "AZMAN",
+        "location": "KELANTAN",
+        "email": "asi9m2mt@gmail.com",
+        "phone": "",
+        "address": "",
+        "website": "",
+        "facebook": "",
+        "qrz": "",
+        "addedDate": "2026-01-12"
+    },
+    {
+        "callsign": "9w2sq",
+        "name": "SABRI SAAD",
+        "location": "KUALA LUMPUR",
+        "email": "impiansabri@gmail.com",
+        "phone": "",
+        "address": "",
+        "website": "",
+        "facebook": "",
+        "qrz": "",
+        "addedDate": "2026-01-12"
     }
 ]
