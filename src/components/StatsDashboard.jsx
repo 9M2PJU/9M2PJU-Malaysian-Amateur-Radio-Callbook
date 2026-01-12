@@ -24,13 +24,13 @@ const StatsDashboard = ({ data }) => {
         'Class C': data.filter(d => d.callsign.startsWith('9W3')).length
     };
 
-    // Count recently added (entries with addedDate within last 30 days)
+    // Count recently added (entries with addedDate within last 7 days)
     const recentCount = data.filter(d => {
         if (!d.addedDate) return false;
         const added = new Date(d.addedDate);
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-        return added >= thirtyDaysAgo;
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+        return added >= sevenDaysAgo;
     }).length;
 
     const statCardStyle = {
@@ -111,7 +111,7 @@ const StatsDashboard = ({ data }) => {
                 <div style={statCardStyle}>
                     <FaClock style={{ fontSize: '1.5rem', color: '#22c55e', marginBottom: '8px' }} />
                     <div style={statNumberStyle}>{recentCount}</div>
-                    <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Added (30 days)</div>
+                    <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Added (7 days)</div>
                 </div>
             </div>
         </div>
