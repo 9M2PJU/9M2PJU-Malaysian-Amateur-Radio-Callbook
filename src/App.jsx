@@ -5,6 +5,8 @@ import { AuthProvider } from './components/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './components/Login';
 import Register from './components/Register';
+import ForgotPassword from './components/ForgotPassword';
+import UpdatePassword from './components/UpdatePassword';
 import Navbar from './components/Navbar';
 import AdvancedSearch from './components/AdvancedSearch';
 import StatsDashboard from './components/StatsDashboard';
@@ -298,6 +300,8 @@ function App() {
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/update-password" element={<UpdatePassword />} />
                     <Route
                         path="/"
                         element={

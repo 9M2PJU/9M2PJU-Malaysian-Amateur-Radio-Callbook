@@ -1,29 +1,25 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from './AuthContext';
-import { FaLock, FaEnvelope, FaSpinner } from 'react-icons/fa';
+import { FaEnvelope, FaSpinner, FaArrowLeft } from 'react-icons/fa';
 
-const Login = () => {
-    const { signIn } = useAuth();
-    const navigate = useNavigate();
-    const location = useLocation();
+const ForgotPassword = () => {
+    const { resetPassword } = useAuth();
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-
-    // Redirect to where they were trying to go, or home
-    const from = location.state?.from?.pathname || '/';
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setMessage('');
         setLoading(true);
 
         try {
-            const { error } = await signIn({ email, password });
+            const { error } = await resetPassword(email);
             if (error) throw error;
-            navigate(from, { replace: true });
+            setMessage('Check your email for the password reset link');
         } catch (err) {
             setError(err.message);
         } finally {
@@ -34,29 +30,11 @@ const Login = () => {
     return (
         <div style={{
             display: 'flex',
-            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
             minHeight: '80vh',
             padding: '20px'
         }}>
-            <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-                <h1 style={{
-                    fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-                    fontWeight: '800',
-                    marginBottom: '16px',
-                    background: 'linear-gradient(to right, #fff, #94a3b8)',
-                    WebkitBackgroundClip: 'text',
-                    color: 'transparent',
-                    lineHeight: 1.1
-                }}>
-                    Malaysian Amateur<br />Radio Directory
-                </h1>
-                <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto' }}>
-                    The Modern "Yellow Pages" for Malaysian Amateur Radio Operators
-                </p>
-            </div>
-
             <div className="glass-panel" style={{
                 width: '100%',
                 maxWidth: '450px',
@@ -68,23 +46,9 @@ const Login = () => {
                         background: 'linear-gradient(to right, var(--primary), var(--secondary))',
                         WebkitBackgroundClip: 'text',
                         color: 'transparent',
-                        fontSize: '1.8rem'
-                    }}>Restricted Access</h2>
-                </div>
-
-                <div style={{
-                    background: 'rgba(255, 100, 100, 0.1)',
-                    borderLeft: '4px solid #ff4444',
-                    padding: '15px',
-                    borderRadius: '4px',
-                    marginBottom: '25px',
-                    fontSize: '0.9rem',
-                    color: '#ffaaaa',
-                    lineHeight: '1.5'
-                }}>
-                    <strong>🔒 Login Required</strong>
-                    <br />
-                    This directory contains sensitive personal information (including addresses and phone numbers). To protect our community's privacy, you must log in to view the listings.
+                        fontSize: '2rem'
+                    }}>Reset Password</h2>
+                    <p style={{ color: 'var(--text-muted)' }}>Enter your email to get a reset link</p>
                 </div>
 
                 {error && (
@@ -98,6 +62,20 @@ const Login = () => {
                         fontSize: '0.9rem'
                     }}>
                         {error}
+                    </div>
+                )}
+
+                {message && (
+                    <div style={{
+                        background: 'rgba(0,200,83,0.1)',
+                        border: '1px solid #00c853',
+                        color: '#00c853',
+                        padding: '12px',
+                        borderRadius: '8px',
+                        marginBottom: '20px',
+                        fontSize: '0.9rem'
+                    }}>
+                        {message}
                     </div>
                 )}
 
@@ -125,34 +103,6 @@ const Login = () => {
                         </div>
                     </div>
 
-                    <div style={{ marginBottom: '30px' }}>
-                        <label style={{ display: 'block', color: 'var(--text-muted)', marginBottom: '8px' }}>Password</label>
-                        <div style={{ position: 'relative' }}>
-                            <FaLock style={{ position: 'absolute', left: '12px', top: '15px', color: 'var(--text-muted)' }} />
-                            <input
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                                style={{
-                                    width: '100%',
-                                    padding: '12px 12px 12px 40px',
-                                    borderRadius: '8px',
-                                    border: '1px solid var(--glass-border)',
-                                    background: 'rgba(255,255,255,0.05)',
-                                    color: '#fff',
-                                    fontSize: '1rem'
-                                }}
-                                placeholder="••••••••"
-                            />
-                        </div>
-                        <div style={{ textAlign: 'right', marginTop: '8px' }}>
-                            <Link to="/forgot-password" style={{ color: 'var(--text-muted)', fontSize: '0.9rem', textDecoration: 'none' }}>
-                                Forgot Password?
-                            </Link>
-                        </div>
-                    </div>
-
                     <button
                         type="submit"
                         disabled={loading}
@@ -175,14 +125,13 @@ const Login = () => {
                             gap: '10px'
                         }}
                     >
-                        {loading ? <><FaSpinner className="spin" /> Signing In...</> : 'Sign In'}
+                        {loading ? <><FaSpinner className="spin" /> Sending...</> : 'Send Reset Link'}
                     </button>
                 </form>
 
-                <div style={{ marginTop: '30px', textAlign: 'center', color: 'var(--text-muted)' }}>
-                    Don't have an account?{' '}
-                    <Link to="/register" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 'bold' }}>
-                        Register
+                <div style={{ marginTop: '30px', textAlign: 'center' }}>
+                    <Link to="/login" style={{ color: 'var(--text-muted)', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                        <FaArrowLeft size={12} /> Back to Login
                     </Link>
                 </div>
             </div>
@@ -190,4 +139,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default ForgotPassword;
