@@ -77,25 +77,33 @@ END:VCARD`;
             )}
 
             {/* Admin Edit Button */}
-            {user?.email === ADMIN_EMAIL && (
+            {user?.email === ADMIN_EMAIL && onEdit && (
                 <button
-                    onClick={() => onEdit(data)}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onEdit(data);
+                    }}
                     style={{
                         position: 'absolute',
                         top: '10px',
-                        right: recentlyAdded ? '90px' : '10px', // Adjust if badge is present
-                        background: 'var(--primary)',
+                        right: recentlyAdded ? '90px' : '10px',
+                        background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
                         color: 'white',
                         border: 'none',
-                        borderRadius: '4px',
-                        padding: '4px 8px',
+                        borderRadius: '6px',
+                        padding: '6px 12px',
                         cursor: 'pointer',
                         fontSize: '0.8rem',
                         fontWeight: 'bold',
-                        zIndex: 10
+                        zIndex: 10,
+                        boxShadow: '0 2px 8px rgba(245, 158, 11, 0.4)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px'
                     }}
+                    title="Admin Edit"
                 >
-                    Edit
+                    ✏️ Edit
                 </button>
             )}
 
