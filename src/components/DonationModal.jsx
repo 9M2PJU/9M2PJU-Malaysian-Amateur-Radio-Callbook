@@ -62,9 +62,10 @@ const DonationModal = ({ isOpen, onClose }) => {
                 <p style={{
                     color: 'var(--text-muted)',
                     marginBottom: '25px',
-                    fontSize: '0.95rem'
+                    fontSize: '0.95rem',
+                    lineHeight: '1.6'
                 }}>
-                    Your donation helps keep this service running and free for the amateur radio community. Thank you for your support! 🙏
+                    Help us cover server maintenance costs and keep MY-Callbook running smoothly for the Malaysian amateur radio community. Every contribution, big or small, makes a difference!
                 </p>
 
                 <div style={{
@@ -90,7 +91,16 @@ const DonationModal = ({ isOpen, onClose }) => {
                     fontSize: '0.85rem',
                     margin: 0
                 }}>
-                    Scan with your banking app to donate
+                    Scan with your banking or e-wallet app to donate
+                </p>
+
+                <p style={{
+                    color: 'var(--primary)',
+                    fontSize: '0.8rem',
+                    marginTop: '15px',
+                    opacity: 0.8
+                }}>
+                    Thank you for your generous support! 73 de 9M2PJU
                 </p>
             </div>
         </div>
