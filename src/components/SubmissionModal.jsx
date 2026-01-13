@@ -52,7 +52,13 @@ const SubmissionModal = ({ isOpen, onClose }) => {
     }, [isOpen]);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        let { name, value } = e.target;
+
+        // Auto-uppercase specific fields
+        if (name === 'callsign' || name === 'name') {
+            value = value.toUpperCase();
+        }
+
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
