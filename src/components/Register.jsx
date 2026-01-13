@@ -52,157 +52,171 @@ const Register = () => {
 
     return (
         <div style={{
+            minHeight: '100vh',
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            minHeight: '80vh',
-            padding: '20px'
+            flexDirection: 'column',
+            overflowY: 'auto',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed'
         }}>
-            <div className="glass-panel" style={{
+            <div style={{
+                margin: 'auto',
+                padding: '20px',
                 width: '100%',
-                maxWidth: '450px',
-                padding: '40px'
+                maxWidth: '600px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
             }}>
-                <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+                <div style={{ textAlign: 'center', marginBottom: 'clamp(15px, 3vh, 30px)' }}>
                     <h2 style={{
                         marginTop: 0,
                         background: 'linear-gradient(to right, var(--primary), var(--secondary))',
                         WebkitBackgroundClip: 'text',
                         color: 'transparent',
-                        fontSize: '2rem'
+                        fontSize: 'clamp(1.8rem, 5vw, 2.5rem)',
+                        fontWeight: 'bold',
+                        marginBottom: '5px'
                     }}>Create Account</h2>
-                    <p style={{ color: 'var(--text-muted)' }}>Join the community</p>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Join the community</p>
                 </div>
 
-                {error && (
-                    <div style={{
-                        background: 'rgba(255,0,0,0.1)',
-                        border: '1px solid #ff4444',
-                        color: '#ff6666',
-                        padding: '12px',
-                        borderRadius: '8px',
-                        marginBottom: '20px',
-                        fontSize: '0.9rem'
-                    }}>
-                        {error}
-                    </div>
-                )}
-
-                {message && (
-                    <div style={{
-                        background: 'rgba(0,200,83,0.1)',
-                        border: '1px solid #00c853',
-                        color: '#00c853',
-                        padding: '12px',
-                        borderRadius: '8px',
-                        marginBottom: '20px',
-                        fontSize: '0.9rem'
-                    }}>
-                        {message}
-                    </div>
-                )}
-
-                <form onSubmit={handleSubmit}>
-                    <div style={{ marginBottom: '20px' }}>
-                        <label style={{ display: 'block', color: 'var(--text-muted)', marginBottom: '8px' }}>Email</label>
-                        <div style={{ position: 'relative' }}>
-                            <FaEnvelope style={{ position: 'absolute', left: '12px', top: '15px', color: 'var(--text-muted)' }} />
-                            <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                                style={{
-                                    width: '100%',
-                                    padding: '12px 12px 12px 40px',
-                                    borderRadius: '8px',
-                                    border: '1px solid var(--glass-border)',
-                                    background: 'rgba(255,255,255,0.05)',
-                                    color: '#fff',
-                                    fontSize: '1rem'
-                                }}
-                                placeholder="name@example.com"
-                            />
+                <div className="glass-panel" style={{
+                    width: '100%',
+                    maxWidth: '450px',
+                    padding: 'clamp(20px, 4vw, 30px)'
+                }}>
+                    {error && (
+                        <div style={{
+                            background: 'rgba(255,0,0,0.1)',
+                            border: '1px solid #ff4444',
+                            color: '#ff6666',
+                            padding: '10px',
+                            borderRadius: '8px',
+                            marginBottom: '15px',
+                            fontSize: '0.85rem'
+                        }}>
+                            {error}
                         </div>
-                    </div>
+                    )}
 
-                    <div style={{ marginBottom: '20px' }}>
-                        <label style={{ display: 'block', color: 'var(--text-muted)', marginBottom: '8px' }}>Password</label>
-                        <div style={{ position: 'relative' }}>
-                            <FaLock style={{ position: 'absolute', left: '12px', top: '15px', color: 'var(--text-muted)' }} />
-                            <input
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                                style={{
-                                    width: '100%',
-                                    padding: '12px 12px 12px 40px',
-                                    borderRadius: '8px',
-                                    border: '1px solid var(--glass-border)',
-                                    background: 'rgba(255,255,255,0.05)',
-                                    color: '#fff',
-                                    fontSize: '1rem'
-                                }}
-                                placeholder="Min 6 chars"
-                            />
+                    {message && (
+                        <div style={{
+                            background: 'rgba(0,200,83,0.1)',
+                            border: '1px solid #00c853',
+                            color: '#00c853',
+                            padding: '10px',
+                            borderRadius: '8px',
+                            marginBottom: '15px',
+                            fontSize: '0.85rem'
+                        }}>
+                            {message}
                         </div>
-                    </div>
+                    )}
 
-                    <div style={{ marginBottom: '30px' }}>
-                        <label style={{ display: 'block', color: 'var(--text-muted)', marginBottom: '8px' }}>Confirm Password</label>
-                        <div style={{ position: 'relative' }}>
-                            <FaLock style={{ position: 'absolute', left: '12px', top: '15px', color: 'var(--text-muted)' }} />
-                            <input
-                                type="password"
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                required
-                                style={{
-                                    width: '100%',
-                                    padding: '12px 12px 12px 40px',
-                                    borderRadius: '8px',
-                                    border: '1px solid var(--glass-border)',
-                                    background: 'rgba(255,255,255,0.05)',
-                                    color: '#fff',
-                                    fontSize: '1rem'
-                                }}
-                                placeholder="Confirm password"
-                            />
+                    <form onSubmit={handleSubmit}>
+                        <div style={{ marginBottom: '15px' }}>
+                            <label style={{ display: 'block', color: 'var(--text-muted)', marginBottom: '6px', fontSize: '0.9rem' }}>Email</label>
+                            <div style={{ position: 'relative' }}>
+                                <FaEnvelope style={{ position: 'absolute', left: '12px', top: '13px', color: 'var(--text-muted)', fontSize: '0.9rem' }} />
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    style={{
+                                        width: '100%',
+                                        padding: '10px 10px 10px 35px',
+                                        borderRadius: '8px',
+                                        border: '1px solid var(--glass-border)',
+                                        background: 'rgba(255,255,255,0.05)',
+                                        color: '#fff',
+                                        fontSize: '0.95rem'
+                                    }}
+                                    placeholder="name@example.com"
+                                />
+                            </div>
                         </div>
+
+                        <div style={{ marginBottom: '15px' }}>
+                            <label style={{ display: 'block', color: 'var(--text-muted)', marginBottom: '6px', fontSize: '0.9rem' }}>Password</label>
+                            <div style={{ position: 'relative' }}>
+                                <FaLock style={{ position: 'absolute', left: '12px', top: '13px', color: 'var(--text-muted)', fontSize: '0.9rem' }} />
+                                <input
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                    style={{
+                                        width: '100%',
+                                        padding: '10px 10px 10px 35px',
+                                        borderRadius: '8px',
+                                        border: '1px solid var(--glass-border)',
+                                        background: 'rgba(255,255,255,0.05)',
+                                        color: '#fff',
+                                        fontSize: '0.95rem'
+                                    }}
+                                    placeholder="Min 6 chars"
+                                />
+                            </div>
+                        </div>
+
+                        <div style={{ marginBottom: '25px' }}>
+                            <label style={{ display: 'block', color: 'var(--text-muted)', marginBottom: '6px', fontSize: '0.9rem' }}>Confirm Password</label>
+                            <div style={{ position: 'relative' }}>
+                                <FaLock style={{ position: 'absolute', left: '12px', top: '13px', color: 'var(--text-muted)', fontSize: '0.9rem' }} />
+                                <input
+                                    type="password"
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    required
+                                    style={{
+                                        width: '100%',
+                                        padding: '10px 10px 10px 35px',
+                                        borderRadius: '8px',
+                                        border: '1px solid var(--glass-border)',
+                                        background: 'rgba(255,255,255,0.05)',
+                                        color: '#fff',
+                                        fontSize: '0.95rem'
+                                    }}
+                                    placeholder="Confirm password"
+                                />
+                            </div>
+                        </div>
+
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            style={{
+                                width: '100%',
+                                padding: '12px',
+                                background: loading
+                                    ? 'rgba(255, 255, 255, 0.1)'
+                                    : 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)',
+                                border: 'none',
+                                borderRadius: '10px',
+                                color: loading ? 'var(--text-muted)' : '#000',
+                                fontSize: '1rem',
+                                fontWeight: 'bold',
+                                cursor: loading ? 'wait' : 'pointer',
+                                transition: 'all 0.2s',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                gap: '10px'
+                            }}
+                        >
+                            {loading ? <><FaSpinner className="spin" /> Creating Account...</> : 'Sign Up'}
+                        </button>
+                    </form>
+
+                    <div style={{ marginTop: '20px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                        Already have an account?{' '}
+                        <Link to="/login" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 'bold' }}>
+                            Sign In
+                        </Link>
                     </div>
-
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        style={{
-                            width: '100%',
-                            padding: '14px',
-                            background: loading
-                                ? 'rgba(255, 255, 255, 0.1)'
-                                : 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)',
-                            border: 'none',
-                            borderRadius: '10px',
-                            color: loading ? 'var(--text-muted)' : '#000',
-                            fontSize: '1.1rem',
-                            fontWeight: 'bold',
-                            cursor: loading ? 'wait' : 'pointer',
-                            transition: 'all 0.2s',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            gap: '10px'
-                        }}
-                    >
-                        {loading ? <><FaSpinner className="spin" /> Creating Account...</> : 'Sign Up'}
-                    </button>
-                </form>
-
-                <div style={{ marginTop: '30px', textAlign: 'center', color: 'var(--text-muted)' }}>
-                    Already have an account?{' '}
-                    <Link to="/login" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 'bold' }}>
-                        Sign In
-                    </Link>
                 </div>
             </div>
         </div>
