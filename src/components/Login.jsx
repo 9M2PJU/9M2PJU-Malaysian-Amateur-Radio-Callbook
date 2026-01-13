@@ -33,60 +33,74 @@ const Login = () => {
 
     return (
         <div style={{
-            height: '100vh',
-            width: '100vw',
+            minHeight: '100vh',
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            overflow: 'hidden',
-            padding: '10px'
+            overflowY: 'auto', // Enable full page scrolling
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed'
         }}>
             <div style={{
+                margin: 'auto', // This handles vertical centering safely
+                padding: '40px 20px',
                 width: '100%',
-                maxWidth: '450px',
+                maxWidth: '600px', // Ensure wrapper doesn't get too wide
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
-                gap: '10px' // Tighter gap between header and form
+                alignItems: 'center'
             }}>
-                <div style={{ textAlign: 'center' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '5px' }}>
-                        <FaBroadcastTower size={24} color="var(--primary)" />
-                        <h2 style={{ margin: 0, background: 'linear-gradient(to right, var(--primary), var(--secondary))', WebkitBackgroundClip: 'text', color: 'transparent', fontSize: '1.5rem', fontWeight: 'bold' }}>
+                <div style={{ textAlign: 'center', marginBottom: 'clamp(20px, 5vh, 40px)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '20px' }}>
+                        <FaBroadcastTower size={32} color="var(--primary)" />
+                        <h2 style={{ margin: 0, background: 'linear-gradient(to right, var(--primary), var(--secondary))', WebkitBackgroundClip: 'text', color: 'transparent', fontSize: 'clamp(1.5rem, 5vw, 2rem)', fontWeight: 'bold' }}>
                             MY-Callbook
                         </h2>
                     </div>
+                    <h1 style={{
+                        fontSize: 'clamp(1.8rem, 5vw, 3.5rem)',
+                        fontWeight: '800',
+                        marginBottom: '16px',
+                        background: 'linear-gradient(to right, #fff, #94a3b8)',
+                        WebkitBackgroundClip: 'text',
+                        color: 'transparent',
+                        lineHeight: 1.1
+                    }}>
+                        Malaysian Amateur<br />Radio Directory
+                    </h1>
+                    <p style={{ color: 'var(--text-muted)', fontSize: 'clamp(1rem, 3vw, 1.2rem)', margin: '0 auto' }}>
+                        The Modern "Yellow Pages" for Malaysian Amateur Radio Operators
+                    </p>
                 </div>
 
                 <div className="glass-panel" style={{
                     width: '100%',
-                    padding: '25px', // Reduced padding
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '15px' // Use gap for spacing instead of margins
+                    maxWidth: '450px',
+                    padding: 'clamp(20px, 5vw, 40px)'
                 }}>
-                    <div style={{ textAlign: 'center' }}>
+                    <div style={{ textAlign: 'center', marginBottom: '30px' }}>
                         <h2 style={{
-                            margin: 0,
+                            marginTop: 0,
                             background: 'linear-gradient(to right, var(--primary), var(--secondary))',
                             WebkitBackgroundClip: 'text',
                             color: 'transparent',
-                            fontSize: '1.5rem'
+                            fontSize: '1.8rem'
                         }}>Restricted Access</h2>
                     </div>
 
                     <div style={{
                         background: 'rgba(255, 100, 100, 0.1)',
                         borderLeft: '4px solid #ff4444',
-                        padding: '10px',
+                        padding: '15px',
                         borderRadius: '4px',
-                        fontSize: '0.8rem', // Smaller text
+                        marginBottom: '25px',
+                        fontSize: '0.9rem',
                         color: '#ffaaaa',
-                        lineHeight: '1.3'
+                        lineHeight: '1.5'
                     }}>
-                        <strong>🔒 Login Required: </strong>
-                        Directory contains sensitive info. Please log in to view.
+                        <strong>🔒 Login Required</strong>
+                        <br />
+                        This directory contains sensitive personal information (including addresses and phone numbers). To protect our community's privacy, you must log in to view the listings.
                     </div>
 
                     {error && (
@@ -94,18 +108,20 @@ const Login = () => {
                             background: 'rgba(255,0,0,0.1)',
                             border: '1px solid #ff4444',
                             color: '#ff6666',
-                            padding: '8px',
+                            padding: '12px',
                             borderRadius: '8px',
-                            fontSize: '0.85rem'
+                            marginBottom: '20px',
+                            fontSize: '0.9rem'
                         }}>
                             {error}
                         </div>
                     )}
 
-                    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                        <div>
+                    <form onSubmit={handleSubmit}>
+                        <div style={{ marginBottom: '20px' }}>
+                            <label style={{ display: 'block', color: 'var(--text-muted)', marginBottom: '8px' }}>Email</label>
                             <div style={{ position: 'relative' }}>
-                                <FaEnvelope style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                                <FaEnvelope style={{ position: 'absolute', left: '12px', top: '15px', color: 'var(--text-muted)' }} />
                                 <input
                                     type="email"
                                     value={email}
@@ -113,21 +129,22 @@ const Login = () => {
                                     required
                                     style={{
                                         width: '100%',
-                                        padding: '10px 10px 10px 35px', // Compact padding
+                                        padding: '12px 12px 12px 40px',
                                         borderRadius: '8px',
                                         border: '1px solid var(--glass-border)',
                                         background: 'rgba(255,255,255,0.05)',
                                         color: '#fff',
-                                        fontSize: '0.95rem'
+                                        fontSize: '1rem'
                                     }}
-                                    placeholder="Email"
+                                    placeholder="name@example.com"
                                 />
                             </div>
                         </div>
 
-                        <div>
+                        <div style={{ marginBottom: '30px' }}>
+                            <label style={{ display: 'block', color: 'var(--text-muted)', marginBottom: '8px' }}>Password</label>
                             <div style={{ position: 'relative' }}>
-                                <FaLock style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                                <FaLock style={{ position: 'absolute', left: '12px', top: '15px', color: 'var(--text-muted)' }} />
                                 <input
                                     type="password"
                                     value={password}
@@ -135,18 +152,18 @@ const Login = () => {
                                     required
                                     style={{
                                         width: '100%',
-                                        padding: '10px 10px 10px 35px',
+                                        padding: '12px 12px 12px 40px',
                                         borderRadius: '8px',
                                         border: '1px solid var(--glass-border)',
                                         background: 'rgba(255,255,255,0.05)',
                                         color: '#fff',
-                                        fontSize: '0.95rem'
+                                        fontSize: '1rem'
                                     }}
-                                    placeholder="Password"
+                                    placeholder="••••••••"
                                 />
                             </div>
-                            <div style={{ textAlign: 'right', marginTop: '5px' }}>
-                                <Link to="/forgot-password" style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textDecoration: 'none' }}>
+                            <div style={{ textAlign: 'right', marginTop: '8px' }}>
+                                <Link to="/forgot-password" style={{ color: 'var(--text-muted)', fontSize: '0.9rem', textDecoration: 'none' }}>
                                     Forgot Password?
                                 </Link>
                             </div>
@@ -157,14 +174,14 @@ const Login = () => {
                             disabled={loading}
                             style={{
                                 width: '100%',
-                                padding: '12px',
+                                padding: '14px',
                                 background: loading
                                     ? 'rgba(255, 255, 255, 0.1)'
                                     : 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)',
                                 border: 'none',
                                 borderRadius: '10px',
                                 color: loading ? 'var(--text-muted)' : '#000',
-                                fontSize: '1rem',
+                                fontSize: '1.1rem',
                                 fontWeight: 'bold',
                                 cursor: loading ? 'wait' : 'pointer',
                                 transition: 'all 0.2s',
@@ -174,12 +191,12 @@ const Login = () => {
                                 gap: '10px'
                             }}
                         >
-                            {loading ? <><FaSpinner className="spin" /> ...</> : 'Sign In'}
+                            {loading ? <><FaSpinner className="spin" /> Signing In...</> : 'Sign In'}
                         </button>
                     </form>
 
-                    <div style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-                        No account?{' '}
+                    <div style={{ marginTop: '30px', textAlign: 'center', color: 'var(--text-muted)' }}>
+                        Don't have an account?{' '}
                         <Link to="/register" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 'bold' }}>
                             Register
                         </Link>
