@@ -1,9 +1,9 @@
 import React from 'react';
 import { FaUsers, FaMapMarkerAlt, FaClock, FaBroadcastTower } from 'react-icons/fa';
 
-const StatsDashboard = ({ data }) => {
+const StatsDashboard = ({ data, totalCount }) => {
     // Calculate statistics
-    const totalOperators = data.length;
+    const totalOperators = totalCount || data.length;
 
     // Count by state
     const stateCount = data.reduce((acc, item) => {

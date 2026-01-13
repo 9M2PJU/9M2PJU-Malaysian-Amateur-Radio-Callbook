@@ -161,7 +161,7 @@ function Directory() {
 
                 {/* Statistics Dashboard - Note: Only shows stats for loaded data now to prevent scraping */}
                 {!loading && !error && callsigns.length > 0 && (
-                    <StatsDashboard data={callsigns} />
+                    <StatsDashboard data={callsigns} totalCount={totalCount} />
                 )}
 
                 {/* Advanced Search */}
