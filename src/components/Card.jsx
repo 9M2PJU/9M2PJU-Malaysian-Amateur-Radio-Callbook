@@ -50,7 +50,7 @@ END:VCARD`;
     };
 
     return (
-        <div className="glass-panel" style={{ padding: '24px', transition: 'all 0.3s ease', height: '100%', boxSizing: 'border-box', position: 'relative' }}>
+        <div className="glass-panel" style={{ padding: 'clamp(16px, 4vw, 24px)', transition: 'all 0.3s ease', height: '100%', boxSizing: 'border-box', position: 'relative' }}>
             {/* Recently Added Badge */}
             {recentlyAdded && (
                 <div style={{

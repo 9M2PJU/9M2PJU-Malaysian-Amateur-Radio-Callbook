@@ -50,27 +50,28 @@ const StatsDashboard = ({ data, totalCount }) => {
     };
 
     return (
-        <div className="glass-panel" style={{ padding: '24px', marginBottom: '30px' }}>
+        <div className="glass-panel" style={{ padding: 'clamp(16px, 4vw, 24px)', marginBottom: '30px' }}>
             <h2 style={{
                 margin: '0 0 20px 0',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '10px',
-                color: 'var(--text-main)'
+                color: 'var(--text-main)',
+                fontSize: 'clamp(1.2rem, 4vw, 1.5rem)'
             }}>
                 <FaBroadcastTower color="var(--primary)" /> Directory Statistics
             </h2>
 
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-                gap: '16px'
+                gridTemplateColumns: 'repeat(auto-fit, minmax(135px, 1fr))', // reliable 2-col on small usage
+                gap: 'clamp(10px, 3vw, 16px)'
             }}>
                 {/* Total Operators */}
                 <div style={statCardStyle}>
                     <FaUsers style={{ fontSize: '1.5rem', color: 'var(--primary)', marginBottom: '8px' }} />
                     <div style={statNumberStyle}>{totalOperators}</div>
-                    <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Total Operators</div>
+                    <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Total Operators</div>
                 </div>
 
                 {/* License Classes */}
@@ -80,11 +81,11 @@ const StatsDashboard = ({ data, totalCount }) => {
                         <div key={cls} style={{
                             display: 'flex',
                             justifyContent: 'space-between',
-                            fontSize: '0.85rem',
+                            fontSize: 'clamp(0.75rem, 2.5vw, 0.85rem)', // slightly smaller on mobile
                             padding: '4px 0',
                             borderBottom: '1px solid var(--glass-border)'
                         }}>
-                            <span style={{ color: 'var(--text-muted)' }}>{cls.split(' ')[0]} {cls.split(' ')[1]}</span>
+                            <span style={{ color: 'var(--text-muted)' }}>{cls}</span> {/* Don't split, just show full or let wrap properly */}
                             <span style={{ color: 'var(--secondary)', fontWeight: 'bold' }}>{count}</span>
                         </div>
                     ))}
@@ -98,10 +99,12 @@ const StatsDashboard = ({ data, totalCount }) => {
                         <div key={state} style={{
                             display: 'flex',
                             justifyContent: 'space-between',
-                            fontSize: '0.85rem',
+                            fontSize: 'clamp(0.75rem, 2.5vw, 0.85rem)',
                             padding: '4px 0'
                         }}>
-                            <span style={{ color: 'var(--text-muted)' }}>{idx + 1}. {state}</span>
+                            <span style={{ color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '80%' }}>
+                                {idx + 1}. {state}
+                            </span>
                             <span style={{ color: 'var(--primary)', fontWeight: 'bold' }}>{count}</span>
                         </div>
                     ))}
@@ -111,7 +114,7 @@ const StatsDashboard = ({ data, totalCount }) => {
                 <div style={statCardStyle}>
                     <FaClock style={{ fontSize: '1.5rem', color: '#22c55e', marginBottom: '8px' }} />
                     <div style={statNumberStyle}>{recentCount}</div>
-                    <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Added (7 days)</div>
+                    <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Added (7 days)</div>
                 </div>
             </div>
         </div>

@@ -116,6 +116,18 @@ body {
     h2 {
         font-size: 1.3rem !important;
     }
+
+    .mobile-hidden {
+        display: none !important;
+    }
+
+    .mobile-compact-text {
+        font-size: 0.8rem !important;
+    }
+    
+    .nav-container {
+        padding: 0.8rem !important;
+    }
 }
 
 /* Smooth scrolling */
