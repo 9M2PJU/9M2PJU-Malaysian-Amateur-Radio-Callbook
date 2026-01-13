@@ -58,7 +58,7 @@ Location: State/City
 
 ## 📡 Data Updates
 
-Data is stored in **Supabase** (PostgreSQL).
+Data is stored in **PostgreSQL**.
 - ✅ Real-time updates
 - ✅ Secure row-level policies
 - ✅ Auto-approved submissions
@@ -71,10 +71,7 @@ Data is stored in **Supabase** (PostgreSQL).
 |-|------------|---------|
 | ⚛️ | React 19 | UI Framework |
 | ⚡ | Vite 7 | Build Tool |
-| 🔐 | Supabase | Auth & Database |
 | 🎨 | CSS3 | Glassmorphism Styling |
-| 🌐 | Vercel | Hosting |
-
 ---
 
 ## 🤝 Contributing
