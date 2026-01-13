@@ -78,6 +78,20 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
         }
     }, [isOpen]);
 
+    // Handle ESC key to close modal
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape' && isOpen) {
+                onClose();
+            }
+        };
+
+        if (isOpen) {
+            document.addEventListener('keydown', handleKeyDown);
+            return () => document.removeEventListener('keydown', handleKeyDown);
+        }
+    }, [isOpen, onClose]);
+
     const handleChange = (e) => {
         let { name, value } = e.target;
 
