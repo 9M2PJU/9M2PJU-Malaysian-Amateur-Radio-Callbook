@@ -23,9 +23,12 @@ CREATE TABLE IF NOT EXISTS callsigns (
 ALTER TABLE callsigns ENABLE ROW LEVEL SECURITY;
 
 -- Step 3: Create policies for public read access
-CREATE POLICY "Allow public read access" ON callsigns
+-- Step 3: Create policy for authenticated read access (No Public Access)
+CREATE POLICY "Allow registered users read access" ON callsigns
     FOR SELECT
-    USING (true);
+    USING (
+        auth.uid() IS NOT NULL
+    );
 
 -- Step 4: Create policy for authenticated insert (users must be logged in)
 CREATE POLICY "Allow authenticated insert" ON callsigns
