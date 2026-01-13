@@ -38,11 +38,11 @@ const PublicStats = () => {
         background: 'rgba(255, 255, 255, 0.05)',
         border: '1px solid var(--glass-border)',
         borderRadius: '20px',
-        padding: '4px 12px',
+        padding: '2px 10px',
         display: 'flex',
         alignItems: 'center',
-        gap: '6px',
-        fontSize: '0.8rem',
+        gap: '4px',
+        fontSize: '0.7rem',
         whiteSpace: 'nowrap'
     };
 
@@ -57,17 +57,11 @@ const PublicStats = () => {
             maxWidth: '600px',
             margin: '0 auto 10px',
             display: 'flex',
-            flexWrap: 'nowrap', // No wrap to save vertical space
-            overflowX: 'auto', // Horizontal scroll if too many
-            justifyContent: 'flex-start', // Start from left for scroll
+            flexWrap: 'wrap', // Wrap on small screens
+            justifyContent: 'center', // Center items
             gap: '8px',
             padding: '5px 10px',
-            scrollbarWidth: 'none', // Hide scrollbar for clean look
-            msOverflowStyle: 'none'
         }}>
-            <style>{`
-                div::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome/Safari */
-            `}</style>
             {/* Total Badge */}
             <div style={badgeStyle}>
                 <FaUsers size={12} color="var(--primary)" />

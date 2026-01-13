@@ -51,16 +51,27 @@ const Login = () => {
             backgroundAttachment: 'fixed'
         }}>
             <style>{`
+                html, body { 
+                    overflow: hidden !important; 
+                    height: 100% !important; 
+                    margin: 0 !important; 
+                    padding: 0 !important;
+                    position: fixed;
+                    width: 100%;
+                }
                 @media (max-height: 700px) {
                     .login-container { padding: 5px 10px !important; }
-                    .header-section { margin-bottom: 5px !important; }
-                    .footer-section { margin-top: 10px !important; margin-bottom: 5px !important; }
-                    .login-card { padding: 12px !important; }
+                    .header-section { margin-bottom: 2px !important; }
+                    .header-section h1 { margin-bottom: 5px !important; }
+                    .footer-section { margin-top: 5px !important; margin-bottom: 5px !important; }
+                    .login-card { padding: 10px 15px !important; }
                     .badge-container { margin-bottom: 5px !important; }
+                    .header-section p { display: none; } /* Hide subtext on very short screens */
                 }
                 @media (max-width: 400px) {
                     .header-section h1 { font-size: 1.1rem !important; }
-                    .login-card { max-width: 95% !important; }
+                    .login-card { max-width: 98% !important; margin: 0 auto; }
+                    .restricted-info { display: none; } /* Hide info box on narrow screens to save height */
                 }
             `}</style>
             <div className="login-container" style={{
@@ -114,17 +125,17 @@ const Login = () => {
                         }}>Restricted Access</h2>
                     </div>
 
-                    <div style={{
+                    <div className="restricted-info" style={{
                         background: 'rgba(255, 100, 100, 0.1)',
                         borderLeft: '4px solid #ff4444',
-                        padding: '8px 12px',
+                        padding: '6px 10px',
                         borderRadius: '4px',
-                        marginBottom: '15px',
-                        fontSize: '0.8rem',
+                        marginBottom: '12px',
+                        fontSize: '0.75rem',
                         color: '#ffaaaa',
-                        lineHeight: '1.3'
+                        lineHeight: '1.2'
                     }}>
-                        Directory contains sensitive data. Please log in.
+                        Directory restricted. Please log in.
                     </div>
 
                     {error && (

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Your Account</title>
+    <!-- Matches src/index.css font import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100% !important;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            background-color: #0f172a;
+            /* var(--bg-dark) */
+            font-family: 'Outfit', Helvetica, Arial, sans-serif;
+            /* var(--font-main) */
+            color: #ffffff;
+            /* var(--text-main) */
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 20px rgba(79, 172, 254, 0.6) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                width: 100% !important;
+                padding: 20px !important;
+            }
+
+            .glass-panel {
+                padding: 24px !important;
+            }
+
+            .heading {
+                font-size: 24px !important;
+            }
+        }
+    </style>
+</head>
+
+<body style="margin: 0; padding: 0; background-color: #0f172a;">
+
+    <!-- Main Background Wrapper (Matches body background-image in index.css) -->
+    <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="
+    background-color: #0f172a; 
+    background-image: radial-gradient(at 50% 0%, #1e293b 0, #0f172a 70%);">
+        <tr>
+            <td align="center" style="padding: 40px 10px;">
+
+                <!-- Navbar-like Header -->
+                <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0"
+                    style="max-width: 520px; margin-bottom: 20px;">
+                    <tr>
+                        <td align="center">
+                            <div style="display: inline-block; vertical-align: middle;">
+                                <!-- Icon mimicking FaBroadcastTower with primary color -->
+                                <span
+                                    style="font-size: 28px; line-height: 1; margin-right: 8px; color: #00f2fe;">📡</span>
+                                <!-- Text with gradient fallback -->
+                                <span style="
+                  font-family: 'Outfit', sans-serif; 
+                  font-size: 24px; 
+                  font-weight: 700; 
+                  background: linear-gradient(to right, #00f2fe, #4facfe); 
+                  -webkit-background-clip: text; 
+                  -webkit-text-fill-color: transparent; 
+                  color: #4facfe;">
+                                    MY-Callbook
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Glass Panel Container -->
+                <table role="presentation" class="container" width="100%" border="0" cellspacing="0" cellpadding="0"
+                    style="max-width: 520px; width: 100%;">
+                    <tr>
+                        <td class="glass-panel" style="
+              background-color: #1e293b; 
+              background: rgba(255, 255, 255, 0.05); /* var(--glass-bg) */
+              border: 1px solid rgba(255, 255, 255, 0.1); /* var(--glass-border) */
+              border-radius: 16px; 
+              box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* var(--glass-shadow) */
+              padding: 40px;
+              backdrop-filter: blur(12px);">
+
+                            <!-- Heading -->
+                            <h1 class="heading" style="
+                margin: 0 0 16px 0; 
+                color: #ffffff; 
+                font-family: 'Outfit', Helvetica, Arial, sans-serif; 
+                font-size: 28px; 
+                font-weight: 700; 
+                text-align: center;">
+                                Confirm Your Account
+                            </h1>
+
+                            <!-- Body Text -->
+                            <p style="
+                margin: 0 0 32px 0; 
+                color: #94a3b8; /* var(--text-muted) */
+                font-size: 16px; 
+                line-height: 1.6; 
+                text-align: center;">
+                                Welcome to the <strong>Malaysian Amateur Radio Directory</strong>. Please confirm your
+                                email address to start contributing to the modern "Yellow Pages" for Malaysian Hams.
+                            </p>
+
+                            <!-- Action Button -->
+                            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center">
+                                        <!-- .btn-primary style -->
+                                        <a href="{{ .ConfirmationURL }}" class="btn-primary" style="
+                      display: inline-block; 
+                      background: linear-gradient(135deg, #4facfe, #00f2fe); /* var(--secondary) -> var(--primary) */
+                      color: #000000; 
+                      text-decoration: none; 
+                      padding: 14px 36px; 
+                      border-radius: 12px; 
+                      font-weight: 700; 
+                      font-size: 16px; 
+                      box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+                      transition: all 0.2s ease;">
+                                            Confirm Email Address
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Divider -->
+                            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0"
+                                style="margin-top: 40px;">
+                                <tr>
+                                    <td style="border-top: 1px solid rgba(255, 255, 255, 0.1);"></td>
+                                </tr>
+                            </table>
+
+                            <!-- Link Fallback -->
+                            <p style="
+                margin: 24px 0 0 0; 
+                color: #64748b; 
+                font-size: 13px; 
+                line-height: 1.5; 
+                text-align: center;">
+                                If the button above doesn't work, copy and paste this link:<br>
+                                <a href="{{ .ConfirmationURL }}"
+                                    style="color: #4facfe; text-decoration: none; word-break: break-all; font-size: 12px;">{{
+                                    .ConfirmationURL }}</a>
+                            </p>
+
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Footer (Exact match from src/components/Footer.jsx) -->
+                <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0"
+                    style="max-width: 520px; margin-top: 40px;">
+                    <tr>
+                        <td align="center" style="
+              color: #94a3b8; /* var(--text-muted) */
+              font-family: 'Outfit', sans-serif;
+              font-size: 12px;
+              line-height: 1.5;">
+
+                            <!-- Disclaimer Section -->
+                            <div style="
+                margin: 0 auto 20px;
+                padding: 15px;
+                background: rgba(255, 255, 255, 0.03);
+                border-radius: 8px;
+                text-align: center;">
+                                <strong>⚠️ Disclaimer:</strong> All information displayed on this website is provided by
+                                users and is not guaranteed to be accurate, complete, or up-to-date. The maintainer does
+                                not verify the authenticity of submissions. Use this information at your own discretion.
+                            </div>
+
+                            <!-- Copyright & Credits -->
+                            <p style="margin: 0;">
+                                &copy; {{ .CurrentYear }} Malaysian Amateur Radio Callbook<br>
+                                <!-- Using span style for smaller text as in Footer.jsx -->
+                                <span style="font-size: 0.9em; opacity: 0.9;">
+                                    Made for 🇲🇾 by
+                                    <a href="https://hamradio.my" target="_blank"
+                                        style="color: #00f2fe; text-decoration: none;">9M2PJU</a>
+                                </span>
+                            </p>
+
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>
