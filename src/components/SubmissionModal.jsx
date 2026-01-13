@@ -60,7 +60,7 @@ const SubmissionModal = ({ isOpen, onClose }) => {
         }
 
         // Numeric only fields
-        if (name === 'martsId') {
+        if (name === 'martsId' || name === 'dmrId') {
             // Only allow numbers
             if (!/^\d*$/.test(value)) {
                 return; // Ignore non-numeric input
