@@ -57,10 +57,17 @@ const PublicStats = () => {
             maxWidth: '600px',
             margin: '0 auto 10px',
             display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            gap: '8px'
+            flexWrap: 'nowrap', // No wrap to save vertical space
+            overflowX: 'auto', // Horizontal scroll if too many
+            justifyContent: 'flex-start', // Start from left for scroll
+            gap: '8px',
+            padding: '5px 10px',
+            scrollbarWidth: 'none', // Hide scrollbar for clean look
+            msOverflowStyle: 'none'
         }}>
+            <style>{`
+                div::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome/Safari */
+            `}</style>
             {/* Total Badge */}
             <div style={badgeStyle}>
                 <FaUsers size={12} color="var(--primary)" />
