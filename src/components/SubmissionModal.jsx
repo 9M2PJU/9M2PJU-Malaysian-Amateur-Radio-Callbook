@@ -180,6 +180,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                 let query = supabase
                     .from('callsigns')
                     .update({
+                        callsign: formData.callsign.toUpperCase(), // Allow updating callsign
                         name: formData.name.toUpperCase(),
                         location: formData.location,
                         email: formData.email || null,
@@ -190,9 +191,14 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                         qrz: normalizeUrl(formData.qrz),
                         dmr_id: formData.dmrId || null,
                         marts_id: formData.martsId || null,
-                        // Don't update added_date or callsign usually
-                    })
-                    .eq('callsign', formData.callsign.toUpperCase()); // Use callsign as key
+                    });
+
+                // Use ID if available (more robust), otherwise fallback to original callsign
+                if (initialData.id) {
+                    query = query.eq('id', initialData.id);
+                } else {
+                    query = query.eq('callsign', initialData.callsign); // match ORIGINAL callsign
+                }
 
                 // Security: Ensure ownership UNLESS ADMIN
                 if (user?.email !== ADMIN_EMAIL) {

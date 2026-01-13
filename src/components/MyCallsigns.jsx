@@ -32,6 +32,7 @@ const MyCallsigns = () => {
             if (error) throw error;
 
             const transformedData = data.map(item => ({
+                id: item.id,
                 callsign: item.callsign,
                 name: item.name,
                 location: item.location,
