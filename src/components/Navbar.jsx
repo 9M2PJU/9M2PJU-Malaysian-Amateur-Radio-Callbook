@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaBroadcastTower, FaSignOutAlt, FaUser, FaInfoCircle } from 'react-icons/fa';
+import { FaBroadcastTower, FaSignOutAlt, FaUser, FaInfoCircle, FaList } from 'react-icons/fa';
 import SubmissionModal from './SubmissionModal';
 import InfoModal from './InfoModal';
 import { useAuth } from './AuthContext';
@@ -60,6 +60,22 @@ const Navbar = () => {
                             <span className="mobile-hidden" style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginRight: '5px' }}>
                                 <FaUser style={{ marginRight: '5px' }} /> {user.email}
                             </span>
+                            <button
+                                onClick={() => navigate('/my-callsigns')}
+                                style={{
+                                    background: 'rgba(255, 255, 255, 0.1)',
+                                    border: '1px solid var(--glass-border)',
+                                    color: 'var(--text-muted)',
+                                    padding: '8px',
+                                    borderRadius: '6px',
+                                    cursor: 'pointer',
+                                    fontSize: '0.9rem',
+                                    marginRight: '5px'
+                                }}
+                                title="My Callsigns"
+                            >
+                                <FaList /> <span className="mobile-hidden">My Callsigns</span>
+                            </button>
                             <button
                                 onClick={() => setIsModalOpen(true)}
                                 className="btn-primary"

@@ -12,6 +12,7 @@ import AdvancedSearch from './components/AdvancedSearch';
 import StatsDashboard from './components/StatsDashboard';
 import Card from './components/Card';
 import Footer from './components/Footer';
+import MyCallsigns from './components/MyCallsigns';
 
 const MALAYSIAN_STATES = [
     'JOHOR', 'KEDAH', 'KELANTAN', 'MELAKA', 'NEGERI SEMBILAN',
@@ -302,6 +303,14 @@ function App() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/update-password" element={<UpdatePassword />} />
+                    <Route
+                        path="/my-callsigns"
+                        element={
+                            <ProtectedRoute>
+                                <MyCallsigns />
+                            </ProtectedRoute>
+                        }
+                    />
                     <Route
                         path="/"
                         element={

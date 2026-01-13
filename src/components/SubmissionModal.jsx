@@ -9,7 +9,7 @@ const MALAYSIAN_STATES = [
     'SARAWAK', 'SELANGOR', 'TERENGGANU', 'KUALA LUMPUR', 'LABUAN', 'PUTRAJAYA'
 ];
 
-const SubmissionModal = ({ isOpen, onClose }) => {
+const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
     const { user } = useAuth();
     const [formData, setFormData] = useState({
         callsign: '',
@@ -33,14 +33,33 @@ const SubmissionModal = ({ isOpen, onClose }) => {
 
     useEffect(() => {
         if (isOpen) {
-            setFormData(prev => ({
-                ...prev,
-                botField: '',
-                email: user?.email || '' // Auto-fill email from auth
-            }));
-            setIsCaptchaVerified(false);
+            if (initialData) {
+                // Edit Mode
+                setFormData({
+                    callsign: initialData.callsign || '',
+                    name: initialData.name || '',
+                    location: initialData.location || '',
+                    email: initialData.email || '',
+                    phone: initialData.phone || '',
+                    address: initialData.address || '',
+                    website: initialData.website || '',
+                    facebook: initialData.facebook || '',
+                    qrz: initialData.qrz || '',
+                    dmrId: initialData.dmrId || '',
+                    martsId: initialData.martsId || '',
+                    botField: ''
+                });
+                setIsCaptchaVerified(true); // Skip captcha for editing
+            } else {
+                setFormData(prev => ({
+                    ...prev,
+                    botField: '',
+                    email: user?.email || '' // Auto-fill email from auth
+                }));
+                setIsCaptchaVerified(false);
+            }
         }
-    }, [isOpen, user]);
+    }, [isOpen, user, initialData]);
 
     // Handle Altcha verification
     useEffect(() => {
@@ -137,9 +156,30 @@ const SubmissionModal = ({ isOpen, onClose }) => {
                 .eq('callsign', formData.callsign.toUpperCase())
                 .single();
 
-            if (existing) {
-                // BLOCK DUPLICATE SUBMISSION
+            if (existing && !initialData) {
+                // BLOCK DUPLICATE SUBMISSION ONLY IF NOT EDITING
                 throw new Error("⛔ Callsign already exists! To update your details, please email 9m2pju@hamradio.my");
+            } else if (initialData) {
+                // UPDATE EXISTING ENTRY
+                const { error: updateError } = await supabase
+                    .from('callsigns')
+                    .update({
+                        name: formData.name.toUpperCase(),
+                        location: formData.location,
+                        email: formData.email || null,
+                        phone: formData.phone || null,
+                        address: formData.address || null,
+                        website: normalizeUrl(formData.website),
+                        facebook: normalizeUrl(formData.facebook),
+                        qrz: normalizeUrl(formData.qrz),
+                        dmr_id: formData.dmrId || null,
+                        marts_id: formData.martsId || null,
+                        // Don't update added_date or callsign usually
+                    })
+                    .eq('callsign', formData.callsign.toUpperCase()) // Use callsign as key
+                    .eq('user_id', user.id); // Security: Ensure ownership
+
+                if (updateError) throw updateError;
             } else {
                 // Insert new entry
                 const { error: insertError } = await supabase
@@ -244,7 +284,9 @@ const SubmissionModal = ({ isOpen, onClose }) => {
                     <FaTimes />
                 </button>
 
-                <h2 style={{ color: 'var(--primary)', marginTop: 0 }}>📻 Register Your Callsign</h2>
+                <h2 style={{ color: 'var(--primary)', marginTop: 0 }}>
+                    {initialData ? '✏️ Edit Callsign' : '📻 Register Your Callsign'}
+                </h2>
 
                 {success ? (
                     <div style={{
@@ -254,7 +296,7 @@ const SubmissionModal = ({ isOpen, onClose }) => {
                     }}>
                         <FaCheckCircle size={60} />
                         <h3>Submission Successful!</h3>
-                        <p>Your callsign has been added to the directory.</p>
+                        <p>Your callsign has been {initialData ? 'updated' : 'added'} successfully.</p>
                     </div>
                 ) : (
                     <form onSubmit={handleSubmit}>
@@ -458,7 +500,7 @@ const SubmissionModal = ({ isOpen, onClose }) => {
                                     <FaSpinner className="spin" /> Submitting...
                                 </>
                             ) : (
-                                'Submit Registration'
+                                initialData ? 'Update Callsign' : 'Submit Registration'
                             )}
                         </button>
 
