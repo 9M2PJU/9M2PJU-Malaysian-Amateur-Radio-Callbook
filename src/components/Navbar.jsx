@@ -47,6 +47,7 @@ const Navbar = () => {
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                     <button
                         onClick={() => navigate('/')}
+                        className="mobile-hidden-element"
                         style={{
                             background: 'rgba(255, 255, 255, 0.1)',
                             border: '1px solid var(--glass-border)',
@@ -168,6 +169,7 @@ const Navbar = () => {
                 @media (max-width: 480px) {
                     .mobile-only-plus { display: inline !important; }
                     .mobile-hidden { display: none !important; }
+                    .mobile-hidden-element { display: none !important; }
                     .mobile-only-lock { display: inline !important; }
                 }
                 @media (min-width: 481px) {
