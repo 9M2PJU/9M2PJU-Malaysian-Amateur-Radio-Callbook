@@ -25,7 +25,7 @@ const Footer = () => {
             </div>
 
             <p style={{ margin: 0 }}>
-                &copy; {new Date().getFullYear()} Malaysian Amateur Radio Call Book
+                &copy; {new Date().getFullYear()} Malaysian Amateur Radio Callbook
                 <br />
                 <span style={{ fontSize: '0.9em' }}>Made for 🇲🇾 by <a href="https://hamradio.my" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)', textDecoration: 'none' }}>9M2PJU</a></span>
             </p>
