@@ -132,25 +132,8 @@ const SubmissionModal = ({ isOpen, onClose }) => {
                 .single();
 
             if (existing) {
-                // Update existing entry
-                const { error: updateError } = await supabase
-                    .from('callsigns')
-                    .update({
-                        name: formData.name.toUpperCase(),
-                        location: formData.location,
-                        email: formData.email || null,
-                        phone: formData.phone || null,
-                        address: formData.address || null,
-                        website: normalizeUrl(formData.website),
-                        facebook: normalizeUrl(formData.facebook),
-                        qrz: normalizeUrl(formData.qrz),
-                        dmr_id: formData.dmrId || null,
-                        marts_id: formData.martsId || null,
-                        added_date: new Date().toISOString().split('T')[0]
-                    })
-                    .eq('callsign', formData.callsign.toUpperCase());
-
-                if (updateError) throw updateError;
+                // BLOCK DUPLICATE SUBMISSION
+                throw new Error("⛔ Callsign already exists! To update your details, please email 9m2pju@hamradio.my");
             } else {
                 // Insert new entry
                 const { error: insertError } = await supabase
@@ -501,12 +484,9 @@ const SubmissionModal = ({ isOpen, onClose }) => {
                             borderLeft: '4px solid var(--primary)',
                             borderRadius: '4px'
                         }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--primary)', fontWeight: 'bold', marginBottom: '8px' }}>
-                                📧 Need to Update or Delete Your Info?
-                            </div>
                             <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                                If you need to correct any information or request deletion of your entry,
-                                please email: <a href="mailto:9m2pju@hamradio.my" style={{ color: 'var(--primary)' }}>9m2pju@hamradio.my</a>
+                                To <strong>update</strong> or <strong>delete</strong> your info, this form will not work.
+                                Please email: <a href="mailto:9m2pju@hamradio.my" style={{ color: 'var(--primary)' }}>9m2pju@hamradio.my</a>
                             </p>
                         </div>
                     </form>
