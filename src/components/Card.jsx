@@ -32,7 +32,7 @@ const STATE_FLAGS = {
     'NEGERI SEMBILAN': 'https://upload.wikimedia.org/wikipedia/commons/d/db/Flag_of_Negeri_Sembilan.svg',
     'PAHANG': 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Flag_of_Pahang.svg',
     'PERAK': 'https://upload.wikimedia.org/wikipedia/commons/8/87/Flag_of_Perak.svg',
-    'PERLIS': 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Flag_of_Perlis.svg',
+    'PERLIS': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Flag_of_Perlis.svg/320px-Flag_of_Perlis.svg.png',
     'PULAU PINANG': 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Penang_%28Malaysia%29.svg',
     'SABAH': 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Flag_of_Sabah.svg',
     'SARAWAK': 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Flag_of_Sarawak.svg',
