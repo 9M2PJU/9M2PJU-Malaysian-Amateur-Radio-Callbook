@@ -38,7 +38,7 @@ const STATE_FLAGS = {
     'SARAWAK': 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Flag_of_Sarawak.svg',
     'SELANGOR': 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Flag_of_Selangor.svg',
     'TERENGGANU': 'https://upload.wikimedia.org/wikipedia/commons/6/6b/Flag_of_Terengganu.svg',
-    'KUALA LUMPUR': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Flag_of_Kuala_Lumpur%2C_Malaysia.svg/320px-Flag_of_Kuala_Lumpur%2C_Malaysia.svg.png',
+    'KUALA LUMPUR': '/flag-kuala-lumpur.svg',
     'LABUAN': 'https://upload.wikimedia.org/wikipedia/commons/0/06/Flag_of_Labuan.svg',
     'PUTRAJAYA': 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Putrajaya.svg'
 };
