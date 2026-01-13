@@ -41,12 +41,12 @@ CREATE POLICY "Allow owner or admin update" ON callsigns
     USING (
         auth.uid() = user_id
         OR 
-        (SELECT email FROM auth.users WHERE id = auth.uid()) = '9m2pju@hamradio.my'
+        auth.jwt() ->> 'email' = '9m2pju@hamradio.my'
     )
     WITH CHECK (
         auth.uid() = user_id
         OR 
-        (SELECT email FROM auth.users WHERE id = auth.uid()) = '9m2pju@hamradio.my'
+        auth.jwt() ->> 'email' = '9m2pju@hamradio.my'
     );
 
 -- Step 6: Import existing callsigns data
