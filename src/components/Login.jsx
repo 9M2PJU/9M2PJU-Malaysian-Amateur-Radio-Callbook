@@ -34,11 +34,29 @@ const Login = () => {
     return (
         <div style={{
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
             minHeight: '80vh',
             padding: '20px'
         }}>
+            <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+                <h1 style={{
+                    fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                    fontWeight: '800',
+                    marginBottom: '16px',
+                    background: 'linear-gradient(to right, #fff, #94a3b8)',
+                    WebkitBackgroundClip: 'text',
+                    color: 'transparent',
+                    lineHeight: 1.1
+                }}>
+                    Malaysian Amateur<br />Radio Directory
+                </h1>
+                <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto' }}>
+                    The Modern "Yellow Pages" for Malaysian Amateur Radio Operators
+                </p>
+            </div>
+
             <div className="glass-panel" style={{
                 width: '100%',
                 maxWidth: '450px',
@@ -50,9 +68,23 @@ const Login = () => {
                         background: 'linear-gradient(to right, var(--primary), var(--secondary))',
                         WebkitBackgroundClip: 'text',
                         color: 'transparent',
-                        fontSize: '2rem'
-                    }}>Welcome Back</h2>
-                    <p style={{ color: 'var(--text-muted)' }}>Sign in to access the directory</p>
+                        fontSize: '1.8rem'
+                    }}>Restricted Access</h2>
+                </div>
+
+                <div style={{
+                    background: 'rgba(255, 100, 100, 0.1)',
+                    borderLeft: '4px solid #ff4444',
+                    padding: '15px',
+                    borderRadius: '4px',
+                    marginBottom: '25px',
+                    fontSize: '0.9rem',
+                    color: '#ffaaaa',
+                    lineHeight: '1.5'
+                }}>
+                    <strong>🔒 Login Required</strong>
+                    <br />
+                    This directory contains sensitive personal information (including addresses and phone numbers). To protect our community's privacy, you must log in to view the listings.
                 </div>
 
                 {error && (
