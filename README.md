@@ -56,23 +56,6 @@ Location: State/City
 
 ---
 
-## 🛠️ Development
-
-```bash
-# Clone & install
-git clone https://github.com/9M2PJU/9M2PJU-Malaysian-Amateur-Radio-Callbook.git
-cd 9M2PJU-Malaysian-Amateur-Radio-Callbook
-npm install
-
-# Development
-npm run dev
-
-# Build
-npm run build
-```
-
----
-
 ## 📡 Data Updates
 
 Data is stored in **Supabase** (PostgreSQL).
