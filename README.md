@@ -22,6 +22,7 @@
 
 | Feature | Description |
 |---------|-------------|
+| 🔒 **Authentication** | Secure Login & Registration powered by Supabase Auth |
 | 📊 **Statistics Dashboard** | Real-time stats: total operators, breakdown by class, top locations |
 | 🔍 **Advanced Search** | Filter by callsign, name, location, license class (A/B/C) |
 | 🏷️ **License Class Badges** | 🟢 Class A (9M) · 🔵 Class B (9W2/6/8) · 🟠 Class C (9W3) |
@@ -36,23 +37,22 @@
 ### 🌐 View the Live Directory
 **[callbook.hamradio.my](https://callbook.hamradio.my)**
 
-### 📝 Register Your Callsign
-1. Click **"+ Register / Update"** button
-2. Email your details to `9m2pju@hamradio.my`
+> **Note**: You must **Register** or **Login** to view the directory. This protects the privacy of our operators.
 
-**Format:**
+### 📝 Register Your Callsign
+1. **Sign Up** for an account on the website.
+2. Click **"+ Add Callsign"** button in the navbar.
+3. Fill out the form with your details.
+
+**Data Format:**
 ```
 Callsign: 9M2XXX
 Name: Your Name
 Location: State/City
-Email: (Optional)
-Phone: (Optional)
-Website: (Optional)
-Facebook: (Optional)
-QRZ.com: (Optional)
+...
 ```
 
-> ⚠️ **Privacy Notice**: All submitted information will be publicly visible.
+> ⚠️ **Privacy Notice**: All submitted information will be publicly visible to other logged-in members.
 
 ---
 
@@ -75,11 +75,10 @@ npm run build
 
 ## 📡 Data Updates
 
-Data is stored in `public/callsigns.json` and loaded **directly from GitHub** at runtime.
-
-- ✅ No rebuild needed for new operators
-- ✅ Edit JSON directly on GitHub
-- ✅ Changes appear after page refresh
+Data is stored in **Supabase** (PostgreSQL).
+- ✅ Real-time updates
+- ✅ Secure row-level policies
+- ✅ Auto-approved submissions
 
 ---
 
@@ -89,8 +88,9 @@ Data is stored in `public/callsigns.json` and loaded **directly from GitHub** at
 |-|------------|---------|
 | ⚛️ | React 19 | UI Framework |
 | ⚡ | Vite 7 | Build Tool |
+| 🔐 | Supabase | Auth & Database |
 | 🎨 | CSS3 | Glassmorphism Styling |
-| 🌐 | GitHub Pages | Hosting |
+| 🌐 | Vercel | Hosting |
 
 ---
 
