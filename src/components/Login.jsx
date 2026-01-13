@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import { FaLock, FaEnvelope, FaSpinner, FaBroadcastTower } from 'react-icons/fa';
+import PublicStats from './PublicStats';
 
 const Login = () => {
     const { signIn } = useAuth();
@@ -68,9 +69,11 @@ const Login = () => {
                     }}>
                         Malaysian Amateur<br />Radio Directory
                     </h1>
-                    <p style={{ color: 'var(--text-muted)', fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)', maxWidth: '600px', margin: '0 auto' }}>
+                    <p style={{ color: 'var(--text-muted)', fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)', maxWidth: '600px', margin: '0 auto 20px' }}>
                         The Modern "Yellow Pages" for Malaysian Amateur Radio Operators
                     </p>
+
+                    <PublicStats />
                 </div>
 
                 <div className="glass-panel" style={{
