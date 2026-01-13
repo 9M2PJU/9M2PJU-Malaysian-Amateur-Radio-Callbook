@@ -60,15 +60,15 @@ const Login = () => {
                 alignItems: 'center',
                 justifyContent: 'center'
             }}>
-                <div className="header-section" style={{ textAlign: 'center', marginBottom: 'clamp(10px, 2vh, 20px)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '10px' }}>
-                        <FaBroadcastTower size={28} color="var(--primary)" /> {/* Slightly smaller icon */}
-                        <h2 style={{ margin: 0, background: 'linear-gradient(to right, var(--primary), var(--secondary))', WebkitBackgroundClip: 'text', color: 'transparent', fontSize: 'clamp(1.4rem, 4vw, 1.8rem)', fontWeight: 'bold' }}>
+                <div className="header-section" style={{ textAlign: 'center', marginBottom: 'clamp(5px, 1.5vh, 15px)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '5px' }}>
+                        <FaBroadcastTower size={24} color="var(--primary)" />
+                        <h2 style={{ margin: 0, background: 'linear-gradient(to right, var(--primary), var(--secondary))', WebkitBackgroundClip: 'text', color: 'transparent', fontSize: 'clamp(1.2rem, 3.5vw, 1.5rem)', fontWeight: 'bold' }}>
                             MY-Callbook
                         </h2>
                     </div>
                     <h1 style={{
-                        fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', // Reduced max size
+                        fontSize: 'clamp(1.3rem, 4.5vw, 2rem)',
                         fontWeight: '800',
                         marginBottom: '10px',
                         background: 'linear-gradient(to right, #fff, #94a3b8)',
@@ -129,10 +129,10 @@ const Login = () => {
                     )}
 
                     <form onSubmit={handleSubmit}>
-                        <div style={{ marginBottom: '15px' }}>
-                            <label style={{ display: 'block', color: 'var(--text-muted)', marginBottom: '6px', fontSize: '0.9rem' }}>Email</label>
+                        <div style={{ marginBottom: '12px' }}>
+                            <label style={{ display: 'block', color: 'var(--text-muted)', marginBottom: '4px', fontSize: '0.85rem' }}>Email</label>
                             <div style={{ position: 'relative' }}>
-                                <FaEnvelope style={{ position: 'absolute', left: '12px', top: '13px', color: 'var(--text-muted)', fontSize: '0.9rem' }} />
+                                <FaEnvelope style={{ position: 'absolute', left: '12px', top: '12px', color: 'var(--text-muted)', fontSize: '0.85rem' }} />
                                 <input
                                     type="email"
                                     value={email}
@@ -140,22 +140,22 @@ const Login = () => {
                                     required
                                     style={{
                                         width: '100%',
-                                        padding: '10px 10px 10px 35px', // More compact
+                                        padding: '8px 10px 8px 35px',
                                         borderRadius: '8px',
                                         border: '1px solid var(--glass-border)',
                                         background: 'rgba(255,255,255,0.05)',
                                         color: '#fff',
-                                        fontSize: '0.95rem'
+                                        fontSize: '0.9rem'
                                     }}
                                     placeholder="name@example.com"
                                 />
                             </div>
                         </div>
 
-                        <div style={{ marginBottom: '25px' }}>
-                            <label style={{ display: 'block', color: 'var(--text-muted)', marginBottom: '6px', fontSize: '0.9rem' }}>Password</label>
+                        <div style={{ marginBottom: '20px' }}>
+                            <label style={{ display: 'block', color: 'var(--text-muted)', marginBottom: '4px', fontSize: '0.85rem' }}>Password</label>
                             <div style={{ position: 'relative' }}>
-                                <FaLock style={{ position: 'absolute', left: '12px', top: '13px', color: 'var(--text-muted)', fontSize: '0.9rem' }} />
+                                <FaLock style={{ position: 'absolute', left: '12px', top: '12px', color: 'var(--text-muted)', fontSize: '0.85rem' }} />
                                 <input
                                     type="password"
                                     value={password}
@@ -163,12 +163,12 @@ const Login = () => {
                                     required
                                     style={{
                                         width: '100%',
-                                        padding: '10px 10px 10px 35px',
+                                        padding: '8px 10px 8px 35px',
                                         borderRadius: '8px',
                                         border: '1px solid var(--glass-border)',
                                         background: 'rgba(255,255,255,0.05)',
                                         color: '#fff',
-                                        fontSize: '0.95rem'
+                                        fontSize: '0.9rem'
                                     }}
                                     placeholder="••••••••"
                                 />
