@@ -31,7 +31,10 @@ const Register = () => {
         setLoading(true);
 
         try {
-            const { error, data } = await signUp({ email, password });
+            const { error, data } = await signUp(
+                { email, password },
+                { emailRedirectTo: 'https://callbook.hamradio.my' }
+            );
             if (error) throw error;
 
             if (data?.session) {
