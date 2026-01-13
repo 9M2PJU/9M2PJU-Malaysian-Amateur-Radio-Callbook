@@ -213,15 +213,21 @@ END:VCARD`;
                             <div style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: '6px',
-                                background: 'rgba(236, 72, 153, 0.15)',
-                                color: '#ec4899',
+                                gap: '8px',
+                                background: 'rgba(255, 235, 59, 0.1)',
+                                color: '#fbbf24', // Amber-400 for text
                                 padding: '4px 12px',
                                 borderRadius: '6px',
                                 fontSize: '0.9rem',
-                                fontWeight: '600'
-                            }}>
-                                🎫 MARTS MEMBER ID: {data.martsId}
+                                fontWeight: '600',
+                                border: '1px solid rgba(251, 191, 36, 0.3)'
+                            }} title="MARTS Member">
+                                <img
+                                    src="/marts-logo.png"
+                                    alt="MARTS Logo"
+                                    style={{ width: '20px', height: 'auto' }}
+                                />
+                                MARTS #{data.martsId}
                             </div>
                         )}
                     </div>
