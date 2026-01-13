@@ -12,6 +12,7 @@ import AdvancedSearch from './components/AdvancedSearch';
 import StatsDashboard from './components/StatsDashboard';
 import Card from './components/Card';
 import Footer from './components/Footer';
+import SubmissionModal from './components/SubmissionModal';
 import MyCallsigns from './components/MyCallsigns';
 
 const MALAYSIAN_STATES = [
@@ -35,6 +36,8 @@ function Directory() {
     });
     // States are static list for dropdown, fetching once
     const [states, setStates] = useState(MALAYSIAN_STATES);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editData, setEditData] = useState(null);
 
     const ITEMS_PER_PAGE = 50;
 
@@ -138,6 +141,20 @@ function Directory() {
 
     const loadMore = () => {
         fetchCallsigns(page + 1, searchTerm, filters, false);
+    };
+
+    const handleEdit = (data) => {
+        setEditData(data);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setEditData(null);
+        // Refresh visible data if needed, or just reload page like MyCallsigns does
+        // For simplicity and consistency with MyCallsigns logic which reloads:
+        // window.location.reload(); 
+        // But SubmissionModal handles reload.
     };
 
     return (
@@ -252,7 +269,7 @@ function Directory() {
                             gap: '24px'
                         }}>
                             {callsigns.map((item, index) => (
-                                <Card key={`${item.callsign}-${index}`} data={item} />
+                                <Card key={`${item.callsign}-${index}`} data={item} onEdit={handleEdit} />
                             ))}
                         </div>
 
@@ -289,8 +306,14 @@ function Directory() {
                 )}
             </main>
 
+            <SubmissionModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                initialData={editData}
+            />
+
             <Footer />
-        </div>
+        </div >
     );
 }
 

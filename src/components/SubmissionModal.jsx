@@ -9,6 +9,8 @@ const MALAYSIAN_STATES = [
     'SARAWAK', 'SELANGOR', 'TERENGGANU', 'KUALA LUMPUR', 'LABUAN', 'PUTRAJAYA'
 ];
 
+const ADMIN_EMAIL = '9m2pju@hamradio.my';
+
 const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
     const { user } = useAuth();
     const [formData, setFormData] = useState({
@@ -161,7 +163,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                 throw new Error("⛔ Callsign already exists! To update your details, please email 9m2pju@hamradio.my");
             } else if (initialData) {
                 // UPDATE EXISTING ENTRY
-                const { error: updateError } = await supabase
+                let query = supabase
                     .from('callsigns')
                     .update({
                         name: formData.name.toUpperCase(),
@@ -176,8 +178,14 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                         marts_id: formData.martsId || null,
                         // Don't update added_date or callsign usually
                     })
-                    .eq('callsign', formData.callsign.toUpperCase()) // Use callsign as key
-                    .eq('user_id', user.id); // Security: Ensure ownership
+                    .eq('callsign', formData.callsign.toUpperCase()); // Use callsign as key
+
+                // Security: Ensure ownership UNLESS ADMIN
+                if (user?.email !== ADMIN_EMAIL) {
+                    query = query.eq('user_id', user.id);
+                }
+
+                const { error: updateError } = await query;
 
                 if (updateError) throw updateError;
             } else {

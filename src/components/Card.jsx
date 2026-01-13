@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAuth } from './AuthContext';
 import { FaUser, FaMapMarkerAlt, FaEnvelope, FaPhone, FaHome, FaDownload, FaFacebook, FaGlobe, FaSearch, FaClock } from 'react-icons/fa';
 
 // Determine license class info
@@ -21,7 +22,10 @@ const isRecentlyAdded = (addedDate) => {
     return added >= thirtyDaysAgo;
 };
 
-const Card = ({ data }) => {
+const ADMIN_EMAIL = '9m2pju@hamradio.my';
+
+const Card = ({ data, onEdit }) => {
+    const { user } = useAuth();
     const licenseClass = getLicenseClass(data.callsign);
     const recentlyAdded = isRecentlyAdded(data.addedDate);
 
@@ -70,6 +74,29 @@ END:VCARD`;
                 }}>
                     <FaClock /> NEW
                 </div>
+            )}
+
+            {/* Admin Edit Button */}
+            {user?.email === ADMIN_EMAIL && (
+                <button
+                    onClick={() => onEdit(data)}
+                    style={{
+                        position: 'absolute',
+                        top: '10px',
+                        right: recentlyAdded ? '90px' : '10px', // Adjust if badge is present
+                        background: 'var(--primary)',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '4px',
+                        padding: '4px 8px',
+                        cursor: 'pointer',
+                        fontSize: '0.8rem',
+                        fontWeight: 'bold',
+                        zIndex: 10
+                    }}
+                >
+                    Edit
+                </button>
             )}
 
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', flexWrap: 'wrap', gap: '8px' }}>
