@@ -52,6 +52,22 @@ const InfoModal = ({ isOpen, onClose }) => {
                 <div style={{ textAlign: 'center', marginBottom: '30px' }}>
                     <FaBroadcastTower size={50} color="var(--primary)" />
                     <h2 style={{ color: 'var(--primary)', margin: '15px 0 0' }}>What is the Callbook?</h2>
+
+                    <div style={{
+                        margin: '20px auto',
+                        padding: '15px',
+                        background: 'rgba(255,255,255,0.03)',
+                        borderRadius: '8px',
+                        textAlign: 'left',
+                        fontSize: '0.9rem',
+                        fontFamily: 'monospace',
+                        color: 'var(--text-muted)'
+                    }}>
+                        <p style={{ margin: '0 0 5px 0', color: 'var(--secondary)' }}><strong>Noun</strong>: callbook (plural callbooks)</p>
+                        <p style={{ margin: '0 0 10px 0' }}><em>Etymology: From call +‎ book.</em></p>
+                        <p style={{ margin: 0, color: '#fff' }}>A directory of radio station call signs.</p>
+                    </div>
+
                     <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem' }}>
                         The <strong>Malaysian Amateur Radio Callbook</strong> is a comprehensive directory of amateur radio operators in Malaysia.
                     </p>
