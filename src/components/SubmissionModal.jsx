@@ -55,8 +55,16 @@ const SubmissionModal = ({ isOpen, onClose }) => {
         let { name, value } = e.target;
 
         // Auto-uppercase specific fields
-        if (name === 'callsign' || name === 'name') {
+        if (name === 'callsign' || name === 'name' || name === 'address') {
             value = value.toUpperCase();
+        }
+
+        // Numeric only fields
+        if (name === 'martsId') {
+            // Only allow numbers
+            if (!/^\d*$/.test(value)) {
+                return; // Ignore non-numeric input
+            }
         }
 
         setFormData(prev => ({ ...prev, [name]: value }));
