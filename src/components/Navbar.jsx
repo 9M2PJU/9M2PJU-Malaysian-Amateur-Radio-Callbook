@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { FaBroadcastTower, FaSignOutAlt, FaUser, FaInfoCircle, FaList, FaHome } from 'react-icons/fa';
+import { FaBroadcastTower, FaSignOutAlt, FaUser, FaInfoCircle, FaList, FaHome, FaHeart } from 'react-icons/fa';
 import SubmissionModal from './SubmissionModal';
 import InfoModal from './InfoModal';
+import DonationModal from './DonationModal';
 import { useAuth } from './AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+    const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
     const { user, signOut } = useAuth();
     const navigate = useNavigate();
 
@@ -83,6 +85,26 @@ const Navbar = () => {
                     >
                         <FaInfoCircle /> <span className="mobile-hidden">Info</span>
                     </button>
+                    <button
+                        onClick={() => setIsDonationModalOpen(true)}
+                        style={{
+                            background: 'rgba(255, 107, 107, 0.2)',
+                            border: '1px solid rgba(255, 107, 107, 0.4)',
+                            color: '#ff6b6b',
+                            padding: '8px',
+                            borderRadius: '6px',
+                            cursor: 'pointer',
+                            fontSize: '0.9rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '6px',
+                            minWidth: '36px'
+                        }}
+                        title="Support Us"
+                    >
+                        <FaHeart /> <span className="mobile-hidden">Donate</span>
+                    </button>
                     {user ? (
                         <>
                             <span className="mobile-hidden" style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginRight: '5px' }}>
@@ -155,6 +177,7 @@ const Navbar = () => {
             `}</style>
             <SubmissionModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
             <InfoModal isOpen={isInfoModalOpen} onClose={() => setIsInfoModalOpen(false)} />
+            <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
         </>
     );
 };
