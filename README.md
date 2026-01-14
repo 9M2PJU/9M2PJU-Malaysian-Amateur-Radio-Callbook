@@ -33,42 +33,43 @@
 
 ---
 
-## 🏗️ Project Architecture & Sustainability
+## 🛡️ Project Legacy & Technical Decisions
 
-This project is architected to run **indefinitely for free** using the generous tiers of modern cloud providers.
+> *"We built this to last forever, for free."*
 
-### Free Tier Strategy
-*   **Database (Supabase)**: We store text-based callsign data. With ~11k records currently, we are using **< 6%** of the free 500MB limit. This supports growth for the next 5-10 years.
-*   **Hosting (Vercel)**: Static frontend hosting handles our traffic with ease within the 100GB/month bandwidth limit.
-*   **Authentication**: Supabase Auth handles up to 50,000 monthly active users (MAU), far exceeding our community size.
+This project was architected by **9M2PJU** with a specific mission: to provide a modern, interactive callbook for the Malaysian Amateur Radio community that can run **indefinitely without incurring monthly costs**. 
 
-### ⚠️ Note on Automated Emails
-We have developed a comprehensive **License Expiry Reminder System** using Supabase Edge Functions and Resend.
+Every technical decision was made to ensure sustainability, preventing the project from disappearing due to lack of funding or server maintenance.
 
-> **Status: DISABLED** 
-> 
-> *   **Reason**: The Resend free tier allows 100 emails/day. With ~11k users and a schedule of 7 reminders per user, a "cluster" of expirations on the same day could exceed this limit, causing failures.
-> *   **Current State**: The code exists in `supabase/functions/license-reminder` but is strictly disabled (`const EMAIL_ENABLED = false`) to ensure zero maintenance costs and prevent quota errors.
-> *   **What is enabled?**: Transactional emails for Sign Up, Password Reset, and Email Confirmation are handled natively by Supabase and **are fully functional**.
+### 🏛️ The "Zero-Cost" Architecture
+We utilize the generous free tiers of modern cloud infrastructure to guarantee longevity:
+*   **Database (Supabase)**: We store text-based callsign data. With ~11k records currently, we utilize **< 6%** of the free 500MB limit. This capacity allows the directory to grow to **100,000+ operators** (sufficient for the next 10-20 years) without needing a paid plan.
+*   **Hosting (Vercel)**: The frontend is static and cached globally. It handles traffic effortlessly within the 100GB/month bandwidth limit.
+*   **Authentication**: Supabase Auth handles up to 50,000 monthly active users, far exceeding the size of our local community.
 
----
+### ⚠️ The Disabled Email System (Important)
+We built a fully functional **License Expiry Reminder System** (`supabase/functions/license-reminder`), designed to notify operators when their license is expiring (90, 60, 30, 14, 7, 3, 1 days before).
 
-## 🔮 Future Roadmap & Improvements
+**However, we have intentionally DISABLED this feature (`const EMAIL_ENABLED = false`).**
 
-To scale further or enable premium features, we have identified the following path:
+**Why?**
+The email service (Resend) provides **100 free emails/day**.
+*   With 11,000 operators, we average ~42 reminder emails/day.
+*   **The Risk**: If many licenses expire on the same day (a "cluster" event), the system would attempt to send >100 emails, hit the limit, and fail.
+*   **The Decision**: To protect the project's free status, we disabled this potentially volatile feature. We prioritized **system stability** over this convenience feature.
 
-### 1. Optimize Email Reminders
-*   **Plan**: Reduce reminder frequency from 7 times to 3 times (e.g., 60, 30, and 7 days).
-*   **Logic**: Implement priority sorting to ensure "Urgent" (7-day) reminders are always sent first if the daily limit is near.
-*   **Goal**: Safely enable the reminder system within the free 100/day limit.
+### 🔮 Guide for Future Maintainers
+If you are reading this in the future and wish to improve the project:
 
-### 2. Image Hosting
-*   **Challenge**: git repositories are not suitable for hosting thousands of user profile photos.
-*   **Solution**: Integrate Supabase Storage for user avatars.
-*   **Optimization**: Enforce client-side compression (WebP, max 100KB) to stay within the 1GB free storage limit.
+1.  **Re-enabling Emails**:
+    *   If you have funding (~$20/mo), you can upgrade Resend and simply set `EMAIL_ENABLED = true` in the Edge Function.
+    *   If staying free, you must optimize the logic to send fewer emails (e.g., only 3 reminders per expiring user instead of 7) to stay under the 100/day limit.
 
-### 3. Data Integrity
-*   **Goal**: Automated sync with MCMC eSpectra public data to keep license status accurate without manual user updates.
+2.  **Image Hosting**:
+    *   Do not store user profile photos in this Git repository. It will bloat the size and break the deployment. Use Supabase Storage (1GB free) instead.
+
+3.  **Data Integrity**:
+    *   The next great leap for this project would be automating the data sync with MCMC's public records, reducing the need for manual user submissions.
 
 ---
 
@@ -105,7 +106,7 @@ Contributions welcome! Report bugs, suggest features, or submit PRs.
 
 ## 💌 Message from the Author
 
-> "This project is an initiative by me for all Malaysian Amateur Radio Operators. I hope someone will improve this later for future generations. Amateur Radio is always the greatest hobby of all."
+> "This project is an initiative by me for all Malaysian Amateur Radio Operators. I hope someone will improve this project later for future generations. Amateur Radio is always the greatest hobby of all."
 > 
 > — **9M2PJU**
 
