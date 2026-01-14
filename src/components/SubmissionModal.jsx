@@ -131,9 +131,17 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
     };
 
     // Auto-add https:// if user enters plain domain
+    // Security: Block dangerous URI schemes
     const normalizeUrl = (url) => {
         if (!url || url.trim() === '') return null;
         url = url.trim();
+
+        // Block dangerous URI schemes (XSS prevention)
+        if (/^(javascript|data|vbscript):/i.test(url)) {
+            console.warn('Blocked dangerous URL scheme:', url);
+            return null;
+        }
+
         if (!url.startsWith('http://') && !url.startsWith('https://')) {
             return 'https://' + url;
         }
