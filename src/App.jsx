@@ -39,7 +39,8 @@ function Directory() {
     const ITEMS_PER_PAGE = 50;
 
     useEffect(() => {
-        // Initial fetch
+        // Initial fetch - v1.1 refresh
+        console.log('App Initializing...');
         fetchCallsigns(0, searchTerm, filters, true);
     }, []);
 
