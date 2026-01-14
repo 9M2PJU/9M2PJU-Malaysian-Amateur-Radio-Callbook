@@ -75,20 +75,29 @@ If you are reading this in the future and wish to improve the project:
 ### 🚀 The "Dream" Architecture (Growth Plan)
 **If resources/funding were unlimited**, this is how we envision the project evolving to support high-resolution photos, global traffic, and unlimited features:
 
-1.  **Unlimited Hosting (VPS/Cloud)**:
-    *   Migrate from Vercel to a dedicated **High-Performance VPS** or Kubernetes cluster (DigitalOcean / AWS / Linode).
-    *   This removes the bandwidth cap and allows for custom server-side rendering (SSR) for even faster SEO.
+1.  **Global Content Delivery (CDN)**:
+    *   Deploy frontend via **Cloudflare Enterprise** or **AWS CloudFront** with edge caching.
+    *   This ensures instant load times (<100ms) for operators in Europe, Americas, and Asia, not just Malaysia.
 
-2.  **Unrestricted Object Storage (S3)**:
+2.  **Database Replication & Clustering**:
+    *   Implement **Read Replicas** in multiple regions (Singapore, Japan, US) to reduce database latency.
+    *   Use **pgbouncer** for connection pooling to handle 100,000+ concurrent connections during major contests or events.
+
+3.  **Dedicated Search Engine**:
+    *   Integrate **Meilisearch** or **Elasticsearch** (replacing simple SQL `LIKE` queries).
+    *   Enables typo-tolerance ("Fizul" finds "Faizul"), phonetic search, and instant millisecond search results for millions of records.
+
+4.  **Unrestricted Object Storage (S3)**:
     *   Implement **AWS S3** or **MinIO** for storage.
-    *   This would allow every operator to upload high-resolution QSL cards, station photos, and profile pictures without the 1GB limit.
+    *   Allows hosting terabytes of high-resolution QSL cards, station event photos, and field day galleries.
 
-3.  **Enterprise Email Service**:
-    *   Upgrade to **Amazon SES** or **SendGrid Pro**.
-    *   This ensures 100% deliverability for all license reminders, newsletters, and community updates, regardless of volume.
+5.  **Multi-Platform Native Apps**:
+    *   Build **React Native** or **Flutter** apps iOS and Android.
+    *   Enable **Offline Mode**: Download the entire database to the phone for use in deep jungle operations (zero coverage areas).
 
-4.  **Containerization (Docker)**:
-    *   Dockerize the entire application to ensure it can be deployed anywhere, from a Raspberry Pi to a massive cloud cluster, preserving the code for decades to come.
+6.  **IoT & Digital Radio Integration**:
+    *   Build an API Bridge for **DMR / C4FM / D-STAR** networks.
+    *   Allow radios to query the callbook via digital packets directly from the transceiver.
 
 > *"With my limited resources, I tried my best to build a foundation that is robust, free, and useful. I pass this torch to the community to take it even further."* — 9M2PJU
 
