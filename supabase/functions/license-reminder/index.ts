@@ -76,6 +76,15 @@ serve(async (req) => {
       }
 
       // Send email via Resend
+      // Disabled to save quota
+      const EMAIL_ENABLED = false;
+
+      if (!EMAIL_ENABLED) {
+        console.log(`[DISABLED] Skipping email to ${record.callsign} (${daysUntil} days)`);
+        results.push({ callsign: record.callsign, status: "disabled", daysUntil });
+        continue;
+      }
+
       const emailResult = await sendReminderEmail(resendApiKey, record, daysUntil);
 
       if (emailResult.success) {
