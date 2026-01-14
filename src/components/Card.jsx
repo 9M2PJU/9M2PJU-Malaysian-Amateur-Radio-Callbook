@@ -217,7 +217,7 @@ END:VCARD`;
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-muted)' }}>
                         <FaPhone style={{ minWidth: '16px' }} />
                         <a
-                            href={`https://wa.me/${data.phone.replace(/[^0-9]/g, '').replace(/^0/, '60')}`}
+                            href={`https://wa.me/${data.phone.replace(/[^0-9]/g, '').replace(/^0/, '60')}?text=${encodeURIComponent('Hello, I got your number from MY-Callbook https://callbook.hamradio.my !')}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{ color: 'var(--secondary)', textDecoration: 'none' }}
