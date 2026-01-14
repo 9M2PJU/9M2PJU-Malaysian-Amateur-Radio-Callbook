@@ -70,6 +70,9 @@ export const MALAYSIAN_DISTRICTS = {
         'Bandar Labuan (Victoria)', 'Bebuloh', 'Layang-Layangan', 'Lubok Temiang', 'Rancha-Rancha', 'Pohon Batu'
     ],
     'PUTRAJAYA': [
-        'Putrajaya (Single District)'
+        'Presint 1', 'Presint 2', 'Presint 3', 'Presint 4', 'Presint 5',
+        'Presint 6', 'Presint 7', 'Presint 8', 'Presint 9', 'Presint 10',
+        'Presint 11', 'Presint 12', 'Presint 13', 'Presint 14', 'Presint 15',
+        'Presint 16', 'Presint 17', 'Presint 18', 'Presint 19', 'Presint 20'
     ]
 };
