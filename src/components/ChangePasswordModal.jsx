@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { FaTimes, FaLock, FaSpinner, FaCheckCircle } from 'react-icons/fa';
 import { useAuth } from './AuthContext';
+import { supabase } from '../lib/supabase';
 
 const ChangePasswordModal = ({ isOpen, onClose }) => {
-    const { updatePassword } = useAuth();
+    const { updatePassword, user } = useAuth();
+    const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -17,22 +19,41 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
 
         // Validate passwords match
         if (newPassword !== confirmPassword) {
-            setError('Passwords do not match');
+            setError('New passwords do not match');
             return;
         }
 
         // Validate password length
         if (newPassword.length < 6) {
-            setError('Password must be at least 6 characters');
+            setError('New password must be at least 6 characters');
+            return;
+        }
+
+        // Validate old password is not the same as new
+        if (oldPassword === newPassword) {
+            setError('New password must be different from old password');
             return;
         }
 
         setLoading(true);
 
         try {
+            // Verify old password by attempting to sign in
+            const { error: signInError } = await supabase.auth.signInWithPassword({
+                email: user.email,
+                password: oldPassword
+            });
+
+            if (signInError) {
+                throw new Error('Current password is incorrect');
+            }
+
+            // Update to new password
             const { error } = await updatePassword(newPassword);
             if (error) throw error;
+
             setSuccess(true);
+            setOldPassword('');
             setNewPassword('');
             setConfirmPassword('');
             // Auto close after success
@@ -48,6 +69,7 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
     };
 
     const handleClose = () => {
+        setOldPassword('');
         setNewPassword('');
         setConfirmPassword('');
         setError('');
@@ -138,6 +160,42 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
                                 {error}
                             </div>
                         )}
+
+                        <div style={{ marginBottom: '15px' }}>
+                            <label style={{
+                                display: 'block',
+                                color: 'var(--text-muted)',
+                                marginBottom: '6px',
+                                fontSize: '0.9rem'
+                            }}>
+                                Current Password
+                            </label>
+                            <div style={{ position: 'relative' }}>
+                                <FaLock style={{
+                                    position: 'absolute',
+                                    left: '12px',
+                                    top: '12px',
+                                    color: 'var(--text-muted)',
+                                    fontSize: '0.85rem'
+                                }} />
+                                <input
+                                    type="password"
+                                    value={oldPassword}
+                                    onChange={(e) => setOldPassword(e.target.value)}
+                                    required
+                                    style={{
+                                        width: '100%',
+                                        padding: '10px 10px 10px 38px',
+                                        borderRadius: '8px',
+                                        border: '1px solid var(--glass-border)',
+                                        background: 'rgba(255, 255, 255, 0.05)',
+                                        color: '#fff',
+                                        fontSize: '0.95rem'
+                                    }}
+                                    placeholder="Enter current password"
+                                />
+                            </div>
+                        </div>
 
                         <div style={{ marginBottom: '15px' }}>
                             <label style={{
