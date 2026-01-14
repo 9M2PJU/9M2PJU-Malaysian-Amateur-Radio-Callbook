@@ -103,6 +103,14 @@ Contributions welcome! Report bugs, suggest features, or submit PRs.
 
 ---
 
+## 💌 Message from the Author
+
+> "This project is an initiative by me for all Malaysian Amateur Radio Operators. I hope someone will improve this later for future generations. Amateur Radio is always the greatest hobby of all."
+> 
+> — **9M2PJU**
+
+---
+
 <div align="center">
 
 **Made with ❤️ for the Malaysian Ham Radio Community**
