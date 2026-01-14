@@ -170,13 +170,13 @@ async function sendReminderEmail(
     </table>
 
     <div style="text-align: center; margin-bottom: 24px;">
-      <a href="https://www.mcmc.gov.my" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: #000; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: bold; font-size: 16px;">
-        Renew at MCMC
+      <a href="https://espectra.mcmc.gov.my/" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: #000; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: bold; font-size: 16px;">
+        Renew at MCMC eSpectra
       </a>
     </div>
 
     <p style="color: #888; font-size: 14px; text-align: center; margin-bottom: 0;">
-      Please visit the MCMC (Malaysian Communications and Multimedia Commission) to renew your amateur radio license before it expires.
+      Please visit the MCMC eSpectra portal to renew your amateur radio license before it expires.
     </p>
 
     <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 30px 0;">
