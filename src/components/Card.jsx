@@ -284,7 +284,7 @@ END:VCARD`;
                                     alt="APRS"
                                     style={{ width: '20px', height: '20px', objectFit: 'contain' }}
                                 />
-                                Track on APRS.fi
+                                Track (APRS.fi)
                             </a>
                         )}
                         {data.dmrId && (
