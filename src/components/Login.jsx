@@ -32,7 +32,7 @@ const Login = () => {
         try {
             const { error } = await signIn({ email, password });
             if (error) throw error;
-            navigate(from, { replace: true });
+            navigate('/', { replace: true }); // Always go to home after login
         } catch (err) {
             setError(err.message);
         } finally {
