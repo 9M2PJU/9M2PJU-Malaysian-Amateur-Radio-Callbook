@@ -260,6 +260,13 @@ END:VCARD`;
                     </div>
                 )}
 
+                {data.address && (
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', color: 'var(--text-muted)' }}>
+                        <FaHome style={{ minWidth: '16px', marginTop: '4px' }} />
+                        <span style={{ fontSize: '0.9rem', lineHeight: '1.4' }}>{data.address}</span>
+                    </div>
+                )}
+
                 {data.expiryDate && (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-muted)' }}>
                         <FaCalendarAlt style={{ minWidth: '16px' }} />
@@ -361,13 +368,6 @@ END:VCARD`;
                                 MARTS #{data.martsId}
                             </div>
                         )}
-                    </div>
-                )}
-
-                {data.address && (
-                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', color: 'var(--text-muted)', marginTop: '8px', paddingTop: '8px', borderTop: '1px solid var(--glass-border)' }}>
-                        <FaHome style={{ minWidth: '16px', marginTop: '4px' }} />
-                        <span style={{ fontSize: '0.9rem', lineHeight: '1.4' }}>{data.address}</span>
                     </div>
                 )}
 

@@ -31,6 +31,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
     const [submitting, setSubmitting] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState('');
+    const [hasExpiryDate, setHasExpiryDate] = useState(true);
 
 
     useEffect(() => {
@@ -55,6 +56,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                     expiryDate: initialData.expiryDate || '',
                     botField: ''
                 });
+                setHasExpiryDate(!!initialData.expiryDate);
                 setIsCaptchaVerified(true); // Skip captcha for editing
             } else {
                 setFormData(prev => ({
@@ -62,6 +64,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                     botField: '',
                     email: user?.email || '' // Auto-fill email from auth
                 }));
+                setHasExpiryDate(false);
                 setIsCaptchaVerified(false);
             }
         }
@@ -203,7 +206,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                         district: formData.district || null,
                         grid_locator: formData.gridLocator || null,
                         aprs_callsign: formData.aprsCallsign || null,
-                        expiry_date: formData.expiryDate || null,
+                        expiry_date: hasExpiryDate ? formData.expiryDate : null,
                     });
 
                 // Use ID if available (more robust), otherwise fallback to original callsign
@@ -240,7 +243,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                         district: formData.district || null,
                         grid_locator: formData.gridLocator || null,
                         aprs_callsign: formData.aprsCallsign || null,
-                        expiry_date: formData.expiryDate || null,
+                        expiry_date: hasExpiryDate ? formData.expiryDate : null,
                         added_date: new Date().toISOString().split('T')[0],
                         user_id: user?.id || null // Link to auth user
                     });
@@ -546,17 +549,40 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                         </div>
 
                         <div style={{ marginBottom: '20px' }}>
-                            <label style={labelStyle}>License Expiry Date (Optional)</label>
-                            <input
-                                type="date"
-                                name="expiryDate"
-                                value={formData.expiryDate}
-                                onChange={handleChange}
-                                style={inputStyle}
-                            />
-                            <small style={{ color: 'var(--text-muted)', display: 'block', marginTop: '4px' }}>
-                                Your MCMC amateur radio license expiry date (from your license certificate)
-                            </small>
+                            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+                                <input
+                                    type="checkbox"
+                                    id="hasExpiryDate"
+                                    checked={hasExpiryDate}
+                                    onChange={(e) => setHasExpiryDate(e.target.checked)}
+                                    style={{
+                                        marginRight: '10px',
+                                        width: '18px',
+                                        height: '18px',
+                                        cursor: 'pointer'
+                                    }}
+                                />
+                                <label htmlFor="hasExpiryDate" style={{ ...labelStyle, marginBottom: 0, cursor: 'pointer' }}>
+                                    I have a license expiry date
+                                </label>
+                            </div>
+
+                            {hasExpiryDate && (
+                                <>
+                                    <label style={labelStyle}>License Expiry Date</label>
+                                    <input
+                                        type="date"
+                                        name="expiryDate"
+                                        value={formData.expiryDate}
+                                        onChange={handleChange}
+                                        style={inputStyle}
+                                        required={hasExpiryDate}
+                                    />
+                                    <small style={{ color: 'var(--text-muted)', display: 'block', marginTop: '4px' }}>
+                                        Your MCMC amateur radio license expiry date (from your license certificate)
+                                    </small>
+                                </>
+                            )}
                         </div>
 
                         <div style={{ marginBottom: '20px' }}>
