@@ -1,8 +1,49 @@
 import React from 'react';
-import { FaSearch, FaFilter } from 'react-icons/fa';
+import { FaSearch, FaFilter, FaTimes } from 'react-icons/fa';
 import { MALAYSIAN_DISTRICTS } from '../constants';
 
 const AdvancedSearch = ({ onSearch, onFilterChange, filters, states }) => {
+    // We need to track the input value locally to show/hide the clear button
+    // However, the parent controls the state via onSearch. 
+    // We can check the input value by accessing the input ref or just trust the parent passes the value back.
+    // BUT, the current implementation shows `onSearch` just calls a function, it doesn't pass the value back as a prop to this component.
+    // Looking at App.jsx (which I viewed earlier), `searchTerm` IS state there.
+    // But `AdvancedSearch` doesn't receive `searchTerm` as a prop in the original code? 
+    // Let me check lines 54-58 again. 
+    // Line 56: onChange={(e) => onSearch(e.target.value)}
+    // The input is UNCONTROLLED because it doesn't have a `value` prop!
+    // To implement a clear button that clears the input, I need to make it CONTROLLED or use a ref.
+    // Making it controlled is better. I need to accept `searchTerm` as a prop.
+
+    // Wait, let me check App.jsx usage of AdvancedSearch again.
+    // I can't check App.jsx right now without a tool call, but typically if I add `value={filters.search}` or similar it works. 
+    // In App.jsx, I saw `const [searchTerm, setSearchTerm] = useState('')`.
+    // And `<AdvancedSearch onSearch={handleSearch} ... />`
+    // It did NOT pass `searchTerm` down.
+
+    // So I have to convert this to a controlled component LOCALLY or ask the user to let me refactor App.jsx too.
+    // Refactoring is safer.
+
+    // Actually, I can just use a local ref to clear the input value manually.
+    // That's the least intrusive change.
+
+    const [hasText, setHasText] = React.useState(false);
+    const searchInputRef = React.useRef(null);
+
+    const handleClear = () => {
+        if (searchInputRef.current) {
+            searchInputRef.current.value = '';
+            setHasText(false);
+            onSearch('');
+            searchInputRef.current.focus();
+        }
+    };
+
+    const handleParamChange = (value) => {
+        setHasText(value.length > 0);
+        onSearch(value);
+    };
+
     const inputStyle = {
         padding: '12px 16px',
         borderRadius: '8px',
@@ -51,11 +92,34 @@ const AdvancedSearch = ({ onSearch, onFilterChange, filters, states }) => {
                         color: 'var(--text-muted)'
                     }} />
                     <input
+                        ref={searchInputRef}
                         type="text"
                         placeholder="Search callsign, name, location..."
-                        onChange={(e) => onSearch(e.target.value)}
-                        style={{ ...inputStyle, paddingLeft: '40px' }}
+                        onChange={(e) => handleParamChange(e.target.value)}
+                        style={{ ...inputStyle, paddingLeft: '40px', paddingRight: '40px' }}
                     />
+                    {hasText && (
+                        <button
+                            onClick={handleClear}
+                            style={{
+                                position: 'absolute',
+                                right: '12px',
+                                top: '50%',
+                                transform: 'translateY(-50%)',
+                                background: 'transparent',
+                                border: 'none',
+                                color: 'var(--text-muted)',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                padding: '4px'
+                            }}
+                            title="Clear Search"
+                        >
+                            <FaTimes />
+                        </button>
+                    )}
                 </div>
 
                 {/* State Filter */}
