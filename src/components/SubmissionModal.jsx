@@ -445,7 +445,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                                 style={inputStyle}
                             />
                             <small style={{ color: 'var(--text-muted)', display: 'block', marginTop: '4px' }}>
-                                Leave blank if same as main callsign, or specify SSID (e.g. -9 for mobile)
+                                Specify callsign with SSID (eg -9 for mobile)
                             </small>
                         </div>
 
