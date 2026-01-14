@@ -223,7 +223,7 @@ END:VCARD`;
                             style={{ color: 'var(--secondary)', textDecoration: 'none' }}
                             title="Chat on WhatsApp"
                         >
-                            {data.phone} 💬
+                            {data.phone} <img src="/whatsapp-icon.png" alt="WhatsApp" style={{ height: '18px', width: '18px', verticalAlign: 'middle', marginLeft: '6px' }} />
                         </a>
                     </div>
                 )}
