@@ -25,19 +25,31 @@ export const AuthProvider = ({ children }) => {
         const isSuper = SUPER_ADMIN_EMAILS.includes(email);
         setIsSuperAdmin(isSuper);
 
+        // If super admin, no need to check admins table
+        if (isSuper) {
+            setIsAdmin(true);
+            return;
+        }
+
         try {
-            // Check if user is in admins table
-            const { data } = await supabase
+            // Check if user is in admins table with timeout
+            const { data, error } = await supabase
                 .from('admins')
                 .select('email')
                 .eq('email', email)
                 .maybeSingle();
 
-            setIsAdmin(isSuper || !!data);
+            if (error) {
+                console.error('Admin query error:', error);
+                setIsAdmin(false);
+                return;
+            }
+
+            setIsAdmin(!!data);
         } catch (error) {
-            // It's normal if record doesn't exist
-            console.error('Admin check error:', error);
-            setIsAdmin(isSuper);
+            // Network error or other issue - don't block the app
+            console.error('Admin check failed:', error);
+            setIsAdmin(false);
         }
     };
 
