@@ -119,14 +119,30 @@ If you are reading this in the future and wish to improve the project:
 
 ## 🎨 Tech Stack
 
-| | Technology | Purpose |
-|-|------------|---------|
-| ⚛️ | React 19 | UI Framework |
-| ⚡ | Vite 7 | Build Tool |
-| 🐘 | PostgreSQL | Database (Supabase) |
-| 🎨 | CSS3 | Glassmorphism Styling |
+### Frontend (User Interface)
+| Technology | Description |
+|------------|-------------|
+| ⚛️ **React 19** | Latest React features for a responsive, interactive UI. |
+| ⚡ **Vite 7** | Next-generation build tool for lightning-fast development. |
+| 🎨 **Glassmorphism** | Custom CSS3 styling for a modern, translucent aesthetic. |
+| �️ **React Router** | Client-side routing for seamless navigation. |
 
----
+### Backend (Serverless & Managed)
+| Technology | Description |
+|------------|-------------|
+| 🐘 **PostgreSQL** | Relational database hosted on Supabase. |
+| 🔐 **Supabase Auth** | Secure email/password authentication (GoTrue). |
+| ⚡ **Edge Functions** | Deno-based serverless functions for scheduled tasks (Reminders). |
+| 📡 **Realtime** | WebSocket subscriptions for live data updates. |
+
+### DevOps & Infrastructure
+| Technology | Description |
+|------------|-------------|
+| 🐳 **Docker** | Full stack containerization for self-hosting. |
+| 🚢 **Vercel** | Static hosting with global CDN (Free Tier). |
+| 🐙 **GitHub Actions** | Automated CI/CD pipelines. |
+| 📬 **Resend** | Transactional email service (Free Tier). |
+
 
 ---
 
