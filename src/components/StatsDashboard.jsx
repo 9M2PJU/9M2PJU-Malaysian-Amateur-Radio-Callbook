@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaUsers, FaMapMarkerAlt, FaClock, FaBroadcastTower } from 'react-icons/fa';
 
-const StatsDashboard = ({ data, totalCount }) => {
+const StatsDashboard = ({ data, totalCount, recentCount }) => {
     // Calculate statistics
     const totalOperators = totalCount || data.length;
 
@@ -24,14 +24,7 @@ const StatsDashboard = ({ data, totalCount }) => {
         'Class C': data.filter(d => d.callsign.startsWith('9W3')).length
     };
 
-    // Count recently added (entries with addedDate within last 30 days / 1 month)
-    const recentCount = data.filter(d => {
-        if (!d.addedDate) return false;
-        const added = new Date(d.addedDate);
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-        return added >= thirtyDaysAgo;
-    }).length;
+    // recentCount now comes from props (queried from database)
 
     const statCardStyle = {
         background: 'rgba(255,255,255,0.05)',
