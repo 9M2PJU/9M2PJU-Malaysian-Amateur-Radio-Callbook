@@ -197,16 +197,18 @@ const AdvancedSearch = ({ onSearch, onFilterChange, filters, states }) => {
                     <option value="expired">❌ Expired</option>
                 </select>
 
-                {/* Recently Added Filter */}
+                {/* Submission Date Filter */}
                 <select
                     value={filters.recentOnly}
                     onChange={(e) => onFilterChange('recentOnly', e.target.value)}
                     style={selectStyle}
                 >
                     <option value="">All Entries</option>
-                    <option value="7">Last 7 days</option>
-                    <option value="30">Last 30 days</option>
-                    <option value="90">Last 90 days</option>
+                    <option value="7">Last week</option>
+                    <option value="30">Last month</option>
+                    <option value="180">Last 6 months</option>
+                    <option value="365">Last 1 year</option>
+                    <option value="older">Older than 1 year</option>
                 </select>
             </div>
         </div>

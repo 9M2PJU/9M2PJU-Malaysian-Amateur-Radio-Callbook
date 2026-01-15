@@ -128,10 +128,17 @@ function Directory() {
             }
 
             if (currentFilters.recentOnly) {
-                const days = parseInt(currentFilters.recentOnly);
-                const cutoffDate = new Date();
-                cutoffDate.setDate(cutoffDate.getDate() - days);
-                query = query.gte('added_date', cutoffDate.toISOString().split('T')[0]);
+                if (currentFilters.recentOnly === 'older') {
+                    // Older than 1 year
+                    const cutoffDate = new Date();
+                    cutoffDate.setDate(cutoffDate.getDate() - 365);
+                    query = query.lt('added_date', cutoffDate.toISOString().split('T')[0]);
+                } else {
+                    const days = parseInt(currentFilters.recentOnly);
+                    const cutoffDate = new Date();
+                    cutoffDate.setDate(cutoffDate.getDate() - days);
+                    query = query.gte('added_date', cutoffDate.toISOString().split('T')[0]);
+                }
             }
 
             // Pagination
