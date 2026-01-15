@@ -536,45 +536,48 @@ function Directory() {
 
 import PWAInstallPrompt from './components/PWAInstallPrompt';
 import LiveNotifications from './components/LiveNotifications';
+import { PWAProvider } from './components/PWAContext';
 
 function App() {
     return (
         <Router>
             <AuthProvider>
-                <Suspense fallback={<LazyLoadSpinner />}>
-                    <PWAInstallPrompt />
-                    <LiveNotifications />
-                    <Routes>
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/register" element={<Register />} />
-                        <Route path="/forgot-password" element={<ForgotPassword />} />
-                        <Route path="/update-password" element={<UpdatePassword />} />
-                        <Route
-                            path="/my-callsigns"
-                            element={
-                                <ProtectedRoute>
-                                    <MyCallsigns />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/manage-admins"
-                            element={
-                                <ProtectedRoute>
-                                    <ManageAdmins />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/"
-                            element={
-                                <ProtectedRoute>
-                                    <Directory />
-                                </ProtectedRoute>
-                            }
-                        />
-                    </Routes>
-                </Suspense>
+                <PWAProvider>
+                    <Suspense fallback={<LazyLoadSpinner />}>
+                        <PWAInstallPrompt />
+                        <LiveNotifications />
+                        <Routes>
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/register" element={<Register />} />
+                            <Route path="/forgot-password" element={<ForgotPassword />} />
+                            <Route path="/update-password" element={<UpdatePassword />} />
+                            <Route
+                                path="/my-callsigns"
+                                element={
+                                    <ProtectedRoute>
+                                        <MyCallsigns />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/manage-admins"
+                                element={
+                                    <ProtectedRoute>
+                                        <ManageAdmins />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/"
+                                element={
+                                    <ProtectedRoute>
+                                        <Directory />
+                                    </ProtectedRoute>
+                                }
+                            />
+                        </Routes>
+                    </Suspense>
+                </PWAProvider>
             </AuthProvider>
         </Router>
     );

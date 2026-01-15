@@ -1,60 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { MdSmartphone, MdFlashOn, MdNotifications, MdOfflinePin, MdClose } from 'react-icons/md';
 import { useAuth } from './AuthContext';
+import { usePWA } from './PWAContext';
 
 const PWAInstallPrompt = () => {
     const { user } = useAuth();
-    const [deferredPrompt, setDeferredPrompt] = useState(null);
-    const [isVisible, setIsVisible] = useState(false);
+    const { isPromptVisible, showInstallPrompt, hideInstallPrompt, installFromPrompt, isInstallable } = usePWA();
 
+    // Auto-show logic: If installable and logged in, show the prompt
     useEffect(() => {
-        const handler = (e) => {
-            // Prevent the mini-infobar from appearing on mobile
-            e.preventDefault();
-            // Stash the event so it can be triggered later.
-            setDeferredPrompt(e);
-            // Don't show yet, wait for user login check in next effect
-        };
-
-        window.addEventListener('beforeinstallprompt', handler);
-
-        return () => {
-            window.removeEventListener('beforeinstallprompt', handler);
-        };
-    }, []);
-
-    // Show prompt only when we have the deferred event AND the user is logged in
-    useEffect(() => {
-        if (deferredPrompt && user) {
-            setIsVisible(true);
+        if (isInstallable && user) {
+            // We can check if we already showed it this session/user preference here if needed.
+            // For now, simpler is better.
+            showInstallPrompt();
         }
-    }, [deferredPrompt, user]);
+    }, [isInstallable, user]);
 
-    const handleInstallClick = async () => {
-        if (!deferredPrompt) return;
-
-        // Show the install prompt
-        deferredPrompt.prompt();
-
-        // Wait for the user to respond to the prompt
-        const { outcome } = await deferredPrompt.userChoice;
-
-        // We've used the prompt, and can't use it again, discard it
-        setDeferredPrompt(null);
-        setIsVisible(false);
-    };
-
-    const handleDismiss = () => {
-        setIsVisible(false);
-    };
-
-    if (!isVisible) return null;
+    if (!isPromptVisible) return null;
 
     return (
         <div className="pwa-overlay">
             <div className="pwa-modal">
                 <button
-                    onClick={handleDismiss}
+                    onClick={hideInstallPrompt}
                     className="pwa-close-btn"
                 >
                     <MdClose size={24} />
@@ -86,14 +54,14 @@ const PWAInstallPrompt = () => {
                     </div>
 
                     <button
-                        onClick={handleInstallClick}
+                        onClick={installFromPrompt}
                         className="pwa-btn-install"
                     >
                         Install Now
                     </button>
 
                     <button
-                        onClick={handleDismiss}
+                        onClick={hideInstallPrompt}
                         className="pwa-btn-later"
                     >
                         Maybe later
