@@ -239,6 +239,27 @@ END:VCARD`;
                             {licenseStatus.icon} {licenseStatus.label}
                         </span>
                     )}
+                    {/* Telegram Reminder Badge */}
+                    {data.telegramChatId && (
+                        <span
+                            style={{
+                                background: 'rgba(0, 136, 204, 0.15)',
+                                color: '#29b6f6',
+                                padding: '4px 12px',
+                                borderRadius: '20px',
+                                fontSize: '0.75rem',
+                                fontWeight: '600',
+                                border: '1px solid rgba(41, 182, 246, 0.4)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                                cursor: 'help'
+                            }}
+                            title="Receiving license expiry reminders via Telegram"
+                        >
+                            📲 TG Reminder
+                        </span>
+                    )}
                 </div>
             </div>
 
