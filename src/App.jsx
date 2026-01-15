@@ -58,6 +58,10 @@ function Directory() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editData, setEditData] = useState(null);
 
+    // Ref for infinite scroll observer
+    const observerRef = React.useRef(null);
+    const loadMoreRef = React.useRef(null);
+
     const ITEMS_PER_PAGE = 50;
 
     useEffect(() => {
@@ -65,6 +69,34 @@ function Directory() {
         console.log('App Initializing...');
         fetchCallsigns(0, searchTerm, filters, true);
     }, []);
+
+    // Intersection Observer for infinite scroll
+    useEffect(() => {
+        const currentRef = loadMoreRef.current;
+
+        if (observerRef.current) {
+            observerRef.current.disconnect();
+        }
+
+        observerRef.current = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting && hasMore && !loading) {
+                    fetchCallsigns(page + 1, searchTerm, filters, false);
+                }
+            },
+            { threshold: 0.1, rootMargin: '100px' }
+        );
+
+        if (currentRef) {
+            observerRef.current.observe(currentRef);
+        }
+
+        return () => {
+            if (observerRef.current) {
+                observerRef.current.disconnect();
+            }
+        };
+    }, [hasMore, loading, page, searchTerm, filters]);
 
     const fetchCallsigns = async (pageToFetch, term, currentFilters, reset = false) => {
         try {
@@ -330,27 +362,41 @@ function Directory() {
                             ))}
                         </div>
 
-                        {/* Load More Button */}
-                        {hasMore && (
-                            <div style={{ textAlign: 'center', marginTop: '40px', marginBottom: '40px' }}>
-                                <button
-                                    onClick={loadMore}
-                                    disabled={loading}
-                                    style={{
-                                        background: 'transparent',
-                                        border: '1px solid var(--primary)',
-                                        color: 'var(--primary)',
-                                        padding: '12px 32px',
-                                        borderRadius: '30px',
-                                        fontSize: '1rem',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.3s ease'
-                                    }}
-                                >
-                                    {loading ? 'Loading...' : 'Load More Operators'}
-                                </button>
-                            </div>
-                        )}
+                        {/* Infinite Scroll Sentinel */}
+                        <div
+                            ref={loadMoreRef}
+                            style={{
+                                textAlign: 'center',
+                                marginTop: '40px',
+                                marginBottom: '40px',
+                                minHeight: hasMore ? '60px' : '0'
+                            }}
+                        >
+                            {loading && callsigns.length > 0 && (
+                                <div style={{
+                                    color: 'var(--text-muted)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: '10px'
+                                }}>
+                                    <div className="loading-spinner" style={{
+                                        width: '20px',
+                                        height: '20px',
+                                        border: '2px solid var(--glass-border)',
+                                        borderTop: '2px solid var(--primary)',
+                                        borderRadius: '50%',
+                                        animation: 'spin 1s linear infinite'
+                                    }} />
+                                    Loading more...
+                                </div>
+                            )}
+                            {!hasMore && callsigns.length > 0 && (
+                                <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                                    ✓ All {totalCount} operators loaded
+                                </div>
+                            )}
+                        </div>
                     </>
                 )}
 
