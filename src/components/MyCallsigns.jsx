@@ -49,7 +49,9 @@ const MyCallsigns = () => {
                 gridLocator: item.grid_locator || '',
                 aprsCallsign: item.aprs_callsign || '',
                 addedDate: item.added_date,
-                expiryDate: item.expiry_date || ''
+                expiryDate: item.expiry_date || '',
+                telegramChatId: item.telegram_chat_id || '',
+                telegramUsername: item.telegram_username || ''
             }));
 
             setCallsigns(transformedData);
