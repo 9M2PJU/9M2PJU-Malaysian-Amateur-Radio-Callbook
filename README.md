@@ -33,7 +33,8 @@
 ### 📡 Operator Portfolio
 *   **My Callsigns**: A private dashboard to manage your submitted stations.
 *   **vCard Export**: One-click download to save operator details directly to phone contacts.
-*   **Social Connectivity**: Link your QRZ.com, Facebook, and Website profiles.
+*   **Social Connectivity**: Link your QRZ.com, Facebook, Website, and **Telegram** profiles.
+*   **Telegram Integration**: Add your Telegram username (displayed with clickable link) and Chat ID for license expiry reminders.
 
 ### 📊 Live Analytics
 *   **Real-Time Dashboard**: Live counter of total operators and daily registrations.
