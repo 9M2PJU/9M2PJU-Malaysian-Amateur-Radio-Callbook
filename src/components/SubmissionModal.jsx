@@ -415,12 +415,12 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                                 📱 Receive license expiry reminders via Telegram at 90, 60, 30, 7, and 1 day before expiry.
                                 Get your Chat ID from{' '}
                                 <a
-                                    href="https://t.me/userinfobot"
+                                    href="https://t.me/MYHamRadioCallbookBot"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     style={{ color: 'var(--primary)' }}
                                 >
-                                    @userinfobot
+                                    @MYHamRadioCallbookBot
                                 </a>
                             </small>
                         </div>
