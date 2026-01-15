@@ -13,6 +13,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
         location: '',
         email: '',
         phone: '',
+        telegramUsername: '',
         address: '',
         website: '',
         facebook: '',
@@ -44,6 +45,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                     location: initialData.location || '',
                     email: initialData.email || '',
                     phone: initialData.phone || '',
+                    telegramUsername: initialData.telegramUsername || '',
                     address: initialData.address || '',
                     website: initialData.website || '',
                     facebook: initialData.facebook || '',
@@ -207,6 +209,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                         location: formData.location,
                         email: formData.email || null,
                         phone: formData.phone || null,
+                        telegram_username: formData.telegramUsername || null,
                         address: formData.address || null,
                         website: normalizeUrl(formData.website),
                         facebook: normalizeUrl(formData.facebook),
@@ -246,6 +249,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                         location: formData.location,
                         email: formData.email || null,
                         phone: formData.phone || null,
+                        telegram_username: formData.telegramUsername || null,
                         address: formData.address || null,
                         website: normalizeUrl(formData.website),
                         facebook: normalizeUrl(formData.facebook),
@@ -529,6 +533,21 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                                 placeholder="+60123456789"
                                 style={inputStyle}
                             />
+                        </div>
+
+                        <div style={{ marginBottom: '20px' }}>
+                            <label style={labelStyle}>Telegram Username (Optional)</label>
+                            <input
+                                type="text"
+                                name="telegramUsername"
+                                value={formData.telegramUsername}
+                                onChange={handleChange}
+                                placeholder="@yourusername"
+                                style={inputStyle}
+                            />
+                            <small style={{ color: 'var(--text-muted)', display: 'block', marginTop: '4px' }}>
+                                Your Telegram username (with or without @)
+                            </small>
                         </div>
 
                         <div style={{ marginBottom: '20px' }}>
