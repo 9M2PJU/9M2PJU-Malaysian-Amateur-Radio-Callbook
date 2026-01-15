@@ -9,9 +9,11 @@ const PWAInstallPrompt = () => {
 
     // Auto-show logic: If installable and logged in, show the prompt
     useEffect(() => {
+        console.log('🔧 PWAInstallPrompt: Auto-show check', { isInstallable, hasUser: !!user });
         if (isInstallable && user) {
             // We can check if we already showed it this session/user preference here if needed.
             // For now, simpler is better.
+            console.log('✅ PWAInstallPrompt: Auto-showing install prompt');
             showInstallPrompt();
         }
     }, [isInstallable, user]);

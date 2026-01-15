@@ -13,11 +13,13 @@ export const PWAProvider = ({ children }) => {
         const handler = (e) => {
             // Prevent the mini-infobar from appearing on mobile
             e.preventDefault();
+            console.log('✅ PWA: beforeinstallprompt event fired');
             // Stash the event so it can be triggered later.
             setDeferredPrompt(e);
             setIsInstallable(true);
         };
 
+        console.log('🔧 PWA: Setting up beforeinstallprompt listener');
         window.addEventListener('beforeinstallprompt', handler);
 
         window.addEventListener('appinstalled', () => {
