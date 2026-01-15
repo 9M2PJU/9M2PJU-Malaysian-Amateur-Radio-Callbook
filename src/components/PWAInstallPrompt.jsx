@@ -5,18 +5,17 @@ import { usePWA } from './PWAContext';
 
 const PWAInstallPrompt = () => {
     const { user } = useAuth();
-    const { isPromptVisible, showInstallPrompt, hideInstallPrompt, installFromPrompt, isInstallable } = usePWA();
+    const { isPromptVisible, showInstallPrompt, hideInstallPrompt, installFromPrompt, isInstallable, isDismissed } = usePWA();
 
-    // Auto-show logic: If installable and logged in, show the prompt
+    // Auto-show logic: If installable and logged in and NOT previously dismissed, show the prompt
     useEffect(() => {
-        console.log('🔧 PWAInstallPrompt: Auto-show check', { isInstallable, hasUser: !!user });
-        if (isInstallable && user) {
-            // We can check if we already showed it this session/user preference here if needed.
-            // For now, simpler is better.
+        console.log('🔧 PWAInstallPrompt: Auto-show check', { isInstallable, hasUser: !!user, isDismissed });
+        if (isInstallable && user && !isDismissed) {
+            // User hasn't dismissed it before, so auto-show
             console.log('✅ PWAInstallPrompt: Auto-showing install prompt');
             showInstallPrompt();
         }
-    }, [isInstallable, user]);
+    }, [isInstallable, user, isDismissed]);
 
     if (!isPromptVisible) return null;
 
