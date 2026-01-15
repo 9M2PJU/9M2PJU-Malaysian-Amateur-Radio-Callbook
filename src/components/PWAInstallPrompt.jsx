@@ -1,21 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdSmartphone, MdFlashOn, MdNotifications, MdOfflinePin, MdClose } from 'react-icons/md';
 import { useAuth } from './AuthContext';
 import { usePWA } from './PWAContext';
 
 const PWAInstallPrompt = () => {
     const { user } = useAuth();
-    const { isPromptVisible, showInstallPrompt, hideInstallPrompt, installFromPrompt, isInstallable, isDismissed } = usePWA();
+    const { isPromptVisible, showInstallPrompt, hideInstallPrompt, installFromPrompt, isInstallable } = usePWA();
+    const [isMobile, setIsMobile] = useState(false);
 
-    // Auto-show logic: If installable and logged in and NOT previously dismissed, show the prompt
+    // Detect if user is on mobile device
     useEffect(() => {
-        console.log('🔧 PWAInstallPrompt: Auto-show check', { isInstallable, hasUser: !!user, isDismissed });
-        if (isInstallable && user && !isDismissed) {
-            // User hasn't dismissed it before, so auto-show
-            console.log('✅ PWAInstallPrompt: Auto-showing install prompt');
+        const checkMobile = () => {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            const mobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
+            setIsMobile(mobile);
+        };
+        checkMobile();
+    }, []);
+
+    // Auto-show logic: Only auto-show on MOBILE when logged in and installable
+    useEffect(() => {
+        console.log('🔧 PWAInstallPrompt: Auto-show check', { isInstallable, hasUser: !!user, isMobile });
+        if (isInstallable && user && isMobile) {
+            // Mobile: Always show until user installs
+            console.log('✅ PWAInstallPrompt: Auto-showing install prompt (mobile)');
             showInstallPrompt();
         }
-    }, [isInstallable, user, isDismissed]);
+    }, [isInstallable, user, isMobile]);
 
     if (!isPromptVisible) return null;
 
