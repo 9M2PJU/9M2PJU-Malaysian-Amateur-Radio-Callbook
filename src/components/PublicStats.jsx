@@ -97,9 +97,10 @@ const PublicStats = () => {
         background: 'rgba(255, 255, 255, 0.05)',
         border: '1px solid var(--glass-border)',
         borderRadius: '20px',
-        padding: '2px 10px',
+        padding: '4px 10px',
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'center',
         gap: '4px',
         fontSize: '0.7rem',
         whiteSpace: 'nowrap'
@@ -113,11 +114,10 @@ const PublicStats = () => {
     return (
         <div className="badge-container" style={{
             width: '100%',
-            maxWidth: '600px',
+            maxWidth: '550px',
             margin: '0 auto 10px',
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
             gap: '8px',
             padding: '5px 10px',
         }}>
