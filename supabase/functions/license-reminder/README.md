@@ -1,65 +1,59 @@
 # License Reminder Edge Function
 
-This Supabase Edge Function sends automated email reminders to users when their amateur radio license is about to expire.
+Sends automated license expiry reminders via **Telegram** and **Email** to users who have registered their callsign with an expiry date.
 
 ## Features
 
-- Sends reminders at **90, 60, 30, 14, 7, 3, and 1 days** before expiry
-- Beautiful HTML email template with urgency indicators
-- Tracks sent reminders to avoid duplicates
-- Uses Resend for reliable email delivery
+- **Telegram Notifications**: Sends reminders via Telegram Bot API
+- **Email Notifications**: Sends HTML email reminders via Resend API
+- **Duplicate Prevention**: Tracks sent reminders per channel to avoid spam
+- **Graduated Urgency**: Different message styling based on days until expiry
 
-## Setup Instructions
+## Notification Schedule
 
-### 1. Run the SQL Setup
+Reminders are sent at these intervals before expiry:
+- 90 days (Notice)
+- 60 days (Notice)
+- 30 days (Reminder)
+- 14 days (Reminder)
+- 7 days (Urgent)
+- 3 days (Urgent)
+- 1 day (Urgent)
 
-Execute `license-reminders-setup.sql` in Supabase SQL Editor to create the tracking table.
+## Environment Variables
 
-### 2. Add Resend API Key
+Set these in Supabase Dashboard > Edge Functions > Secrets:
+
+| Variable | Description |
+|----------|-------------|
+| `TELEGRAM_BOT_TOKEN` | Telegram Bot token from @BotFather |
+| `RESEND_API_KEY` | Resend.com API key (optional - email disabled by default) |
+
+## Database Requirements
+
+Run `sql/telegram-setup.sql` to add required columns:
+- `telegram_chat_id` column in `callsigns` table
+- `channel` column in `license_reminders_sent` table
+
+## Deployment
 
 ```bash
-# Using Supabase CLI
-supabase secrets set RESEND_API_KEY=re_your_api_key_here
-
-# Or via Dashboard: Project Settings → Edge Functions → Secrets
-```
-
-### 3. Deploy the Function
-
-```bash
-# Login to Supabase
-supabase login
-
-# Link your project
-supabase link --project-ref YOUR_PROJECT_REF
-
 # Deploy the function
 supabase functions deploy license-reminder
+
+# Set secrets
+supabase secrets set TELEGRAM_BOT_TOKEN=your_bot_token
 ```
 
-### 4. Set Up Cron Schedule
-
-In Supabase Dashboard:
-1. Go to **Edge Functions** → **license-reminder**
-2. Click **Schedule**
-3. Add cron expression: `0 0 * * *` (runs daily at midnight UTC / 8 AM MYT)
-
-### 5. Test the Function
+## Manual Testing
 
 ```bash
-# Invoke manually to test
-supabase functions invoke license-reminder
+curl -X POST https://your-project.supabase.co/functions/v1/license-reminder \
+  -H "Authorization: Bearer YOUR_SERVICE_ROLE_KEY" \
+  -H "Content-Type: application/json"
 ```
 
-## Email Configuration
+## Scheduled Execution
 
-- **From**: MY-Callbook <MY-Callbook@callbook.hamradio.my>
-- **Reminder intervals**: 90, 60, 30, 14, 7, 3, 1 days before expiry
-
-## Monitoring
-
-Check Edge Function logs in Supabase Dashboard:
-- **Edge Functions** → **license-reminder** → **Logs**
-
-Check Resend dashboard for email delivery stats:
-- https://resend.com/emails
+The function is scheduled to run daily at 8 AM MYT via pg_cron.
+See `sql/schedule-license-reminder.sql` for the cron configuration.

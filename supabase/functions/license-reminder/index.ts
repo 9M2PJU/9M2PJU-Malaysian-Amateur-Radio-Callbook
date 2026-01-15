@@ -11,6 +11,7 @@ interface CallsignRecord {
   name: string;
   email: string;
   expiry_date: string;
+  telegram_chat_id: string | null;
 }
 
 serve(async (req) => {
@@ -22,7 +23,8 @@ serve(async (req) => {
   try {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const resendApiKey = Deno.env.get("RESEND_API_KEY")!;
+    const resendApiKey = Deno.env.get("RESEND_API_KEY");
+    const telegramBotToken = Deno.env.get("TELEGRAM_BOT_TOKEN");
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
@@ -34,11 +36,10 @@ serve(async (req) => {
     const todayStr = today.toISOString().split("T")[0];
     const threeMonthsStr = threeMonthsFromNow.toISOString().split("T")[0];
 
-    // Find callsigns expiring in exactly 90 days that haven't been reminded
+    // Find callsigns expiring in the next 90 days
     const { data: expiringCallsigns, error: fetchError } = await supabase
       .from("callsigns")
-      .select("callsign, name, email, expiry_date")
-      .not("email", "is", null)
+      .select("callsign, name, email, expiry_date, telegram_chat_id")
       .not("expiry_date", "is", null)
       .gte("expiry_date", todayStr)
       .lte("expiry_date", threeMonthsStr);
@@ -49,57 +50,96 @@ serve(async (req) => {
 
     console.log(`Found ${expiringCallsigns?.length || 0} callsigns expiring within 3 months`);
 
-    const results: { callsign: string; status: string; daysUntil: number }[] = [];
+    const results: { callsign: string; status: string; daysUntil: number; channel: string }[] = [];
 
     for (const record of expiringCallsigns || []) {
       // Calculate days until expiry
       const expiryDate = new Date(record.expiry_date);
       const daysUntil = Math.ceil((expiryDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 
-      // Only send at specific intervals: 90, 60, 30, 14, 7, 3, 1 days
-      const reminderDays = [90, 60, 30, 14, 7, 3, 1];
-      if (!reminderDays.includes(daysUntil)) {
-        continue;
+      // Only send at specific intervals for Telegram: 90, 60, 30, 7, 1 days
+      const telegramReminderDays = [90, 60, 30, 7, 1];
+      // Email uses more intervals: 90, 60, 30, 14, 7, 3, 1 days
+      const emailReminderDays = [90, 60, 30, 14, 7, 3, 1];
+
+      // Send Telegram notification if chat_id exists and today is a Telegram reminder day
+      if (record.telegram_chat_id && telegramBotToken && telegramReminderDays.includes(daysUntil)) {
+        // Check if Telegram reminder already sent for this interval
+        const { data: telegramAlreadySent } = await supabase
+          .from("license_reminders_sent")
+          .select("id")
+          .eq("callsign", record.callsign)
+          .eq("days_before", daysUntil)
+          .eq("channel", "telegram")
+          .single();
+
+        if (!telegramAlreadySent) {
+          const telegramResult = await sendTelegramNotification(
+            telegramBotToken,
+            record,
+            daysUntil
+          );
+
+          if (telegramResult.success) {
+            // Record that we sent this Telegram reminder
+            await supabase.from("license_reminders_sent").insert({
+              callsign: record.callsign,
+              email: record.email || "telegram-only",
+              days_before: daysUntil,
+              channel: "telegram",
+            });
+
+            results.push({ callsign: record.callsign, status: "sent", daysUntil, channel: "telegram" });
+            console.log(`Sent Telegram reminder to ${record.callsign} (${daysUntil} days)`);
+          } else {
+            results.push({ callsign: record.callsign, status: `failed: ${telegramResult.error}`, daysUntil, channel: "telegram" });
+            console.error(`Failed Telegram to ${record.callsign}: ${telegramResult.error}`);
+          }
+        } else {
+          console.log(`Telegram reminder already sent for ${record.callsign} at ${daysUntil} days`);
+        }
       }
 
-      // Check if reminder already sent for this interval
-      const { data: alreadySent } = await supabase
-        .from("license_reminders_sent")
-        .select("id")
-        .eq("callsign", record.callsign)
-        .eq("days_before", daysUntil)
-        .single();
+      // Send email notification if email exists and today is an email reminder day
+      if (record.email && resendApiKey && emailReminderDays.includes(daysUntil)) {
+        // Check if email reminder already sent for this interval
+        const { data: emailAlreadySent } = await supabase
+          .from("license_reminders_sent")
+          .select("id")
+          .eq("callsign", record.callsign)
+          .eq("days_before", daysUntil)
+          .eq("channel", "email")
+          .single();
 
-      if (alreadySent) {
-        console.log(`Reminder already sent for ${record.callsign} at ${daysUntil} days`);
-        continue;
-      }
+        if (!emailAlreadySent) {
+          // Email is disabled to save quota
+          const EMAIL_ENABLED = false;
 
-      // Send email via Resend
-      // Disabled to save quota
-      const EMAIL_ENABLED = false;
+          if (!EMAIL_ENABLED) {
+            console.log(`[DISABLED] Skipping email to ${record.callsign} (${daysUntil} days)`);
+            results.push({ callsign: record.callsign, status: "disabled", daysUntil, channel: "email" });
+            continue;
+          }
 
-      if (!EMAIL_ENABLED) {
-        console.log(`[DISABLED] Skipping email to ${record.callsign} (${daysUntil} days)`);
-        results.push({ callsign: record.callsign, status: "disabled", daysUntil });
-        continue;
-      }
+          const emailResult = await sendReminderEmail(resendApiKey, record, daysUntil);
 
-      const emailResult = await sendReminderEmail(resendApiKey, record, daysUntil);
+          if (emailResult.success) {
+            await supabase.from("license_reminders_sent").insert({
+              callsign: record.callsign,
+              email: record.email,
+              days_before: daysUntil,
+              channel: "email",
+            });
 
-      if (emailResult.success) {
-        // Record that we sent this reminder
-        await supabase.from("license_reminders_sent").insert({
-          callsign: record.callsign,
-          email: record.email,
-          days_before: daysUntil,
-        });
-
-        results.push({ callsign: record.callsign, status: "sent", daysUntil });
-        console.log(`Sent reminder to ${record.callsign} (${daysUntil} days)`);
-      } else {
-        results.push({ callsign: record.callsign, status: `failed: ${emailResult.error}`, daysUntil });
-        console.error(`Failed to send to ${record.callsign}: ${emailResult.error}`);
+            results.push({ callsign: record.callsign, status: "sent", daysUntil, channel: "email" });
+            console.log(`Sent email reminder to ${record.callsign} (${daysUntil} days)`);
+          } else {
+            results.push({ callsign: record.callsign, status: `failed: ${emailResult.error}`, daysUntil, channel: "email" });
+            console.error(`Failed email to ${record.callsign}: ${emailResult.error}`);
+          }
+        } else {
+          console.log(`Email reminder already sent for ${record.callsign} at ${daysUntil} days`);
+        }
       }
     }
 
@@ -125,6 +165,73 @@ serve(async (req) => {
   }
 });
 
+/**
+ * Send Telegram notification using Bot API
+ */
+async function sendTelegramNotification(
+  botToken: string,
+  record: CallsignRecord,
+  daysUntil: number
+): Promise<{ success: boolean; error?: string }> {
+  const expiryDate = new Date(record.expiry_date).toLocaleDateString("en-MY", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  const urgencyEmoji = daysUntil <= 7 ? "🚨" : daysUntil <= 30 ? "⚠️" : "📋";
+  const urgencyText = daysUntil <= 7 ? "URGENT" : daysUntil <= 30 ? "REMINDER" : "NOTICE";
+
+  const message = `
+${urgencyEmoji} *${urgencyText}: License Expiry Alert*
+
+📻 *Callsign:* \`${record.callsign}\`
+👤 *Name:* ${record.name}
+📅 *Expiry Date:* ${expiryDate}
+⏳ *Days Remaining:* ${daysUntil}
+
+${daysUntil <= 7
+      ? "Your license is about to expire! Please renew immediately."
+      : daysUntil <= 30
+        ? "Your license will expire soon. Consider renewing now."
+        : "This is a friendly reminder to plan your license renewal."}
+
+🔗 [Renew at MCMC eSpectra](https://espectra.mcmc.gov.my/)
+
+---
+_This is an automated reminder from [MY-Callbook](https://callbook.hamradio.my)_
+`;
+
+  try {
+    const response = await fetch(
+      `https://api.telegram.org/bot${botToken}/sendMessage`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: record.telegram_chat_id,
+          text: message,
+          parse_mode: "Markdown",
+          disable_web_page_preview: true,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!data.ok) {
+      return { success: false, error: data.description || "Unknown Telegram error" };
+    }
+
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+}
+
+/**
+ * Send email reminder via Resend
+ */
 async function sendReminderEmail(
   apiKey: string,
   record: CallsignRecord,

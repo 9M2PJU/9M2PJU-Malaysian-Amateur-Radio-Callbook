@@ -24,6 +24,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
         gridLocator: '',
         aprsCallsign: '',
         expiryDate: '',
+        telegramChatId: '',
         botField: '', // Honeypot
     });
     const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
@@ -54,6 +55,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                     gridLocator: initialData.gridLocator || '',
                     aprsCallsign: initialData.aprsCallsign || '',
                     expiryDate: initialData.expiryDate || '',
+                    telegramChatId: initialData.telegramChatId || '',
                     botField: ''
                 });
 
@@ -216,6 +218,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                         grid_locator: formData.gridLocator || null,
                         aprs_callsign: formData.aprsCallsign || null,
                         expiry_date: formData.expiryDate || null,
+                        telegram_chat_id: formData.telegramChatId || null,
                     });
 
                 // Use ID if available (more robust), otherwise fallback to original callsign
@@ -254,6 +257,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                         grid_locator: formData.gridLocator || null,
                         aprs_callsign: formData.aprsCallsign || null,
                         expiry_date: formData.expiryDate || null,
+                        telegram_chat_id: formData.telegramChatId || null,
                         added_date: new Date().toISOString().split('T')[0],
                         user_id: user?.id || null // Link to auth user
                     });
@@ -395,6 +399,30 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                                 required
                             />
 
+                        </div>
+
+                        <div style={{ marginBottom: '20px' }}>
+                            <label style={labelStyle}>Telegram Chat ID (Optional)</label>
+                            <input
+                                type="text"
+                                name="telegramChatId"
+                                value={formData.telegramChatId}
+                                onChange={handleChange}
+                                placeholder="e.g. 123456789"
+                                style={inputStyle}
+                            />
+                            <small style={{ color: 'var(--text-muted)', display: 'block', marginTop: '4px' }}>
+                                📱 Receive license expiry reminders via Telegram at 90, 60, 30, 7, and 1 day before expiry.
+                                Get your Chat ID from{' '}
+                                <a
+                                    href="https://t.me/userinfobot"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{ color: 'var(--primary)' }}
+                                >
+                                    @userinfobot
+                                </a>
+                            </small>
                         </div>
 
                         <div style={{ marginBottom: '20px' }}>
@@ -589,8 +617,6 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                                 Your Meshtastic device node ID (starts with !)
                             </small>
                         </div>
-
-
 
                         <div style={{ marginBottom: '20px' }}>
                             <label style={labelStyle}>Security Check</label>
