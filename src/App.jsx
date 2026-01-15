@@ -45,7 +45,6 @@ function Directory() {
     const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);
     const [totalCount, setTotalCount] = useState(0);
-    const [recentCount, setRecentCount] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -69,26 +68,10 @@ function Directory() {
     const ITEMS_PER_PAGE = 50;
 
     useEffect(() => {
-        // Initial fetch - v1.1 refresh
+        // Initial fetch
         console.log('App Initializing...');
         fetchCallsigns(0, searchTerm, filters, true);
-        fetchRecentCount();
     }, []);
-
-    // Fetch count of entries added in last 30 days
-    const fetchRecentCount = async () => {
-        try {
-            const thirtyDaysAgo = new Date();
-            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-            const { count, error } = await supabase
-                .from('callsigns')
-                .select('*', { count: 'exact', head: true })
-                .gte('added_date', thirtyDaysAgo.toISOString().split('T')[0]);
-            if (!error) setRecentCount(count || 0);
-        } catch (err) {
-            console.error('Error fetching recent count:', err);
-        }
-    };
 
     // Listen for reset filters event from Navbar home button
     useEffect(() => {
@@ -350,9 +333,9 @@ function Directory() {
                     </p>
                 </div>
 
-                {/* Statistics Dashboard - Note: Only shows stats for loaded data now to prevent scraping */}
+                {/* Statistics Dashboard - fetches realtime stats from database */}
                 {!loading && !error && callsigns.length > 0 && (
-                    <StatsDashboard data={callsigns} totalCount={totalCount} recentCount={recentCount} />
+                    <StatsDashboard totalCount={totalCount} />
                 )}
 
                 {/* Advanced Search */}
