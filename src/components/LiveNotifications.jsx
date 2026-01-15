@@ -64,6 +64,9 @@ const LiveNotifications = () => {
 
     // 2. Setup Realtime Subscriptions
     useEffect(() => {
+        // REQUIRE LOGGED IN USER to see notifications
+        if (!user) return;
+
         // We need an identity to track presence effectively, but we can listen even without it.
         // If we are logged in, we want to broadcast our identity.
 
