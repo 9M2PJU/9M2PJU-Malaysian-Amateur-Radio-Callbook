@@ -413,6 +413,27 @@ END:VCARD`;
                                 {data.dmrId}
                             </div>
                         )}
+                        {data.meshtasticId && (
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                background: 'rgba(103, 232, 157, 0.1)',
+                                color: '#67e89d', // Meshtastic green
+                                padding: '4px 12px',
+                                borderRadius: '6px',
+                                fontSize: '0.9rem',
+                                fontWeight: '600',
+                                border: '1px solid rgba(103, 232, 157, 0.3)'
+                            }} title="Meshtastic Node">
+                                <img
+                                    src="/meshtastic-logo.png"
+                                    alt="Meshtastic"
+                                    style={{ width: '24px', height: '24px', borderRadius: '4px' }}
+                                />
+                                {data.meshtasticId}
+                            </div>
+                        )}
                         {data.martsId && (
                             <div style={{
                                 display: 'flex',
@@ -518,48 +539,8 @@ END:VCARD`;
                                 Military Veteran
                             </div>
                         )}
-                        {data.dmrId && (
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                background: 'rgba(255, 255, 255, 0.1)',
-                                color: '#e2e8f0', // Slate-200 for text
-                                padding: '4px 12px',
-                                borderRadius: '6px',
-                                fontSize: '0.9rem',
-                                fontWeight: '600',
-                                border: '1px solid rgba(255, 255, 255, 0.2)'
-                            }} title="DMR ID">
-                                <img
-                                    src="/dmr-logo.png"
-                                    alt="DMR Logo"
-                                    style={{ width: '40px', height: 'auto', borderRadius: '2px' }}
-                                />
-                                {data.dmrId}
-                            </div>
-                        )}
-                        {data.meshtasticId && (
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                background: 'rgba(103, 232, 157, 0.1)',
-                                color: '#67e89d', // Meshtastic green
-                                padding: '4px 12px',
-                                borderRadius: '6px',
-                                fontSize: '0.9rem',
-                                fontWeight: '600',
-                                border: '1px solid rgba(103, 232, 157, 0.3)'
-                            }} title="Meshtastic Node">
-                                <img
-                                    src="/meshtastic-logo.png"
-                                    alt="Meshtastic"
-                                    style={{ width: '24px', height: '24px', borderRadius: '4px' }}
-                                />
-                                {data.meshtasticId}
-                            </div>
-                        )}
+
+
                     </div>
                 )}
 
