@@ -352,195 +352,150 @@ END:VCARD`;
                 )}
 
                 {/* Social Media Section */}
-                {(data.facebook || data.qrz || data.dmrId || data.martsId || data.meshtasticId) && (
-                    <div style={{ display: 'flex', gap: '12px', marginTop: '8px', paddingTop: '8px', borderTop: '1px solid var(--glass-border)', flexWrap: 'wrap', alignItems: 'center' }}>
-                        {data.facebook && (
-                            <a href={data.facebook} target="_blank" rel="noopener noreferrer" style={{ color: '#1877f2', fontSize: '1.5rem' }} title="Facebook">
-                                <FaFacebook />
-                            </a>
-                        )}
-                        {data.qrz && (
-                            <a
-                                href={data.qrz}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={buttonStyle}
-                            >
-                                <img src="/qrz-logo.png" alt="QRZ" style={{ height: '16px', width: 'auto' }} />
-                            </a>
-                        )}
-                        {data.aprsCallsign && (
-                            <a
-                                href={`https://aprs.fi/#!call=a%2F${encodeURIComponent(data.aprsCallsign)}&timerange=3600&tail=3600`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                    ...buttonStyle,
-                                    background: 'rgba(59, 130, 246, 0.15)',
-                                    color: '#60a5fa',
-                                    border: '1px solid rgba(59, 130, 246, 0.3)',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '6px'
-                                }}
-                            >
-                                <img
-                                    src="/aprs-icon.png"
-                                    alt="APRS"
-                                    style={{ width: '20px', height: '20px', objectFit: 'contain' }}
-                                />
-                                Track (APRS.fi)
-                            </a>
-                        )}
-                        {data.dmrId && (
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                background: 'rgba(255, 255, 255, 0.1)',
-                                color: '#e2e8f0', // Slate-200 for text
-                                padding: '4px 12px',
-                                borderRadius: '6px',
-                                fontSize: '0.9rem',
-                                fontWeight: '600',
-                                border: '1px solid rgba(255, 255, 255, 0.2)'
-                            }} title="DMR ID">
-                                <img
-                                    src="/dmr-logo.png"
-                                    alt="DMR Logo"
-                                    style={{ width: '40px', height: 'auto', borderRadius: '2px' }}
-                                />
-                                {data.dmrId}
-                            </div>
-                        )}
-                        {data.meshtasticId && (
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                background: 'rgba(103, 232, 157, 0.1)',
-                                color: '#67e89d', // Meshtastic green
-                                padding: '4px 12px',
-                                borderRadius: '6px',
-                                fontSize: '0.9rem',
-                                fontWeight: '600',
-                                border: '1px solid rgba(103, 232, 157, 0.3)'
-                            }} title="Meshtastic Node">
-                                <img
-                                    src="/meshtastic-logo.png"
-                                    alt="Meshtastic"
-                                    style={{ width: '24px', height: '24px', borderRadius: '4px' }}
-                                />
-                                {data.meshtasticId}
-                            </div>
-                        )}
-                        {data.martsId && (
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                background: 'rgba(255, 235, 59, 0.1)',
-                                color: '#fbbf24', // Amber-400 for text
-                                padding: '4px 12px',
-                                borderRadius: '6px',
-                                fontSize: '0.9rem',
-                                fontWeight: '600',
-                                border: '1px solid rgba(251, 191, 36, 0.3)'
-                            }} title="MARTS Member">
-                                <img
-                                    src="/marts-logo.png"
-                                    alt="MARTS Logo"
-                                    style={{ width: '20px', height: 'auto' }}
-                                />
-                                MARTS #{data.martsId}
-                            </div>
-                        )}
-                        {data.isPpmMember && (
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                background: 'rgba(59, 78, 180, 0.2)', // PPM Blueish (based on logo)
-                                color: '#93c5fd', // Light blue text
-                                padding: '4px 12px',
-                                borderRadius: '6px',
-                                fontSize: '0.9rem',
-                                fontWeight: '600',
-                                border: '1px solid rgba(59, 130, 246, 0.3)'
-                            }} title="Persekutuan Pengakap Malaysia">
-                                <img
-                                    src="/ppm-logo.png"
-                                    alt="PPM Logo"
-                                    style={{ width: '24px', height: '24px', objectFit: 'contain' }}
-                                />
-                                PPM Member
-                            </div>
-                        )}
-                        {data.isBsmmMember && (
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                background: 'rgba(239, 68, 68, 0.15)', // Red tint
-                                color: '#fca5a5', // Light red text
-                                padding: '4px 12px',
-                                borderRadius: '6px',
-                                fontSize: '0.9rem',
-                                fontWeight: '600',
-                                border: '1px solid rgba(248, 113, 113, 0.3)'
-                            }} title="Malaysian Red Crescent">
-                                <img
-                                    src="/bsmm-logo.png"
-                                    alt="BSMM Logo"
-                                    style={{ width: '24px', height: '24px', objectFit: 'contain' }}
-                                />
-                                BSMM Member
-                            </div>
-                        )}
-                        {data.isPppmMember && (
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                background: 'rgba(37, 99, 235, 0.15)', // Blue tint
-                                color: '#93c5fd', // Light blue text
-                                padding: '4px 12px',
-                                borderRadius: '6px',
-                                fontSize: '0.9rem',
-                                fontWeight: '600',
-                                border: '1px solid rgba(96, 165, 250, 0.3)'
-                            }} title="Persatuan Pandu Puteri Malaysia">
-                                <img
-                                    src="/pppm-logo.png"
-                                    alt="PPPM Logo"
-                                    style={{ width: '24px', height: '24px', objectFit: 'contain' }}
-                                />
-                                PPPM Member
-                            </div>
-                        )}
-                        {data.isVeteran && (
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                background: 'rgba(75, 85, 99, 0.2)', // Gray/Metallic tint
-                                color: '#cbd5e1', // Slate-300
-                                padding: '4px 12px',
-                                borderRadius: '6px',
-                                fontSize: '0.9rem',
-                                fontWeight: '600',
-                                border: '1px solid rgba(148, 163, 184, 0.3)'
-                            }} title="Malaysian Armed Forces Veteran">
-                                <img
-                                    src="/jhev-logo.png"
-                                    alt="JHEV Logo"
-                                    style={{ width: '24px', height: '24px', objectFit: 'contain' }}
-                                />
-                                Military Veteran
-                            </div>
-                        )}
+                {/* Social Media & Badges Section */}
+                {(data.facebook || data.qrz || data.dmrId || data.martsId || data.meshtasticId || data.aprsCallsign || data.isPpmMember || data.isBsmmMember || data.isPppmMember || data.isVeteran) && (
+                    <div style={{ display: 'flex', gap: '8px', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid var(--glass-border)', flexWrap: 'wrap', alignItems: 'center' }}>
 
+                        {/* Define standard badge style for consistency */}
+                        {(() => {
+                            const standardBadgeStyle = {
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                padding: '6px 12px', // Standard padding
+                                borderRadius: '6px',
+                                fontSize: '0.85rem', // Standard font size
+                                fontWeight: '600',
+                                height: '34px',     // Fixed height for alignment
+                                textDecoration: 'none',
+                                boxSizing: 'border-box',
+                                transition: 'all 0.2s ease'
+                            };
 
+                            const badges = [
+                                {
+                                    show: data.facebook,
+                                    type: 'link',
+                                    href: data.facebook,
+                                    label: 'Facebook',
+                                    icon: <FaFacebook style={{ fontSize: '1.2rem' }} />,
+                                    style: { background: 'rgba(24, 119, 242, 0.1)', color: '#1877f2', border: '1px solid rgba(24, 119, 242, 0.2)' }
+                                },
+                                {
+                                    show: data.qrz,
+                                    type: 'link',
+                                    href: data.qrz,
+                                    label: 'QRZ.com',
+                                    image: '/qrz-logo.png',
+                                    style: { background: 'rgba(255, 255, 255, 0.1)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.2)' }
+                                },
+                                {
+                                    show: data.aprsCallsign,
+                                    type: 'link',
+                                    href: `https://aprs.fi/#!call=a%2F${encodeURIComponent(data.aprsCallsign)}&timerange=3600&tail=3600`,
+                                    label: 'Track (APRS.fi)',
+                                    image: '/aprs-icon.png',
+                                    style: { background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', border: '1px solid rgba(59, 130, 246, 0.3)' }
+                                },
+                                {
+                                    show: data.dmrId,
+                                    type: 'badge',
+                                    label: data.dmrId,
+                                    image: '/dmr-logo.png',
+                                    style: { background: 'rgba(255, 255, 255, 0.1)', color: '#e2e8f0', border: '1px solid rgba(255, 255, 255, 0.2)' },
+                                    imgStyle: { width: '40px', borderRadius: '2px' }
+                                },
+                                {
+                                    show: data.meshtasticId,
+                                    type: 'badge',
+                                    label: data.meshtasticId,
+                                    image: '/meshtastic-logo.png',
+                                    style: { background: 'rgba(103, 232, 157, 0.1)', color: '#67e89d', border: '1px solid rgba(103, 232, 157, 0.3)' },
+                                    imgStyle: { borderRadius: '4px' }
+                                },
+                                {
+                                    show: data.martsId,
+                                    type: 'badge',
+                                    label: `MARTS #${data.martsId}`,
+                                    image: '/marts-logo.png',
+                                    style: { background: 'rgba(255, 235, 59, 0.1)', color: '#fbbf24', border: '1px solid rgba(251, 191, 36, 0.3)' }
+                                },
+                                {
+                                    show: data.isPpmMember,
+                                    type: 'badge',
+                                    label: 'PPM Member',
+                                    image: '/ppm-logo.png',
+                                    style: { background: 'rgba(59, 78, 180, 0.2)', color: '#93c5fd', border: '1px solid rgba(59, 130, 246, 0.3)' }
+                                },
+                                {
+                                    show: data.isBsmmMember,
+                                    type: 'badge',
+                                    label: 'BSMM Member',
+                                    image: '/bsmm-logo.png',
+                                    style: { background: 'rgba(239, 68, 68, 0.15)', color: '#fca5a5', border: '1px solid rgba(248, 113, 113, 0.3)' }
+                                },
+                                {
+                                    show: data.isPppmMember,
+                                    type: 'badge',
+                                    label: 'PPPM Member',
+                                    image: '/pppm-logo.png',
+                                    style: { background: 'rgba(37, 99, 235, 0.15)', color: '#93c5fd', border: '1px solid rgba(96, 165, 250, 0.3)' }
+                                },
+                                {
+                                    show: data.isVeteran,
+                                    type: 'badge',
+                                    label: 'Military Veteran',
+                                    image: '/jhev-logo.png',
+                                    style: { background: 'rgba(75, 85, 99, 0.2)', color: '#cbd5e1', border: '1px solid rgba(148, 163, 184, 0.3)' }
+                                }
+                            ];
+
+                            return badges.filter(b => b.show).map((badge, index) => {
+                                const content = (
+                                    <>
+                                        {badge.icon && badge.icon}
+                                        {badge.image && (
+                                            <img
+                                                src={badge.image}
+                                                alt={badge.label}
+                                                style={{
+                                                    height: '20px',
+                                                    width: 'auto',
+                                                    objectFit: 'contain',
+                                                    ...badge.imgStyle
+                                                }}
+                                            />
+                                        )}
+                                        <span>{badge.label}</span>
+                                    </>
+                                );
+
+                                if (badge.type === 'link') {
+                                    return (
+                                        <a
+                                            key={index}
+                                            href={badge.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            style={{ ...standardBadgeStyle, ...badge.style }}
+                                            title={badge.label}
+                                        >
+                                            {content}
+                                        </a>
+                                    );
+                                }
+
+                                return (
+                                    <div
+                                        key={index}
+                                        style={{ ...standardBadgeStyle, ...badge.style }}
+                                        title={badge.label}
+                                    >
+                                        {content}
+                                    </div>
+                                );
+                            });
+                        })()}
                     </div>
                 )}
 
