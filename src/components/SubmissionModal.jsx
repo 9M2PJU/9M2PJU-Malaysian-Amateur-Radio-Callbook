@@ -424,17 +424,18 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                                 placeholder="e.g. 123456789"
                                 style={inputStyle}
                             />
-                            <small style={{ color: 'var(--text-muted)', display: 'block', marginTop: '4px' }}>
-                                📱 Receive license expiry reminders via Telegram at 90, 60, 30, 7, and 1 day before expiry.
-                                Get your Chat ID from{' '}
-                                <a
+                            <small style={{ color: 'var(--text-muted)', display: 'block', marginTop: '6px', lineHeight: '1.5', fontSize: '0.85rem' }}>
+                                <strong style={{ color: 'var(--secondary)' }}>How to get your numeric Chat ID:</strong><br />
+                                1. <a
                                     href="https://t.me/MYHamRadioCallbookBot"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    style={{ color: 'var(--primary)' }}
+                                    style={{ color: 'var(--primary)', fontWeight: 'bold', textDecoration: 'underline' }}
                                 >
-                                    @MYHamRadioCallbookBot
-                                </a>
+                                    Click here to open @MYHamRadioCallbookBot
+                                </a><br />
+                                2. In Telegram, tap <strong>START</strong> (or type <code>/start</code>).<br />
+                                3. The bot will reply with your ID. Copy that number and paste it here.
                             </small>
                         </div>
 
