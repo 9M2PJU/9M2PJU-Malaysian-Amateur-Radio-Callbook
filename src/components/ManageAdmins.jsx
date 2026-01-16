@@ -6,7 +6,7 @@ import Footer from './Footer';
 import { FaUserShield, FaTrash, FaPlus, FaSpinner } from 'react-icons/fa';
 
 const ManageAdmins = () => {
-    const { user, isSuperAdmin } = useAuth();
+    const { user, isSuperAdmin, isAdmin } = useAuth();
     const [admins, setAdmins] = useState([]);
     const [loading, setLoading] = useState(true);
     const [newEmail, setNewEmail] = useState('');
@@ -26,9 +26,11 @@ const ManageAdmins = () => {
     useEffect(() => {
         if (isSuperAdmin) {
             fetchAdmins();
+        }
+        if (isAdmin) {
             fetchDonators();
         }
-    }, [isSuperAdmin]);
+    }, [isSuperAdmin, isAdmin]);
 
     const fetchAdmins = async () => {
         try {
@@ -257,7 +259,7 @@ const ManageAdmins = () => {
         }
     };
 
-    if (!isSuperAdmin) {
+    if (!isAdmin) {
         return (
             <div className="min-h-screen">
                 <Navbar />
@@ -285,139 +287,145 @@ const ManageAdmins = () => {
                         alignItems: 'center',
                         gap: '12px'
                     }}>
-                        <FaUserShield /> Manage Admins
+                        <FaUserShield /> Admin Management
                     </h1>
                     <p style={{ color: 'var(--text-muted)' }}>
-                        Add or remove administrators who can edit any callsign.
+                        {isSuperAdmin ?
+                            'Add or remove administrators who can edit any callsign.' :
+                            'Only super admin can manage administrators. You can manage donator badges below.'
+                        }
                     </p>
                 </div>
 
-                {/* Add Admin Form */}
-                <div className="glass-panel" style={{ padding: '24px', marginBottom: '24px', maxWidth: '500px' }}>
-                    <h3 style={{ color: '#fff', marginTop: 0, marginBottom: '16px' }}>Add New Admin</h3>
+                {/* Add Admin Form - Super Admin Only */}
+                {isSuperAdmin && (
+                    <div className="glass-panel" style={{ padding: '24px', marginBottom: '24px', maxWidth: '500px' }}>
+                        <h3 style={{ color: '#fff', marginTop: 0, marginBottom: '16px' }}>Add New Admin</h3>
 
-                    {error && (
-                        <div style={{
-                            background: 'rgba(255, 0, 0, 0.1)',
-                            border: '1px solid #ff4444',
-                            borderRadius: '8px',
-                            padding: '12px',
-                            marginBottom: '16px',
-                            color: '#ff6666'
-                        }}>
-                            {error}
-                        </div>
-                    )}
-
-                    {success && (
-                        <div style={{
-                            background: 'rgba(34, 197, 94, 0.1)',
-                            border: '1px solid #22c55e',
-                            borderRadius: '8px',
-                            padding: '12px',
-                            marginBottom: '16px',
-                            color: '#22c55e'
-                        }}>
-                            {success}
-                        </div>
-                    )}
-
-                    <form onSubmit={handleAddAdmin} style={{ display: 'flex', gap: '12px' }}>
-                        <input
-                            type="email"
-                            value={newEmail}
-                            onChange={(e) => setNewEmail(e.target.value)}
-                            placeholder="admin@example.com"
-                            style={{
-                                flex: 1,
+                        {error && (
+                            <div style={{
+                                background: 'rgba(255, 0, 0, 0.1)',
+                                border: '1px solid #ff4444',
+                                borderRadius: '8px',
                                 padding: '12px',
-                                borderRadius: '8px',
-                                border: '1px solid var(--glass-border)',
-                                background: 'rgba(255,255,255,0.05)',
-                                color: '#fff',
-                                fontSize: '1rem'
-                            }}
-                        />
-                        <button
-                            type="submit"
-                            disabled={adding}
-                            style={{
-                                padding: '12px 24px',
-                                background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)',
-                                border: 'none',
-                                borderRadius: '8px',
-                                color: '#000',
-                                fontWeight: 'bold',
-                                cursor: adding ? 'wait' : 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px'
-                            }}
-                        >
-                            {adding ? <FaSpinner className="spin" /> : <FaPlus />}
-                            Add
-                        </button>
-                    </form>
-                </div>
+                                marginBottom: '16px',
+                                color: '#ff6666'
+                            }}>
+                                {error}
+                            </div>
+                        )}
 
-                {/* Admin List */}
-                <div className="glass-panel" style={{ padding: '24px' }}>
-                    <h3 style={{ color: '#fff', marginTop: 0, marginBottom: '16px' }}>
-                        Current Admins ({admins.length})
-                    </h3>
+                        {success && (
+                            <div style={{
+                                background: 'rgba(34, 197, 94, 0.1)',
+                                border: '1px solid #22c55e',
+                                borderRadius: '8px',
+                                padding: '12px',
+                                marginBottom: '16px',
+                                color: '#22c55e'
+                            }}>
+                                {success}
+                            </div>
+                        )}
 
-                    {loading ? (
-                        <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
-                            <FaSpinner className="spin" /> Loading...
-                        </div>
-                    ) : admins.length === 0 ? (
-                        <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
-                            No admins added yet. Add an admin above.
-                        </div>
-                    ) : (
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                            {admins.map((admin) => (
-                                <div
-                                    key={admin.id}
-                                    style={{
-                                        display: 'flex',
-                                        justifyContent: 'space-between',
-                                        alignItems: 'center',
-                                        padding: '16px',
-                                        background: 'rgba(255,255,255,0.03)',
-                                        borderRadius: '8px',
-                                        border: '1px solid var(--glass-border)'
-                                    }}
-                                >
-                                    <div>
-                                        <div style={{ color: '#fff', fontWeight: '500' }}>{admin.email}</div>
-                                        <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-                                            Added {new Date(admin.created_at).toLocaleDateString()}
-                                            {admin.created_by && ` by ${admin.created_by}`}
-                                        </div>
-                                    </div>
-                                    <button
-                                        onClick={() => handleRemoveAdmin(admin.email)}
+                        <form onSubmit={handleAddAdmin} style={{ display: 'flex', gap: '12px' }}>
+                            <input
+                                type="email"
+                                value={newEmail}
+                                onChange={(e) => setNewEmail(e.target.value)}
+                                placeholder="admin@example.com"
+                                style={{
+                                    flex: 1,
+                                    padding: '12px',
+                                    borderRadius: '8px',
+                                    border: '1px solid var(--glass-border)',
+                                    background: 'rgba(255,255,255,0.05)',
+                                    color: '#fff',
+                                    fontSize: '1rem'
+                                }}
+                            />
+                            <button
+                                type="submit"
+                                disabled={adding}
+                                style={{
+                                    padding: '12px 24px',
+                                    background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)',
+                                    border: 'none',
+                                    borderRadius: '8px',
+                                    color: '#000',
+                                    fontWeight: 'bold',
+                                    cursor: adding ? 'wait' : 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px'
+                                }}
+                            >
+                                {adding ? <FaSpinner className="spin" /> : <FaPlus />}
+                                Add
+                            </button>
+                        </form>
+                    </div>
+                )}
+
+                {/* Admin List - Super Admin Only */}
+                {isSuperAdmin && (
+                    <div className="glass-panel" style={{ padding: '24px' }}>
+                        <h3 style={{ color: '#fff', marginTop: 0, marginBottom: '16px' }}>
+                            Current Admins ({admins.length})
+                        </h3>
+
+                        {loading ? (
+                            <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
+                                <FaSpinner className="spin" /> Loading...
+                            </div>
+                        ) : admins.length === 0 ? (
+                            <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
+                                No admins added yet. Add an admin above.
+                            </div>
+                        ) : (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                {admins.map((admin) => (
+                                    <div
+                                        key={admin.id}
                                         style={{
-                                            background: 'rgba(239, 68, 68, 0.2)',
-                                            border: '1px solid rgba(239, 68, 68, 0.4)',
-                                            color: '#ef4444',
-                                            padding: '8px 16px',
-                                            borderRadius: '6px',
-                                            cursor: 'pointer',
                                             display: 'flex',
+                                            justifyContent: 'space-between',
                                             alignItems: 'center',
-                                            gap: '6px',
-                                            fontWeight: '500'
+                                            padding: '16px',
+                                            background: 'rgba(255,255,255,0.03)',
+                                            borderRadius: '8px',
+                                            border: '1px solid var(--glass-border)'
                                         }}
                                     >
-                                        <FaTrash /> Remove
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
+                                        <div>
+                                            <div style={{ color: '#fff', fontWeight: '500' }}>{admin.email}</div>
+                                            <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                                                Added {new Date(admin.created_at).toLocaleDateString()}
+                                                {admin.created_by && ` by ${admin.created_by}`}
+                                            </div>
+                                        </div>
+                                        <button
+                                            onClick={() => handleRemoveAdmin(admin.email)}
+                                            style={{
+                                                background: 'rgba(239, 68, 68, 0.2)',
+                                                border: '1px solid rgba(239, 68, 68, 0.4)',
+                                                color: '#ef4444',
+                                                padding: '8px 16px',
+                                                borderRadius: '6px',
+                                                cursor: 'pointer',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '6px',
+                                                fontWeight: '500'
+                                            }}
+                                        >
+                                            <FaTrash /> Remove
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
 
                 {/* Info Box */}
                 <div style={{
@@ -432,6 +440,7 @@ const ManageAdmins = () => {
                         <strong>Super Admin:</strong> Only you (9m2pju@hamradio.my) can delete callsigns and manage admins.
                     </p>
                 </div>
+                )}
 
                 {/* Donator Management Section */}
                 <div style={{ marginTop: '60px' }}>
