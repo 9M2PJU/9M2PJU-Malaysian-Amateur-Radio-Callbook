@@ -27,22 +27,22 @@ const isRecentlyAdded = (addedDate) => {
 import { MALAYSIAN_STATES } from '../constants';
 
 const STATE_FLAGS = {
-    'JOHOR': 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Flag_of_Johor.svg',
-    'KEDAH': 'https://upload.wikimedia.org/wikipedia/commons/c/cc/Flag_of_Kedah.svg',
-    'KELANTAN': 'https://upload.wikimedia.org/wikipedia/commons/6/61/Flag_of_Kelantan.svg',
-    'MELAKA': 'https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_Malacca.svg',
-    'NEGERI SEMBILAN': 'https://upload.wikimedia.org/wikipedia/commons/d/db/Flag_of_Negeri_Sembilan.svg',
-    'PAHANG': 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Flag_of_Pahang.svg',
-    'PERAK': 'https://upload.wikimedia.org/wikipedia/commons/8/87/Flag_of_Perak.svg',
-    'PERLIS': '/flag-perlis.svg',
-    'PULAU PINANG': 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Penang_%28Malaysia%29.svg',
-    'SABAH': 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Flag_of_Sabah.svg',
-    'SARAWAK': 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Flag_of_Sarawak.svg',
-    'SELANGOR': 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Flag_of_Selangor.svg',
-    'TERENGGANU': 'https://upload.wikimedia.org/wikipedia/commons/6/6b/Flag_of_Terengganu.svg',
-    'KUALA LUMPUR': '/flag-kuala-lumpur.svg',
-    'LABUAN': 'https://upload.wikimedia.org/wikipedia/commons/0/06/Flag_of_Labuan.svg',
-    'PUTRAJAYA': 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Putrajaya.svg'
+    'JOHOR': '/flags/flag-johor.svg',
+    'KEDAH': '/flags/flag-kedah.svg',
+    'KELANTAN': '/flags/flag-kelantan.svg',
+    'MELAKA': '/flags/flag-melaka.svg',
+    'NEGERI SEMBILAN': '/flags/flag-negeri-sembilan.svg',
+    'PAHANG': '/flags/flag-pahang.svg',
+    'PERAK': '/flags/flag-perak.svg',
+    'PERLIS': '/flags/flag-perlis.svg',
+    'PULAU PINANG': '/flags/flag-pulau-pinang.svg',
+    'SABAH': '/flags/flag-sabah.svg',
+    'SARAWAK': '/flags/flag-sarawak.svg',
+    'SELANGOR': '/flags/flag-selangor.svg',
+    'TERENGGANU': '/flags/flag-terengganu.svg',
+    'KUALA LUMPUR': '/flags/flag-kuala-lumpur.svg',
+    'LABUAN': '/flags/flag-labuan.svg',
+    'PUTRAJAYA': '/flags/flag-putrajaya.svg'
 };
 
 const Card = ({ data, onEdit, onDelete }) => {
