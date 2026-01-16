@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Turnstile from 'react-turnstile';
 import { useAuth } from './AuthContext';
 import { FaLock, FaEnvelope, FaSpinner, FaUser } from 'react-icons/fa';
 
@@ -14,24 +15,7 @@ const Register = () => {
     const [loading, setLoading] = useState(false);
     const [captchaToken, setCaptchaToken] = useState('');
 
-    React.useEffect(() => {
-        const interval = setInterval(() => {
-            if (window.turnstile) {
-                clearInterval(interval);
-                try {
-                    window.turnstile.render('#turnstile-container', {
-                        sitekey: '0x4AAAAAACM4A9z-qhrcwAcp',
-                        callback: function (token) {
-                            setCaptchaToken(token);
-                        },
-                    });
-                } catch (e) {
-                    console.error('Turnstile render error:', e);
-                }
-            }
-        }, 100);
-        return () => clearInterval(interval);
-    }, []);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -214,6 +198,15 @@ const Register = () => {
                                     placeholder="Confirm password"
                                 />
                             </div>
+                        </div>
+
+                        {/* Turnstile / Captcha */}
+                        <div style={{ marginBottom: '25px', display: 'flex', justifyContent: 'center' }}>
+                            <Turnstile
+                                sitekey="0x4AAAAAACM4A9z-qhrcwAcp"
+                                onVerify={setCaptchaToken}
+                                theme="dark"
+                            />
                         </div>
 
                         <button
