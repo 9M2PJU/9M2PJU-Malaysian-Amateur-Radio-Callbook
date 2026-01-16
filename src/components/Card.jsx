@@ -18,9 +18,9 @@ const getLicenseClass = (callsign) => {
 const isRecentlyAdded = (addedDate) => {
     if (!addedDate) return false;
     const added = new Date(addedDate);
-    const oneDayAgo = new Date();
-    oneDayAgo.setDate(oneDayAgo.getDate() - 1);
-    return added >= oneDayAgo;
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    return added >= sevenDaysAgo;
 };
 
 
