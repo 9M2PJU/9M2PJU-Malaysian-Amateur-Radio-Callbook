@@ -1,61 +1,104 @@
 <div align="center">
 
-  <img src="public/icon-512.png" alt="MY-Callbook Logo" width="140" height="auto" />
+  <img src="public/icon-512.png" alt="MY-Callbook Logo" width="160" height="auto" />
 
   # 🇲🇾 Malaysian Amateur Radio Callbook
   
-  **The Modern Interactive Directory for Malaysian Ham Radio Operators**
+  **The Modern, Interactive, and Definitive Directory for Malaysian Ham Radio Operators**
 
-  [![Live Site](https://img.shields.io/badge/🌐_Live_Site-callbook.hamradio.my-2563EB?style=for-the-badge)](https://callbook.hamradio.my)
+  [![Live Site](https://img.shields.io/badge/🌐_Live_Site-callbook.hamradio.my-2563EB?style=for-the-badge&logo=google-chrome&logoColor=white)](https://callbook.hamradio.my)
   [![GitHub Pages](https://img.shields.io/badge/Hosted_on-GitHub_Pages-222222?style=for-the-badge&logo=github)](https://callbook.hamradio.my)
+  [![License](https://img.shields.io/badge/License-GPLv3-22c55e?style=for-the-badge&logo=gnu-bash&logoColor=white)](LICENSE)
+  [![Status](https://img.shields.io/badge/Status-Active_Development-orange?style=for-the-badge)](https://github.com/9M2PJU/9M2PJU-Malaysian-Amateur-Radio-Call-Book)
 
-  [![React](https://img.shields.io/badge/React-19.x-61DAFB?style=flat-square&logo=react&logoColor=white)](https://react.dev/)
-  [![Vite](https://img.shields.io/badge/Vite-7.x-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
-  [![Supabase](https://img.shields.io/badge/Supabase-Database-3ecf8e?style=flat-square&logo=supabase&logoColor=white)](https://supabase.com/)
-  [![License](https://img.shields.io/badge/License-GPLv3-22c55e?style=flat-square)](LICENSE)
+  [![React](https://img.shields.io/badge/React_19-20232A?style=flat-square&logo=react&logoColor=61DAFB)](https://react.dev/)
+  [![Vite](https://img.shields.io/badge/Vite_7-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
+  [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white)](https://supabase.com/)
+  [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+  [![PWA](https://img.shields.io/badge/PWA-Ready-5A0FC8?style=flat-square&logo=pwa&logoColor=white)](https://web.dev/progressive-web-apps/)
 
-  <p><em>A sleek, glassmorphism-styled directory for the Malaysian amateur radio community</em></p>
+  <p><em>A sleek, glassmorphism-styled, and community-driven directory meticulously crafted for the Malaysian amateur radio community. Built to be resilient, free, and forever accessible.</em></p>
 
 </div>
 
 ---
 
-## ✨ Features
+## 📖 Introduction
 
-### 🔍 Intelligent Search & Discovery
-*   **Advanced Filtering**: precise search by Callsign, Name, State (Location), and License Class (A/B/C).
-*   **Instant Results**: Optimized query performance for rapid lookups.
-*   **License Indicators**: Visual cues for Active 🟢, Expiring 🟠, and Expired 🔴 statuses.
+Welcome to the **Malaysian Amateur Radio Callbook**, a next-generation directory designed to connect ham radio operators across Malaysia. This project goes beyond a simple list; it is a **comprehensive platform** built with the latest web technologies to provide a fast, secure, and beautiful user experience. Whether you are a veteran operator or a newly licensed ham, this platform is your gateway to the local community.
 
-### 🔐 Secure Identity & Access
-*   **Supabase Auth**: Robust email/password authentication flow.
-*   **User Management**: Complete 'Forgot Password' and 'Change Password' workflows.
-*   **Role-Based Access**: Protected routes ensuring only owners can edit their data.
-*   **Anti-Spam**: Cloudflare Turnstile integration for bot-free authentication.
-*   **Auto-Logout**: Inactivity timer (5 minutes) automatically signs out idle sessions for security.
+Our mission is simple yet ambitious: **"To build a digital legacy that lasts forever, for free."**
 
-### 📡 Operator Portfolio
-*   **My Callsigns**: A private dashboard to manage your submitted stations.
-*   **vCard Export**: One-click download to save operator details directly to phone contacts.
-*   **Social Connectivity**: Link your QRZ.com, Facebook, Website, and **Telegram** profiles.
-*   **Telegram Integration**: Add your Telegram username (displayed with clickable link) and Chat ID for license expiry reminders.
+---
 
-### 📊 Live Analytics
-*   **Real-Time Dashboard**: Live counter of total operators and daily registrations.
-*   **Data Visualization**: Breakdown of operators by License Class (9M vs 9W) and Top 5 Locations.
+## ✨ Key Features
 
-### 📱 Modern User Experience
-*   **Glassmorphism Design**: A premium, translucent aesthetic inspired by macOS/Windows 11.
-*   **Fully Responsive**: Flawless experience on mobile phones, tablets, and desktops.
-*   **Interactive Modals**: Smooth transitions for data entry and user updates.
+### 🔍 **Intelligent Search & Discovery**
+Experience a search engine that thinks like you do.
+*   **Precision Filtering**: Drill down deep using advanced filters for **Callsign**, **Name**, **State (Location)**, and even **License Class** (Class A, B, or C).
+*   **Instantaneous Results**: Engineered for speed, our optimized query engine delivers search results in milliseconds, no matter how large the database grows.
+*   **Visual Status Indicators**: At a glance, know who is active. We use intuitive visual cues—🟢 **Active**, 🟠 **Expiring Soon**, and 🔴 **Expired**—so you always have the most current information.
 
-### ⚡ Performance Optimizations
-*   **Lazy Loading**: Routes (Login, Register, MyCallsigns, etc.) are loaded on-demand using `React.lazy()`, reducing initial bundle size by ~30KB.
-*   **Code Splitting**: Vite automatically creates separate chunks for lazy-loaded components, improving first contentful paint.
-*   **React.memo**: Card components are memoized to prevent unnecessary re-renders when scrolling through the directory.
-*   **Suspense Boundaries**: Loading spinners are shown while lazy components are being fetched for smooth UX.
-*   **Infinite Scroll**: Uses Intersection Observer API to automatically load more data as users scroll, eliminating the need for "Load More" buttons.
-*   **Optimized Queries**: Supabase queries use pagination (50 items/page) to reduce payload size and improve response times.
+### 🔐 **Secure Identity & Access Management**
+Your privacy and security are our top priorities.
+*   **Robust Authentication**: Powered by **Supabase Auth**, we offer a secure, industry-standard email/password login flow.
+*   **Self-Service Management**: Forgot your password? Need to update your credentials? Our complete **'Forgot Password'** and **'Change Password'** workflows put you in control.
+*   **Role-Based Access Control (RBAC)**: We implement strict RLS (Row Level Security) policies, ensuring that **only you** can edit your personal data.
+*   **Advanced Anti-Spam**: We integrate **Cloudflare Turnstile**, a smart, invisible CAPTCHA alternative, to keeping bots and spam at bay without annoying real users.
+*   **Security Automation**: An intelligent **Auto-Logout** feature terminates idle sessions after 5 minutes, protecting your account even if you walk away from your screen.
+
+### 📡 **Operator Portfolio & Social Connectivity**
+More than just a callsign—it's your digital amateur radio identity.
+*   **My Callsigns Dashboard**: A dedicated private command center to manage, update, and curate all your submitted station details.
+*   **vCard Export**: Networking made easy. With a generic **One-Click Download**, fellow operators can save your contact details directly to their phone's address book.
+*   **Social & Mesh Integration**: Seamlessly link your digital presence. Connect your **QRZ.com** page, **Facebook** profile, personal **Website**, and even your **Telegram** account.
+*   **Telegram Integration**: Display your **Telegram Username** with a direct clickable link, and link your **Chat ID** to receive automated notifications and future license expiry reminders directly on your phone.
+
+### 📊 **Live Analytics & Insights**
+Keep your finger on the pulse of the community.
+*   **Real-Time Dashboard**: Watch the community grow live. See a dynamic counter of total registered operators and track daily registrations as they happen.
+*   **Data Visualization**: Gain insights with beautiful breakdowns of operators by **License Class** (9M vs 9W) and discover the **Top 5 Locations** with the highest density of hams.
+
+### 📱 **Modern User Experience (UX/UI)**
+Designed to delight, built to perform.
+*   **Glassmorphism Aesthetic**: We've adopted a premium, translucent design language inspired by modern OS interfaces (macOS/Windows 11), creating a visual depth that looks stunning on any background.
+*   **Progressive Web App (PWA)**: Install this website as a native-like app on your smartphone or desktop. works offline, loads instantly, and feels like a real app.
+*   **Fully Responsive**: From the smallest smartphone to the largest ultra-wide monitor, our layout adapts fluidly to provide a flawless experience.
+*   **Interactive Modals**: Data entry doesn't have to be boring. We use smooth, animated transitions for all our forms and dialogs.
+
+### ⚡ **Extreme Performance Optimizations**
+We are obsessed with speed.
+*   **Lazy Loading Strategy**: We utilize `React.lazy()` to load major routes (Login, Register, Dashboard) only when you need them, slashing the initial bundle size by over **30%**.
+*   **Smart Code Splitting**: Vite automatically chunks our code, ensuring the browser only downloads exactly what is needed for the current screen, drastically improving the **First Contentful Paint (FCP)**.
+*   **Component Memoization**: Heavy components are optimized with `React.memo` to prevent wasted rendering cycles, ensuring buttery smooth scrolling even through thousands of records.
+*   **Suspense Boundaries**: We handle loading states gracefully. Instead of blank screens, you see polished loading spinners while content is fetched in the background.
+*   **Infinite Scroll**: Say goodbye to "Next Page" buttons. We use the **Intersection Observer API** to automagically load more operators as you scroll, creating an uninterrupted browsing flow.
+*   **Optimized Database Queries**: Our Supabase queries are strictly paginated (50 items/batch), ensuring network payloads remain tiny and response times remain lightning fast.
+
+---
+
+## 📜 Release History
+
+Stay up to date with the latest evolution of the platform.
+
+### **v2.2.9** (Latest) - *2026-01-16*
+*   **Refinement**: Reverted "New User Badge" logic to standard 30-day duration.
+*   **Adjustment**: Reverted dashboard statistics to reflect a 30-day window.
+
+### **v2.2.0** - *2026-01-16*
+*   **Major Feature**: Launched **Smart Popups** for easier app installation and donations.
+*   **UX Upgrade**: Implemented persistent "Install App" prompt for mobile users and unobtrusive desktop notifications.
+
+### **v2.1.0** - *2026-01-16*
+*   **Security**: Added **Cloudflare Turnstile** to all auth forms.
+*   **Admin Tools**: Introduced `backup-db.sh` for secure local data backups.
+
+### **v2.0.0** - *2026-01-16*
+*   **Major Milestone**: Full **Progressive Web App (PWA)** support.
+*   **Notifications**: Real-time live activity notifications for user presence and database changes.
+*   **Design**: Complete overhaul with dark glassmorphism theme.
+
+*(See [`CHANGELOG.md`](CHANGELOG.md) for the complete history.)*
 
 ---
 
@@ -63,15 +106,16 @@
 
 > *"We built this to last forever, for free."*
 
-This project was architected by **9M2PJU** with a specific mission: to provide a modern, interactive callbook for the Malaysian Amateur Radio community that can run **indefinitely without incurring monthly costs**. 
+This project was architected by **9M2PJU** with a singular, unwavering vision: to provide a state-of-the-art, interactive callbook for the Malaysian Amateur Radio community that can run **indefinitely without incurring monthly costs**. 
 
-Every technical decision was made to ensure sustainability, preventing the project from disappearing due to lack of funding or server maintenance.
+Every single technical decision, from the database choice to the hosting platform, was made with **sustainability** in mind. We engineered this system to effectively "live forever" on the internet, preventing it from suffering the fate of many community projects that disappear due to lack of funding or server maintenance.
 
 ### 🏛️ The "Zero-Cost" Architecture
-We utilize the generous free tiers of modern cloud infrastructure to guarantee longevity:
-*   **Database (Supabase)**: We store text-based callsign data. With ~11k records currently, we utilize **< 6%** of the free 500MB limit. This capacity allows the directory to grow to **100,000+ operators** (sufficient for the next 10-20 years) without needing a paid plan.
-*   **Hosting (Vercel)**: The frontend is static and cached globally. It handles traffic effortlessly within the 100GB/month bandwidth limit.
-*   **Authentication**: Supabase Auth handles up to 50,000 monthly active users, far exceeding the size of our local community.
+We leverage the incredibly generous free tiers of modern cloud infrastructure to guarantee longevity:
+
+1.  **Database (Supabase)**: We store efficient text-based callsign data. With approximately **11,000 records** currently, we utilize **less than 6%** of the free 500MB limit. This massive capacity headroom allows the directory to grow to **100,000+ operators**—sufficient for the next 10-20 years of growth—without ever needing a paid plan.
+2.  **Hosting (Vercel)**: The frontend is a static site cached globally. It handles high traffic volumes effortlessly within the generous 100GB/month bandwidth limit.
+3.  **Authentication**: Supabase Auth handles up to **50,000 monthly active users**, a number far exceeding the total size of our diverse local community.
 
 ```mermaid
 graph TD
@@ -94,55 +138,59 @@ graph TD
 ```
 
 ### ⚠️ The Disabled Email System (Important)
-We built a fully functional **License Expiry Reminder System** (`supabase/functions/license-reminder`), designed to notify operators when their license is expiring (90, 60, 30, 14, 7, 3, 1 days before).
+We built a fully functional **License Expiry Reminder System** (`supabase/functions/license-reminder`), intelligently designed to automatically notify operators when their license is expiring (at intervals of 90, 60, 30, 14, 7, 3, and 1 days before).
 
 **However, we have intentionally DISABLED this feature (`const EMAIL_ENABLED = false`).**
 
 **Why?**
-The email service (Resend) provides **100 free emails/day**.
-*   With 11,000 operators, we average ~42 reminder emails/day.
-*   **The Risk**: If many licenses expire on the same day (a "cluster" event), the system would attempt to send >100 emails, hit the limit, and fail.
-*   **The Decision**: To protect the project's free status, we disabled this potentially volatile feature. We prioritized **system stability** over this convenience feature.
+The email service provider (Resend) provides **100 free emails per day**.
+*   **The Math**: With 11,000 operators, we average ~42 reminder emails/day.
+*   **The Risk**: If many licenses expire on the same day (a "cluster" event), the system would attempt to send >100 emails, instantly hitting the limit and causing failures.
+*   **The Decision**: To protect the project's free status and reliability, we disabled this potentially volatile feature. We prioritized **system stability** and zero cost over this convenience feature.
 
-### 🔮 Guide for Future Maintainers (The Road Ahead)
+---
+
+## 🔮 Guide for Future Maintainers (The Road Ahead)
+
 This project is built to be a resilient, long-term asset. All improvements below should be seen as stepping stones towards the **Dream Architecture** outlined in the next section.
 
 1.  **📧 Re-enabling Emails (Step towards "Enterprise Email Service")**:
-    *   **The Challenge**: Resend's free tier allows 100 emails/day. A "cluster" of expirations could breach this.
-    *   **Solution A (Funded)**: If you have ~$20/mo, simply upgrade Resend and set `EMAIL_ENABLED = true`.
+    *   **The Challenge**: Resend's free tier limit (100/day).
+    *   **Solution A (Funded)**: Upgrade Resend (~$20/mo) and simple set `EMAIL_ENABLED = true`.
     *   **Solution B (Zero-Cost)**: Modify the Edge Function logic to stagger sends or use the **Self-Hosted SMTP** (`mailpit`) container in our Docker stack.
 
 2.  **🖼️ Image Hosting (Step towards "Unrestricted Object Storage")**:
-    *   **Warning**: Do not commit photos to this Git repo. It will break the app.
-    *   **Solution A (Easiest)**: Use **Gravatar**. It's 100% free, automatic, and handles bandwidth for you.
+    *   **Warning**: Do not commit photos to this Git repo. It will bloat the history and break the app.
+    *   **Solution A (Easiest)**: Use **Gravatar**. It's 100% free, automatic, and handles bandwidth.
     *   **Solution B (Supabase)**: Use Supabase Storage (1GB Free). *Caution*: Watch the 5GB egress limit.
-    *   **Goal**: Eventually migrate to **AWS S3/MinIO** (see Dream Architecture #4) for unlimited high-res storage.
 
-3.  **🛡️ Data Integrity & Automation (Step towards "Dedicated Search Engine")**:
-    *   **The Goal**: Eliminate manual entry errors.
+3.  **🛡️ Data Integrity & Automation**:
+    *   **The Goal**: Eliminate manual entry errors entirely.
     *   **The Method**: Write a Python/Node.js script to periodically scrape the **MCMC Public Register**.
-    *   **Future**: This clean data will be the foundation for the **Meilisearch** engine (Dream Architecture #3).
+    *   **Future**: This clean data will be the foundation for the **Meilisearch** engine.
 
 4.  **🪙 Community Governance**:
     *   Keep this project **Open Source (GPLv3)**.
     *   Never put the data behind a paywall.
     *   The goal is to serve the hobby, not to profit.
 
+---
 
-### 🚀 The "Dream" Architecture (Growth Plan)
-**If resources/funding were unlimited**, this is how we envision the project evolving to support high-resolution photos, global traffic, and unlimited features:
+## 🚀 The "Dream" Architecture (Growth Plan)
+
+**If resources and funding were unlimited**, this is how we envision the project evolving to support high-resolution photos, massive global traffic, and unlimited features:
 
 1.  **Global Content Delivery (CDN)**:
-    *   Deploy frontend via **Cloudflare Enterprise** or **AWS CloudFront** with edge caching.
-    *   This ensures instant load times (<100ms) for operators in Europe, Americas, and Asia, not just Malaysia.
+    *   Deploy frontend via **Cloudflare Enterprise** or **AWS CloudFront** with aggressive edge caching.
+    *   This ensures instant load times (<100ms) for operators in Europe, Americas, and Asia.
 
 2.  **Database Replication & Clustering**:
     *   Implement **Read Replicas** in multiple regions (Singapore, Japan, US) to reduce database latency.
-    *   Use **pgbouncer** for connection pooling to handle 100,000+ concurrent connections during major contests or events.
+    *   Use **pgbouncer** for connection pooling to handle 100,000+ concurrent connections during major contests.
 
 3.  **Dedicated Search Engine**:
     *   Integrate **Meilisearch** or **Elasticsearch** (replacing simple SQL `LIKE` queries).
-    *   Enables typo-tolerance ("Fizul" finds "Faizul"), phonetic search, and instant millisecond search results for millions of records.
+    *   Enables typo-tolerance ("Fizul" finds "Faizul"), phonetic search, and instant results for millions of records.
 
 4.  **Unrestricted Object Storage (S3)**:
     *   Implement **AWS S3** or **MinIO** for storage.
@@ -150,7 +198,7 @@ This project is built to be a resilient, long-term asset. All improvements below
 
 5.  **Multi-Platform Native Apps**:
     *   Build **React Native** or **Flutter** apps iOS and Android.
-    *   Enable **Offline Mode**: Download the entire database to the phone for use in deep jungle operations (zero coverage areas).
+    *   Enable **Offline Mode**: Download the entire database to the phone for use in deep jungle operations (zero coverage).
 
 6.  **IoT & Digital Radio Integration**:
     *   Build an API Bridge for **DMR / C4FM / D-STAR** networks.
@@ -165,12 +213,12 @@ This project is built to be a resilient, long-term asset. All improvements below
 ### 🌐 View the Live Directory
 **[callbook.hamradio.my](https://callbook.hamradio.my)**
 
-> **Note**: You must **Register** or **Login** to view the directory. This protects the privacy of our operators.
+> **Note**: You must **Register** or **Login** to view the directory. This protects the privacy of our operators from public scraping.
 
 ### 📝 Register Your Callsign
 1. **Sign Up** for an account on the website.
-2. Click **"+ Add Callsign"** button in the navbar.
-3. Fill out the form with your details.
+2. Click **"+ Add Callsign"** button in the navigation bar.
+3. Fill out the form with your station details.
 
 ---
 
@@ -202,7 +250,6 @@ This project is built to be a resilient, long-term asset. All improvements below
 | 💾 **Backups** | Secure local backup automation scripts. |
 | 📬 **Resend** | Transactional email service (Free Tier). |
 
-
 ---
 
 ## 💻 Local Development (Legacy Mode)
@@ -222,6 +269,8 @@ For quick UI contributions (without spinning up the full Docker stack):
 > **Note**: This connects to the *Live* Supabase project by default (if keys are configured) or requires a local `.env` file pointing to your own project.
 
 ---
+
+## 🐳 Full Stack Docker (Self-Hosting)
 
 To ensure this project can survive even if Vercel or Supabase cease to exist, we have included a **Full Stack Docker Configuration**.
 
@@ -275,7 +324,7 @@ Your support helps keep the servers running and enables future improvements. Eve
 
 **Made with ❤️ for the Malaysian Ham Radio Community**
 
-[![9M2PJU](https://img.shields.io/badge/Created_by-9M2PJU-00f2fe?style=for-the-badge)](https://hamradio.my)
+[![9M2PJU](https://img.shields.io/badge/Created_by-9M2PJU-00f2fe?style=for-the-badge&logo=codeforces&logoColor=white)](https://hamradio.my)
 
 *73 de 9M2PJU* 📻
 
