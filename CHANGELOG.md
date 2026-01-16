@@ -2,6 +2,10 @@
 
 All notable changes to the Malaysian Amateur Radio Call Book will be documented in this file.
 
+## [2.2.3] - 2026-01-16
+### Security
+- **Reset Password**: Added Cloudflare Turnstile protection to the Reset Password page to prevent automated spam/abuse.
+
 ## [2.2.2] - 2026-01-16
 ### Changed
 - **Local Assets**: All state flags are now hosted locally within the repository, improving load times and reliability by removing dependencies on reliable external wikimedia links.

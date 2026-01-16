@@ -3,21 +3,30 @@ import { Link } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import { FaEnvelope, FaSpinner, FaArrowLeft } from 'react-icons/fa';
 
+import Turnstile from 'react-turnstile';
+
 const ForgotPassword = () => {
     const { resetPassword } = useAuth();
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [captchaToken, setCaptchaToken] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         setMessage('');
+
+        if (!captchaToken) {
+            setError("Please complete the security check");
+            return;
+        }
+
         setLoading(true);
 
         try {
-            const { error } = await resetPassword(email);
+            const { error } = await resetPassword(email, { captchaToken });
             if (error) throw error;
             setMessage('Check your email (including spam/junk folder) for the password reset link');
         } catch (err) {
@@ -114,6 +123,15 @@ const ForgotPassword = () => {
                                     placeholder="name@example.com"
                                 />
                             </div>
+                        </div>
+
+                        {/* Turnstile / Captcha */}
+                        <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}>
+                            <Turnstile
+                                sitekey="0x4AAAAAACM4A9z-qhrcwAcp"
+                                onVerify={setCaptchaToken}
+                                theme="dark"
+                            />
                         </div>
 
                         <button

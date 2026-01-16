@@ -148,8 +148,9 @@ export const AuthProvider = ({ children }) => {
         signUp: (data, options) => supabase.auth.signUp(data, options),
         signIn: (data) => supabase.auth.signInWithPassword(data),
         signOut: () => supabase.auth.signOut(),
-        resetPassword: (email) => supabase.auth.resetPasswordForEmail(email, {
+        resetPassword: (email, options = {}) => supabase.auth.resetPasswordForEmail(email, {
             redirectTo: 'https://callbook.hamradio.my/update-password',
+            ...options
         }),
         updatePassword: (password) => supabase.auth.updateUser({ password }),
         user,
