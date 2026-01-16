@@ -169,12 +169,20 @@ function Directory() {
     const fetchCallsigns = async (pageToFetch, term, currentFilters, reset = false) => {
         try {
             setLoading(true);
+
+            // Fetch donator emails separately
+            const { data: donatorData } = await supabase
+                .from('user_profiles')
+                .select('email')
+                .eq('is_donator', true);
+
+            const donatorEmails = new Set(
+                (donatorData || []).map(d => d.email.toLowerCase())
+            );
+
             let query = supabase
                 .from('callsigns')
-                .select(`
-                    *,
-                    user_profiles!left(is_donator)
-                `, { count: 'exact' });
+                .select('*', { count: 'exact' });
 
             // Apply Filters
             if (term) {
@@ -247,7 +255,7 @@ function Directory() {
                 isBsmmMember: item.is_bsmm_member || false,
                 isPppmMember: item.is_pppm_member || false,
                 isVeteran: item.is_veteran || false,
-                isDonator: item.user_profiles?.is_donator || false
+                isDonator: item.email ? donatorEmails.has(item.email.toLowerCase()) : false
             }));
 
             // Client-side filtering for license status (requires date calculations)
