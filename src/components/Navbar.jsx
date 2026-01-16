@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaBroadcastTower, FaSignOutAlt, FaUser, FaInfoCircle, FaList, FaHome, FaHeart, FaKey, FaShieldAlt } from 'react-icons/fa';
+import { FaBroadcastTower, FaSignOutAlt, FaUser, FaInfoCircle, FaList, FaHome, FaHeart, FaKey, FaShieldAlt, FaDownload } from 'react-icons/fa';
 import SubmissionModal from './SubmissionModal';
 import InfoModal from './InfoModal';
 import DonationModal from './DonationModal';
@@ -7,6 +7,7 @@ import ChangePasswordModal from './ChangePasswordModal';
 import { useAuth } from './AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from './Toast';
+import { usePWA } from './PWAContext';
 
 const Navbar = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,6 +15,7 @@ const Navbar = () => {
     const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
     const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
     const { user, signOut, isSuperAdmin } = useAuth();
+    const { isInstallable, showInstallPrompt } = usePWA();
     const navigate = useNavigate();
     const toast = useToast();
 
@@ -54,6 +56,31 @@ const Navbar = () => {
                     </h1>
                 </div>
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+
+                    {/* Install App Button - Only shown if installable */}
+                    {isInstallable && (
+                        <button
+                            onClick={showInstallPrompt}
+                            style={{
+                                background: 'rgba(236, 72, 153, 0.2)',
+                                border: '1px solid rgba(236, 72, 153, 0.4)',
+                                color: '#ec4899',
+                                padding: '8px',
+                                borderRadius: '6px',
+                                cursor: 'pointer',
+                                fontSize: '0.9rem',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '6px',
+                                minWidth: '36px'
+                            }}
+                            title="Install App"
+                        >
+                            <FaDownload /> <span className="mobile-hidden">Install App</span>
+                        </button>
+                    )}
+
                     <button
                         onClick={() => { window.dispatchEvent(new Event('resetFilters')); navigate('/'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                         className="mobile-hidden-element"

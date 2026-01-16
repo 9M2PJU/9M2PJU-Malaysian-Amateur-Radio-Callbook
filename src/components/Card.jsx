@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from './AuthContext';
-import { FaUser, FaMapMarkerAlt, FaEnvelope, FaPhone, FaHome, FaDownload, FaFacebook, FaGlobe, FaSearch, FaClock, FaAddressCard, FaCalendarAlt } from 'react-icons/fa';
+import { FaUser, FaMapMarkerAlt, FaEnvelope, FaPhone, FaHome, FaDownload, FaFacebook, FaGlobe, FaSearch, FaClock, FaAddressCard, FaCalendarAlt, FaTelegram } from 'react-icons/fa';
 import { getLicenseStatus, formatExpiryDate } from '../utils/licenseStatus';
 
 // Determine license class info
@@ -239,6 +239,27 @@ END:VCARD`;
                             {licenseStatus.icon} {licenseStatus.label}
                         </span>
                     )}
+                    {/* Telegram Reminder Badge */}
+                    {data.telegramChatId && (
+                        <span
+                            style={{
+                                background: 'rgba(0, 136, 204, 0.15)',
+                                color: '#29b6f6',
+                                padding: '4px 12px',
+                                borderRadius: '20px',
+                                fontSize: '0.75rem',
+                                fontWeight: '600',
+                                border: '1px solid rgba(41, 182, 246, 0.4)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                                cursor: 'help'
+                            }}
+                            title="Receiving license expiry reminders via Telegram"
+                        >
+                            📲 TG Reminder
+                        </span>
+                    )}
                 </div>
             </div>
 
@@ -277,6 +298,21 @@ END:VCARD`;
                             title="Chat on WhatsApp"
                         >
                             {data.phone} <img src="/whatsapp-icon.png" alt="WhatsApp" style={{ height: '18px', width: '18px', verticalAlign: 'middle', marginLeft: '6px' }} />
+                        </a>
+                    </div>
+                )}
+
+                {data.telegramUsername && (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-muted)' }}>
+                        <FaTelegram style={{ minWidth: '16px', color: '#29b6f6' }} />
+                        <a
+                            href={`https://t.me/${data.telegramUsername.replace(/^@/, '')}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ color: '#29b6f6', textDecoration: 'none' }}
+                            title="Chat on Telegram"
+                        >
+                            {data.telegramUsername.startsWith('@') ? data.telegramUsername : `@${data.telegramUsername}`}
                         </a>
                     </div>
                 )}

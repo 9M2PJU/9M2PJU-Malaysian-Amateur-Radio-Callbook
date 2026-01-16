@@ -33,7 +33,8 @@
 ### 📡 Operator Portfolio
 *   **My Callsigns**: A private dashboard to manage your submitted stations.
 *   **vCard Export**: One-click download to save operator details directly to phone contacts.
-*   **Social Connectivity**: Link your QRZ.com, Facebook, and Website profiles.
+*   **Social Connectivity**: Link your QRZ.com, Facebook, Website, and **Telegram** profiles.
+*   **Telegram Integration**: Add your Telegram username (displayed with clickable link) and Chat ID for license expiry reminders.
 
 ### 📊 Live Analytics
 *   **Real-Time Dashboard**: Live counter of total operators and daily registrations.
@@ -245,6 +246,16 @@ This `docker-compose.yml` spins up the **entire infrastructure** locally:
 
 ---
 Contributions welcome! Report bugs, suggest features, or submit PRs.
+
+---
+
+## 💝 Support the Project
+
+This project is maintained entirely for free by volunteers for the Malaysian amateur radio community. If you find it useful and would like to support its continued development and server costs, you can donate via:
+
+*   **In-App Donation**: Click the ❤️ **Donate** button in the navigation bar to scan a QR code with your Malaysian banking or e-wallet app.
+
+Your support helps keep the servers running and enables future improvements. Every contribution, big or small, is deeply appreciated!
 
 ---
 

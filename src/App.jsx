@@ -43,20 +43,37 @@ const LazyLoadSpinner = () => (
 
 function Directory() {
     const toast = useToast();
+
+    // Helper to get saved filters from localStorage
+    const getSavedFilters = () => {
+        try {
+            const saved = localStorage.getItem('callbook_filters');
+            if (saved) {
+                return JSON.parse(saved);
+            }
+        } catch (e) {
+            console.error('Error reading saved filters:', e);
+        }
+        return null;
+    };
+
+    const savedFilters = getSavedFilters();
+
+    // Initialize state from localStorage
     const [callsigns, setCallsigns] = useState([]);
     const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);
     const [totalCount, setTotalCount] = useState(0);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState(savedFilters?.searchTerm || '');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [filters, setFilters] = useState({
-        state: '',
-        district: '',
-        licenseClass: '',
-        licenseStatus: '',
-        recentOnly: '',
-        contactInfo: ''
+        state: savedFilters?.state || '',
+        district: savedFilters?.district || '',
+        licenseClass: savedFilters?.licenseClass || '',
+        licenseStatus: savedFilters?.licenseStatus || '',
+        recentOnly: savedFilters?.recentOnly || '',
+        contactInfo: savedFilters?.contactInfo || ''
     });
     // States are static list for dropdown, fetching once
     const [states, setStates] = useState(MALAYSIAN_STATES);
@@ -69,8 +86,30 @@ function Directory() {
 
     const ITEMS_PER_PAGE = 50;
 
+    // Helper to save filters to localStorage
+    const saveFilters = (term, currentFilters) => {
+        try {
+            const data = {
+                searchTerm: term,
+                ...currentFilters
+            };
+            localStorage.setItem('callbook_filters', JSON.stringify(data));
+        } catch (e) {
+            console.error('Error saving filters:', e);
+        }
+    };
+
+    // Helper to clear saved filters
+    const clearSavedFilters = () => {
+        try {
+            localStorage.removeItem('callbook_filters');
+        } catch (e) {
+            console.error('Error clearing filters:', e);
+        }
+    };
+
     useEffect(() => {
-        // Initial fetch
+        // Initial fetch with values from localStorage
         console.log('App Initializing...');
         fetchCallsigns(0, searchTerm, filters, true);
     }, []);
@@ -90,6 +129,7 @@ function Directory() {
             setFilters(emptyFilters);
             setCallsigns([]);
             setPage(0);
+            clearSavedFilters(); // Clear localStorage
             fetchCallsigns(0, '', emptyFilters, true);
         };
 
@@ -196,7 +236,9 @@ function Directory() {
                 gridLocator: item.grid_locator || '',
                 aprsCallsign: item.aprs_callsign || '',
                 addedDate: item.added_date,
-                expiryDate: item.expiry_date || ''
+                expiryDate: item.expiry_date || '',
+                telegramChatId: item.telegram_chat_id || '',
+                telegramUsername: item.telegram_username || ''
             }));
 
             // Client-side filtering for license status (requires date calculations)
@@ -254,6 +296,8 @@ function Directory() {
         // Clear current data to show loading spinner for search
         setCallsigns([]);
         setPage(0);
+        // Save to localStorage
+        saveFilters(term, filters);
         // Reset to page 0 for new search
         fetchCallsigns(0, term, filters, true);
     };
@@ -270,6 +314,8 @@ function Directory() {
         // Clear current data to show loading spinner
         setCallsigns([]);
         setPage(0);
+        // Save to localStorage
+        saveFilters(searchTerm, newFilters);
         // Reset to page 0 for new filter
         fetchCallsigns(0, searchTerm, newFilters, true);
     };
@@ -347,6 +393,7 @@ function Directory() {
                     onFilterChange={handleFilterChange}
                     filters={filters}
                     states={states}
+                    searchTerm={searchTerm}
                 />
 
                 {loading && callsigns.length === 0 && (
@@ -401,6 +448,7 @@ function Directory() {
                                     setFilters(emptyFilters);
                                     setCallsigns([]);
                                     setPage(0);
+                                    clearSavedFilters(); // Clear localStorage
                                     fetchCallsigns(0, '', emptyFilters, true);
                                 }}
                                 style={{
@@ -490,42 +538,50 @@ function Directory() {
     );
 }
 
+import PWAInstallPrompt from './components/PWAInstallPrompt';
+import LiveNotifications from './components/LiveNotifications';
+import { PWAProvider } from './components/PWAContext';
+
 function App() {
     return (
         <Router>
             <AuthProvider>
-                <Suspense fallback={<LazyLoadSpinner />}>
-                    <Routes>
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/register" element={<Register />} />
-                        <Route path="/forgot-password" element={<ForgotPassword />} />
-                        <Route path="/update-password" element={<UpdatePassword />} />
-                        <Route
-                            path="/my-callsigns"
-                            element={
-                                <ProtectedRoute>
-                                    <MyCallsigns />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/manage-admins"
-                            element={
-                                <ProtectedRoute>
-                                    <ManageAdmins />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/"
-                            element={
-                                <ProtectedRoute>
-                                    <Directory />
-                                </ProtectedRoute>
-                            }
-                        />
-                    </Routes>
-                </Suspense>
+                <PWAProvider>
+                    <Suspense fallback={<LazyLoadSpinner />}>
+                        <PWAInstallPrompt />
+                        <LiveNotifications />
+                        <Routes>
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/register" element={<Register />} />
+                            <Route path="/forgot-password" element={<ForgotPassword />} />
+                            <Route path="/update-password" element={<UpdatePassword />} />
+                            <Route
+                                path="/my-callsigns"
+                                element={
+                                    <ProtectedRoute>
+                                        <MyCallsigns />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/manage-admins"
+                                element={
+                                    <ProtectedRoute>
+                                        <ManageAdmins />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/"
+                                element={
+                                    <ProtectedRoute>
+                                        <Directory />
+                                    </ProtectedRoute>
+                                }
+                            />
+                        </Routes>
+                    </Suspense>
+                </PWAProvider>
             </AuthProvider>
         </Router>
     );
