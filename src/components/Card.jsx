@@ -455,6 +455,69 @@ END:VCARD`;
                                 PPM Member
                             </div>
                         )}
+                        {data.isBsmmMember && (
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                background: 'rgba(239, 68, 68, 0.15)', // Red tint
+                                color: '#fca5a5', // Light red text
+                                padding: '4px 12px',
+                                borderRadius: '6px',
+                                fontSize: '0.9rem',
+                                fontWeight: '600',
+                                border: '1px solid rgba(248, 113, 113, 0.3)'
+                            }} title="Malaysian Red Crescent">
+                                <img
+                                    src="/bsmm-logo.png"
+                                    alt="BSMM Logo"
+                                    style={{ width: '24px', height: '24px', objectFit: 'contain' }}
+                                />
+                                BSMM Member
+                            </div>
+                        )}
+                        {data.isPppmMember && (
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                background: 'rgba(37, 99, 235, 0.15)', // Blue tint
+                                color: '#93c5fd', // Light blue text
+                                padding: '4px 12px',
+                                borderRadius: '6px',
+                                fontSize: '0.9rem',
+                                fontWeight: '600',
+                                border: '1px solid rgba(96, 165, 250, 0.3)'
+                            }} title="Persatuan Pandu Puteri Malaysia">
+                                <img
+                                    src="/pppm-logo.png"
+                                    alt="PPPM Logo"
+                                    style={{ width: '24px', height: '24px', objectFit: 'contain' }}
+                                />
+                                PPPM Member
+                            </div>
+                        )}
+                        {data.isVeteran && (
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                background: 'rgba(75, 85, 99, 0.2)', // Gray/Metallic tint
+                                color: '#cbd5e1', // Slate-300
+                                padding: '4px 12px',
+                                borderRadius: '6px',
+                                fontSize: '0.9rem',
+                                fontWeight: '600',
+                                border: '1px solid rgba(148, 163, 184, 0.3)'
+                            }} title="Malaysian Armed Forces Veteran">
+                                <img
+                                    src="/jhev-logo.png"
+                                    alt="JHEV Logo"
+                                    style={{ width: '24px', height: '24px', objectFit: 'contain' }}
+                                />
+                                ATM Veteran
+                            </div>
+                        )}
                         {data.dmrId && (
                             <div style={{
                                 display: 'flex',

@@ -29,7 +29,12 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
         expiryDate: '',
         telegramChatId: '',
         botField: '', // Honeypot
+        telegramChatId: '',
+        botField: '', // Honeypot
         isPpmMember: false,
+        isBsmmMember: false,
+        isPppmMember: false,
+        isVeteran: false,
     });
     const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
     const [submitting, setSubmitting] = useState(false);
@@ -61,7 +66,12 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                     aprsCallsign: initialData.aprsCallsign || '',
                     expiryDate: initialData.expiryDate || '',
                     telegramChatId: initialData.telegramChatId || '',
+                    expiryDate: initialData.expiryDate || '',
+                    telegramChatId: initialData.telegramChatId || '',
                     isPpmMember: initialData.isPpmMember || false,
+                    isBsmmMember: initialData.isBsmmMember || false,
+                    isPppmMember: initialData.isPppmMember || false,
+                    isVeteran: initialData.isVeteran || false,
                     botField: ''
                 });
 
@@ -126,7 +136,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
         // Reset district if location (state) changes
         if (name === 'location') {
             setFormData(prev => ({ ...prev, [name]: value, district: '' }));
-        } else if (name === 'isPpmMember') {
+        } else if (['isPpmMember', 'isBsmmMember', 'isPppmMember', 'isVeteran'].includes(name)) {
             setFormData(prev => ({ ...prev, [name]: e.target.checked }));
         } else {
             setFormData(prev => ({ ...prev, [name]: value }));
@@ -228,7 +238,10 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                         aprs_callsign: formData.aprsCallsign || null,
                         expiry_date: formData.expiryDate || null,
                         telegram_chat_id: formData.telegramChatId || null,
-                        is_ppm_member: formData.isPpmMember
+                        is_ppm_member: formData.isPpmMember,
+                        is_bsmm_member: formData.isBsmmMember,
+                        is_pppm_member: formData.isPppmMember,
+                        is_veteran: formData.isVeteran
                     });
 
                 // Use ID if available (more robust), otherwise fallback to original callsign
@@ -270,6 +283,9 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                         expiry_date: formData.expiryDate || null,
                         telegram_chat_id: formData.telegramChatId || null,
                         is_ppm_member: formData.isPpmMember,
+                        is_bsmm_member: formData.isBsmmMember,
+                        is_pppm_member: formData.isPppmMember,
+                        is_veteran: formData.isVeteran,
                         added_date: new Date().toISOString().split('T')[0],
                         user_id: user?.id || null // Link to auth user
                     });
@@ -643,6 +659,48 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                             />
                             <label htmlFor="isPpmMember" style={{ ...labelStyle, marginBottom: 0, cursor: 'pointer', lineHeight: '1.4' }}>
                                 Are you a registered Scout member of <strong>Persekutuan Pengakap Malaysia (PPM)</strong>?
+                            </label>
+                        </div>
+
+                        <div style={{ marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(255,255,255,0.05)', padding: '12px', borderRadius: '8px', border: '1px solid var(--glass-border)' }}>
+                            <input
+                                type="checkbox"
+                                name="isBsmmMember"
+                                id="isBsmmMember"
+                                checked={formData.isBsmmMember}
+                                onChange={handleChange}
+                                style={{ width: '20px', height: '20px', cursor: 'pointer' }}
+                            />
+                            <label htmlFor="isBsmmMember" style={{ ...labelStyle, marginBottom: 0, cursor: 'pointer', lineHeight: '1.4' }}>
+                                Are you a registered member of <strong>Malaysian Red Crescent (BSMM)</strong>?
+                            </label>
+                        </div>
+
+                        <div style={{ marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(255,255,255,0.05)', padding: '12px', borderRadius: '8px', border: '1px solid var(--glass-border)' }}>
+                            <input
+                                type="checkbox"
+                                name="isPppmMember"
+                                id="isPppmMember"
+                                checked={formData.isPppmMember}
+                                onChange={handleChange}
+                                style={{ width: '20px', height: '20px', cursor: 'pointer' }}
+                            />
+                            <label htmlFor="isPppmMember" style={{ ...labelStyle, marginBottom: 0, cursor: 'pointer', lineHeight: '1.4' }}>
+                                Are you a registered member of <strong>Persatuan Pandu Puteri Malaysia (PPPM)</strong>?
+                            </label>
+                        </div>
+
+                        <div style={{ marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(255,255,255,0.05)', padding: '12px', borderRadius: '8px', border: '1px solid var(--glass-border)' }}>
+                            <input
+                                type="checkbox"
+                                name="isVeteran"
+                                id="isVeteran"
+                                checked={formData.isVeteran}
+                                onChange={handleChange}
+                                style={{ width: '20px', height: '20px', cursor: 'pointer' }}
+                            />
+                            <label htmlFor="isVeteran" style={{ ...labelStyle, marginBottom: 0, cursor: 'pointer', lineHeight: '1.4' }}>
+                                Are you a <strong>Malaysian Armed Forces Veteran (ATM Veteran)</strong>?
                             </label>
                         </div>
 

@@ -240,7 +240,10 @@ function Directory() {
                 expiryDate: item.expiry_date || '',
                 telegramChatId: item.telegram_chat_id || '',
                 telegramUsername: item.telegram_username || '',
-                isPpmMember: item.is_ppm_member || false
+                isPpmMember: item.is_ppm_member || false,
+                isBsmmMember: item.is_bsmm_member || false,
+                isPppmMember: item.is_pppm_member || false,
+                isVeteran: item.is_veteran || false
             }));
 
             // Client-side filtering for license status (requires date calculations)
