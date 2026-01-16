@@ -632,22 +632,18 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                             />
                         </div>
 
-                        <div style={{ marginBottom: '20px' }}>
-                            <label style={labelStyle}>Are you a registered Scout with PPM?</label>
-                            <select
+                        <div style={{ marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(255,255,255,0.05)', padding: '12px', borderRadius: '8px', border: '1px solid var(--glass-border)' }}>
+                            <input
+                                type="checkbox"
                                 name="isPpmMember"
-                                value={formData.isPpmMember ? 'true' : 'false'}
-                                onChange={(e) => {
-                                    setFormData(prev => ({
-                                        ...prev,
-                                        isPpmMember: e.target.value === 'true'
-                                    }));
-                                }}
-                                style={{ ...inputStyle, cursor: 'pointer' }}
-                            >
-                                <option value="false" style={{ background: '#1a1a1a', color: '#fff' }}>No</option>
-                                <option value="true" style={{ background: '#1a1a1a', color: '#fff' }}>Yes</option>
-                            </select>
+                                id="isPpmMember"
+                                checked={formData.isPpmMember}
+                                onChange={handleChange}
+                                style={{ width: '20px', height: '20px', cursor: 'pointer' }}
+                            />
+                            <label htmlFor="isPpmMember" style={{ ...labelStyle, marginBottom: 0, cursor: 'pointer', lineHeight: '1.4' }}>
+                                Are you a registered Scout member of <strong>Persekutuan Pengakap Malaysia (PPM)</strong>?
+                            </label>
                         </div>
 
                         <div style={{ marginBottom: '20px' }}>
