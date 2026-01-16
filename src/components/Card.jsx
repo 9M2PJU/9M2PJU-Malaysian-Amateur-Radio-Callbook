@@ -515,7 +515,7 @@ END:VCARD`;
                                     alt="JHEV Logo"
                                     style={{ width: '24px', height: '24px', objectFit: 'contain' }}
                                 />
-                                ATM Veteran
+                                Military Veteran
                             </div>
                         )}
                         {data.dmrId && (
