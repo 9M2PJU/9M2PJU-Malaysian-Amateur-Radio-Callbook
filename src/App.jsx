@@ -586,6 +586,7 @@ function App() {
             <AuthProvider>
                 <PWAProvider>
                     <Suspense fallback={<LazyLoadSpinner />}>
+                        <AutoLogoutToastHandler />
                         <PWAInstallPrompt />
                         <LiveNotifications />
                         <Routes>
@@ -624,5 +625,26 @@ function App() {
         </Router>
     );
 }
+
+// Helper component to handle Toast logic inside Router context
+const AutoLogoutToastHandler = () => {
+    const toast = useToast();
+    const navigate = React.useCallback((path) => {
+        window.location.href = path; // Force hard redirect to ensure clean state
+    }, []);
+
+    useEffect(() => {
+        const handleAutoLogout = () => {
+            toast.error('You have been logged out due to inactivity (30 mins).');
+            // Navigate is handled by AuthContext state change usually, 
+            // but we can force it here if needed.
+        };
+
+        window.addEventListener('autoLogout', handleAutoLogout);
+        return () => window.removeEventListener('autoLogout', handleAutoLogout);
+    }, [toast]);
+
+    return null;
+};
 
 export default App;

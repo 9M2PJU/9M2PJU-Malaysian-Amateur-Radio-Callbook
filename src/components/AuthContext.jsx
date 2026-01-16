@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 
 import { SUPER_ADMIN_EMAILS } from '../constants';
@@ -95,6 +95,54 @@ export const AuthProvider = ({ children }) => {
 
         return () => subscription.unsubscribe();
     }, []);
+
+    // Auto Logout Logic
+    const logoutTimerRef = useRef(null);
+    const INACTIVITY_LIMIT = 30 * 60 * 1000; // 30 minutes
+
+    const resetInactivityTimer = useCallback(() => {
+        if (logoutTimerRef.current) clearTimeout(logoutTimerRef.current);
+
+        if (user) {
+            logoutTimerRef.current = setTimeout(async () => {
+                console.log('User inactive for 30 minutes. Logging out...');
+                await supabase.auth.signOut();
+                // We rely on onAuthStateChange to handle state cleanup, 
+                // but we can dispatch a custom event for Toast if needed.
+                window.dispatchEvent(new CustomEvent('autoLogout'));
+            }, INACTIVITY_LIMIT);
+        }
+    }, [user]);
+
+    useEffect(() => {
+        if (!user) return;
+
+        // Events to detect activity
+        const events = ['mousedown', 'mousemove', 'keydown', 'scroll', 'touchstart'];
+
+        // Throttled handler to avoid excessive resets
+        let timeoutId;
+        const handleActivity = () => {
+            if (!timeoutId) {
+                timeoutId = setTimeout(() => {
+                    resetInactivityTimer();
+                    timeoutId = null;
+                }, 1000); // Only reset once per second max
+            }
+        };
+
+        // Initialize timer
+        resetInactivityTimer();
+
+        // Add listeners
+        events.forEach(event => window.addEventListener(event, handleActivity));
+
+        return () => {
+            if (logoutTimerRef.current) clearTimeout(logoutTimerRef.current);
+            if (timeoutId) clearTimeout(timeoutId);
+            events.forEach(event => window.removeEventListener(event, handleActivity));
+        };
+    }, [user, resetInactivityTimer]);
 
     const value = {
         signUp: (data, options) => supabase.auth.signUp(data, options),
