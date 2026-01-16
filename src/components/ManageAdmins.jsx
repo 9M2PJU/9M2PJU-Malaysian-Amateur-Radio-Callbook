@@ -17,9 +17,11 @@ const ManageAdmins = () => {
     // Donator management states
     const [donators, setDonators] = useState([]);
     const [donatorsLoading, setDonatorsLoading] = useState(false);
+    const [donatorCallsign, setDonatorCallsign] = useState('');
     const [donatorEmail, setDonatorEmail] = useState('');
     const [donatorNote, setDonatorNote] = useState('');
     const [donatorAdding, setDonatorAdding] = useState(false);
+    const [lookingUp, setLookingUp] = useState(false);
 
     useEffect(() => {
         if (isSuperAdmin) {
@@ -132,13 +134,48 @@ const ManageAdmins = () => {
         }
     };
 
+    const handleLookupCallsign = async () => {
+        if (!donatorCallsign.trim()) return;
+
+        setLookingUp(true);
+        setError('');
+
+        try {
+            const { data, error } = await supabase
+                .from('callsigns')
+                .select('email, callsign, name')
+                .ilike('callsign', donatorCallsign.trim())
+                .single();
+
+            if (error || !data) {
+                setError(`Callsign ${donatorCallsign} not found in database`);
+                setDonatorEmail('');
+                return;
+            }
+
+            if (!data.email) {
+                setError(`Callsign ${donatorCallsign} has no email address in the database`);
+                setDonatorEmail('');
+                return;
+            }
+
+            setDonatorEmail(data.email);
+            setSuccess(`Found: ${data.name} (${data.callsign}) - ${data.email}`);
+        } catch (err) {
+            console.error('Error looking up callsign:', err);
+            setError('Failed to lookup callsign');
+        } finally {
+            setLookingUp(false);
+        }
+    };
+
     const handleAddDonator = async (e) => {
         e.preventDefault();
         setError('');
         setSuccess('');
 
         if (!donatorEmail.trim()) {
-            setError('Please enter an email address');
+            setError('Please lookup a callsign first or enter an email address');
             return;
         }
 
@@ -184,6 +221,7 @@ const ManageAdmins = () => {
             }
 
             setSuccess(`${donatorEmail} has been marked as a donator`);
+            setDonatorCallsign('');
             setDonatorEmail('');
             setDonatorNote('');
             fetchDonators();
@@ -414,24 +452,80 @@ const ManageAdmins = () => {
                     </p>
 
                     {/* Add Donator Form */}
-                    <div className="glass-panel" style={{ padding: '24px', marginBottom: '24px', maxWidth: '500px' }}>
+                    <div className="glass-panel" style={{ padding: '24px', marginBottom: '24px', maxWidth: '600px' }}>
                         <h3 style={{ color: '#fff', marginTop: 0, marginBottom: '16px' }}>Add Donator Badge</h3>
 
                         <form onSubmit={handleAddDonator} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                            <input
-                                type="email"
-                                value={donatorEmail}
-                                onChange={(e) => setDonatorEmail(e.target.value)}
-                                placeholder="donator@example.com"
-                                style={{
-                                    padding: '12px',
-                                    borderRadius: '8px',
-                                    border: '1px solid var(--glass-border)',
-                                    background: 'rgba(255,255,255,0.05)',
-                                    color: '#fff',
-                                    fontSize: '1rem'
-                                }}
-                            />
+                            {/* Callsign Lookup */}
+                            <div>
+                                <label style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '6px', display: 'block' }}>
+                                    Search by Callsign
+                                </label>
+                                <div style={{ display: 'flex', gap: '8px' }}>
+                                    <input
+                                        type="text"
+                                        value={donatorCallsign}
+                                        onChange={(e) => setDonatorCallsign(e.target.value.toUpperCase())}
+                                        placeholder="e.g. 9M2PJU"
+                                        style={{
+                                            flex: 1,
+                                            padding: '12px',
+                                            borderRadius: '8px',
+                                            border: '1px solid var(--glass-border)',
+                                            background: 'rgba(255,255,255,0.05)',
+                                            color: '#fff',
+                                            fontSize: '1rem'
+                                        }}
+                                        onKeyPress={(e) => {
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault();
+                                                handleLookupCallsign();
+                                            }
+                                        }}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={handleLookupCallsign}
+                                        disabled={lookingUp || !donatorCallsign.trim()}
+                                        style={{
+                                            padding: '12px 20px',
+                                            background: 'rgba(79, 172, 254, 0.2)',
+                                            border: '1px solid var(--primary)',
+                                            borderRadius: '8px',
+                                            color: 'var(--primary)',
+                                            fontWeight: '600',
+                                            cursor: lookingUp ? 'wait' : 'pointer',
+                                            whiteSpace: 'nowrap'
+                                        }}
+                                    >
+                                        {lookingUp ? <FaSpinner className="spin" /> : '🔍 Lookup'}
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Email Field (auto-filled or manual) */}
+                            <div>
+                                <label style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '6px', display: 'block' }}>
+                                    Email Address
+                                </label>
+                                <input
+                                    type="email"
+                                    value={donatorEmail}
+                                    onChange={(e) => setDonatorEmail(e.target.value)}
+                                    placeholder="Auto-filled from callsign lookup"
+                                    style={{
+                                        padding: '12px',
+                                        borderRadius: '8px',
+                                        border: '1px solid var(--glass-border)',
+                                        background: donatorEmail ? 'rgba(34, 197, 94, 0.1)' : 'rgba(255,255,255,0.05)',
+                                        color: '#fff',
+                                        fontSize: '1rem',
+                                        width: '100%'
+                                    }}
+                                />
+                            </div>
+
+                            {/* Note Field */}
                             <input
                                 type="text"
                                 value={donatorNote}
@@ -448,7 +542,7 @@ const ManageAdmins = () => {
                             />
                             <button
                                 type="submit"
-                                disabled={donatorAdding}
+                                disabled={donatorAdding || !donatorEmail.trim()}
                                 style={{
                                     padding: '12px 24px',
                                     background: 'linear-gradient(135deg, #ffd700 0%, #ffb347 100%)',
