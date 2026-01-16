@@ -2,6 +2,10 @@
 
 All notable changes to the Malaysian Amateur Radio Call Book will be documented in this file.
 
+## [2.2.5] - 2026-01-16
+### Documentation
+- **README Restoration**: Restored the original, detailed documentation regarding project philosophy, technical decisions, and architecture plans, while retaining the new modern visual style headers.
+
 ## [2.2.4] - 2026-01-16
 ### Documentation
 - **README Redesign**: Completely revamped the `README.md` with a modern, "fancy" aesthetic, featuring glassmorphism badges, improved layout, feature grids, and clearer architecture documentation.
