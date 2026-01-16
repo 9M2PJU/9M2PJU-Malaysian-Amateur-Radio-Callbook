@@ -174,7 +174,7 @@ const StatsDashboard = ({ totalCount }) => {
                 <div style={statCardStyle}>
                     <FaClock style={{ fontSize: '1.5rem', color: '#22c55e', marginBottom: '8px' }} />
                     <div style={statNumberStyle}>{stats.recent_count}</div>
-                    <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Added (7 days)</div>
+                    <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Added (30 days)</div>
                 </div>
 
                 {/* Online Users */}

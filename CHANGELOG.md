@@ -2,6 +2,11 @@
 
 All notable changes to the Malaysian Amateur Radio Call Book will be documented in this file.
 
+## [2.2.9] - 2026-01-16
+### Reverted
+- **New User Badge**: Reverted logic to standard **30 days** duration.
+- **Statistics**: Reverted dashboard recent user count to **30 days**.
+
 ## [2.2.8] - 2026-01-16
 ### Removed
 - **Unused Assets**: Removed `public/callsigns.json` as the application now relies entirely on user-submitted data via Supabase, rendering the static file obsolete.
