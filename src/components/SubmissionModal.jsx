@@ -280,8 +280,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                     callsign: '', name: '', location: '', email: '',
                     phone: '', address: '', website: '', facebook: '', qrz: ''
                 });
-                onClose();
-                window.location.reload(); // Refresh to show new data
+                onClose(true); // Signal to parent that update happened
             }, 1500);
 
         } catch (err) {

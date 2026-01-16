@@ -351,13 +351,13 @@ function Directory() {
         }
     };
 
-    const handleCloseModal = () => {
+    const handleCloseModal = (shouldRefresh = false) => {
         setIsModalOpen(false);
         setEditData(null);
-        // Refresh visible data if needed, or just reload page like MyCallsigns does
-        // For simplicity and consistency with MyCallsigns logic which reloads:
-        // window.location.reload(); 
-        // But SubmissionModal handles reload.
+        if (shouldRefresh) {
+            // Soft refresh: re-fetch data with current filters
+            fetchCallsigns(0, searchTerm, filters, true);
+        }
     };
 
     return (
