@@ -423,6 +423,7 @@ const ManageAdmins = () => {
                             </div>
                         )}
                     </div>
+                )}
 
                 {/* Info Box */}
                 <div style={{
@@ -437,7 +438,6 @@ const ManageAdmins = () => {
                         <strong>Super Admin:</strong> Only you (9m2pju@hamradio.my) can delete callsigns and manage admins.
                     </p>
                 </div>
-                )}
 
                 {/* Donator Management Section */}
                 <div style={{ marginTop: '60px' }}>
