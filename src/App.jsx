@@ -82,8 +82,7 @@ function Directory() {
     const [editData, setEditData] = useState(null);
 
     // Ref for infinite scroll observer
-    const observerRef = React.useRef(null);
-    const loadMoreRef = React.useRef(null);
+
 
     const ITEMS_PER_PAGE = 50;
 
@@ -138,33 +137,7 @@ function Directory() {
         return () => window.removeEventListener('resetFilters', handleResetFilters);
     }, []);
 
-    // Intersection Observer for infinite scroll
-    useEffect(() => {
-        const currentRef = loadMoreRef.current;
 
-        if (observerRef.current) {
-            observerRef.current.disconnect();
-        }
-
-        observerRef.current = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting && hasMore && !loading) {
-                    fetchCallsigns(page + 1, searchTerm, filters, false);
-                }
-            },
-            { threshold: 0.1, rootMargin: '100px' }
-        );
-
-        if (currentRef) {
-            observerRef.current.observe(currentRef);
-        }
-
-        return () => {
-            if (observerRef.current) {
-                observerRef.current.disconnect();
-            }
-        };
-    }, [hasMore, loading, page, searchTerm, filters]);
 
     const fetchCallsigns = async (pageToFetch, term, currentFilters, reset = false) => {
         try {
@@ -518,17 +491,19 @@ function Directory() {
                             ))}
                         </div>
 
-                        {/* Infinite Scroll Sentinel */}
+                        {/* Load More Button */}
                         <div
-                            ref={loadMoreRef}
                             style={{
                                 textAlign: 'center',
                                 marginTop: '40px',
-                                marginBottom: '40px',
-                                minHeight: hasMore ? '60px' : '0'
+                                marginBottom: '60px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                gap: '20px'
                             }}
                         >
-                            {loading && callsigns.length > 0 && (
+                            {loading && (
                                 <div style={{
                                     color: 'var(--text-muted)',
                                     display: 'flex',
@@ -547,6 +522,38 @@ function Directory() {
                                     Loading more...
                                 </div>
                             )}
+
+                            {!loading && hasMore && (
+                                <button
+                                    onClick={loadMore}
+                                    style={{
+                                        background: 'var(--glass-bg)',
+                                        border: '1px solid var(--glass-border)',
+                                        color: 'var(--text-main)',
+                                        padding: '12px 32px',
+                                        borderRadius: '12px',
+                                        fontSize: '1rem',
+                                        fontWeight: '600',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s ease',
+                                        backdropFilter: 'blur(10px)',
+                                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                                    }}
+                                    onMouseOver={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(-2px)';
+                                        e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+                                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                                    }}
+                                    onMouseOut={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(0)';
+                                        e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+                                        e.currentTarget.style.background = 'var(--glass-bg)';
+                                    }}
+                                >
+                                    Load More Callsigns
+                                </button>
+                            )}
+
                             {!hasMore && callsigns.length > 0 && (
                                 <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
                                     ✓ All {totalCount} operators loaded
