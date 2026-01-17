@@ -81,7 +81,11 @@ We are obsessed with speed.
 
 Stay up to date with the latest evolution of the platform.
 
-### **v2.2.9** (Latest) - *2026-01-16*
+### **v2.3.0** (Latest) - *2026-01-17*
+*   **Data Recovery**: Restored lost callsign data and implemented "safe" unassign scripts.
+*   **Features**: Added "Edited" timestamps and manual "Load More" button.
+
+### **v2.2.9** - *2026-01-16*
 *   **Refinement**: Reverted "New User Badge" logic to standard 30-day duration.
 *   **Adjustment**: Reverted dashboard statistics to reflect a 30-day window.
 

@@ -2,6 +2,16 @@
 
 All notable changes to the Malaysian Amateur Radio Call Book will be documented in this file.
 
+## [2.3.0] - 2026-01-17
+### Added
+- **Data Recovery**: Implemented robust SQL recovery scripts to restore accidental data loss (~190 callsigns restored).
+- **Timestamps**: Added "Added" and "Edited" timestamps to callsign cards for better data transparency.
+- **Specific Recovery**: Restored specific callsign `9M2VZX` with correct user assignment.
+
+### Changed
+- **Load More Button**: Replaced infinite scroll with a manual "Load More Callsigns" button for better control and performance.
+- **Database Schema**: Added `updated_at` column to `callsigns` table to track modifications.
+
 ## [2.2.9] - 2026-01-16
 ### Reverted
 - **New User Badge**: Reverted logic to standard **30 days** duration.
