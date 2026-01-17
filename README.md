@@ -81,31 +81,11 @@ We are obsessed with speed.
 
 Stay up to date with the latest evolution of the platform.
 
-### **v2.3.1** (Latest) - *2026-01-17*
-*   **Logic Change**: Reduced "New User" and "Added Stats" duration to 7 days.
+### **v1.0.0** (Initial Release) - *2026-01-17*
+*   **Launch**: First public release of the modern Malaysian Amateur Radio Callbook.
+*   **Features**: Full PWA support, Real-time Statistics, Data Recovery tools, and secure authentication.
 
-### **v2.3.0** - *2026-01-17*
-*   **Data Recovery**: Restored lost callsign data and implemented "safe" unassign scripts.
-*   **Features**: Added "Edited" timestamps and manual "Load More" button.
-
-### **v2.2.9** - *2026-01-16*
-*   **Refinement**: Reverted "New User Badge" logic to standard 30-day duration.
-*   **Adjustment**: Reverted dashboard statistics to reflect a 30-day window.
-
-### **v2.2.0** - *2026-01-16*
-*   **Major Feature**: Launched **Smart Popups** for easier app installation and donations.
-*   **UX Upgrade**: Implemented persistent "Install App" prompt for mobile users and unobtrusive desktop notifications.
-
-### **v2.1.0** - *2026-01-16*
-*   **Security**: Added **Cloudflare Turnstile** to all auth forms.
-*   **Admin Tools**: Introduced `backup-db.sh` for secure local data backups.
-
-### **v2.0.0** - *2026-01-16*
-*   **Major Milestone**: Full **Progressive Web App (PWA)** support.
-*   **Notifications**: Real-time live activity notifications for user presence and database changes.
-*   **Design**: Complete overhaul with dark glassmorphism theme.
-
-*(See [`CHANGELOG.md`](CHANGELOG.md) for the complete history.)*
+*(See [`CHANGELOG.md`](CHANGELOG.md) for details.)*
 
 ---
 
