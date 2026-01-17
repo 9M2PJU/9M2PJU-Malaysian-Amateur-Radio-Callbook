@@ -1,6 +1,6 @@
 {
   "name": "9m2pju-malaysian-amateur-radio-call-book",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Malaysian amateur radio callsigns directory. Contains callsigns, names, addresses and contact emails.",
   "main": "index.js",
   "type": "module",
