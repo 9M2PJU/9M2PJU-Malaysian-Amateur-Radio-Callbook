@@ -82,8 +82,8 @@ We are obsessed with speed.
 Stay up to date with the latest evolution of the platform.
 
 ### **v2.3.2** (Latest) - *2026-01-17*
-*   **Reset**: Project reset to stable v1.0.0 for sustainable maintenance.
-*   **Features**: Includes all features from previous v2.3.1 (PWA, Stats, Data Recovery).
+*   **Maintenance**: Cumulative update including data recovery, UI enhancements, and stability fixes.
+*   **Features**: Includes all features from v2.3.1 (PWA, Stats, Data Recovery) plus "Edited" timestamps and manual "Load More" button.
 
 ### **v2.3.1** - *2026-01-17*
 *   **Logic Change**: Reduced "New User" and "Added Stats" duration to 7 days.

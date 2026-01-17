@@ -3,7 +3,7 @@
 All notable changes to the Malaysian Amateur Radio Call Book will be documented in this file.
 
 ## [2.3.2] - 2026-01-17
-### Initial Release
+### Maintenance Release
 - **Core Directory**: Complete searchable database of Malaysian Amateur Radio Operators.
 - **Modern UI**: Full glassmorphism design with responsive mobile support.
 - **PWA Ready**: Installable as a native app on iOS/Android/Desktop.
