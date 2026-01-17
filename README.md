@@ -81,7 +81,7 @@ We are obsessed with speed.
 
 Stay up to date with the latest evolution of the platform.
 
-### **v1.0.0** (New Baseline) - *2026-01-17*
+### **v2.3.2** (Latest) - *2026-01-17*
 *   **Reset**: Project reset to stable v1.0.0 for sustainable maintenance.
 *   **Features**: Includes all features from previous v2.3.1 (PWA, Stats, Data Recovery).
 
