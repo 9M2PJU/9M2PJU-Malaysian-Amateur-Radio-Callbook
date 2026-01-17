@@ -8,7 +8,7 @@
 
   [![Live Site](https://img.shields.io/badge/🌐_Live_Site-callbook.hamradio.my-2563EB?style=for-the-badge&logo=google-chrome&logoColor=white)](https://callbook.hamradio.my)
   [![GitHub Pages](https://img.shields.io/badge/Hosted_on-GitHub_Pages-222222?style=for-the-badge&logo=github)](https://callbook.hamradio.my)
-  [![License](https://img.shields.io/badge/License-GPLv3-22c55e?style=for-the-badge&logo=gnu-bash&logoColor=white)](LICENSE)
+  [![License](https://img.shields.io/badge/License-AGPLv3-22c55e?style=for-the-badge&logo=gnu-bash&logoColor=white)](LICENSE)
   [![Status](https://img.shields.io/badge/Status-Active_Development-orange?style=for-the-badge)](https://github.com/9M2PJU/9M2PJU-Malaysian-Amateur-Radio-Call-Book)
 
   [![React](https://img.shields.io/badge/React_19-20232A?style=flat-square&logo=react&logoColor=61DAFB)](https://react.dev/)

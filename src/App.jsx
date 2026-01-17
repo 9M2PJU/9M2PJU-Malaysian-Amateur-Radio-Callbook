@@ -228,7 +228,9 @@ function Directory() {
                 isBsmmMember: item.is_bsmm_member || false,
                 isPppmMember: item.is_pppm_member || false,
                 isVeteran: item.is_veteran || false,
-                isDonator: donatorCallsignIds.has(item.id)
+                isVeteran: item.is_veteran || false,
+                isDonator: donatorCallsignIds.has(item.id),
+                createdAt: item.created_at
             }));
 
             // Client-side filtering for license status (requires date calculations)

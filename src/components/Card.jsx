@@ -23,6 +23,19 @@ const isRecentlyAdded = (addedDate) => {
     return added >= thirtyDaysAgo;
 };
 
+// Format date for display
+const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-MY', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+};
+
 
 import { MALAYSIAN_STATES } from '../constants';
 
@@ -525,28 +538,40 @@ END:VCARD`;
                         marginTop: '16px',
                         padding: '10px 16px',
                         background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)',
+                        color: 'white',
                         border: 'none',
                         borderRadius: '8px',
-                        color: 'white',
-                        fontWeight: '600',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center',
                         gap: '8px',
-                        transition: 'transform 0.2s ease, box-shadow 0.2s ease'
-                    }}
-                    onMouseOver={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = '0 4px 15px rgba(79, 172, 254, 0.4)';
-                    }}
-                    onMouseOut={(e) => {
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = 'none';
+                        width: '100%',
+                        justifyContent: 'center',
+                        fontSize: '0.9rem',
+                        fontWeight: '500',
+                        transition: 'all 0.3s ease',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
                     }}
                 >
-                    <FaDownload /> Save to Contacts
+                    <FaDownload /> Save to Contacts (vCard)
                 </button>
+
+                {/* Submission Timestamp */}
+                {data.createdAt && (
+                    <div style={{
+                        marginTop: '12px',
+                        fontSize: '0.75rem',
+                        color: 'var(--text-muted)',
+                        textAlign: 'center',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '6px'
+                    }}>
+                        <FaClock style={{ fontSize: '0.7rem' }} />
+                        <span>Added: {formatDate(data.createdAt)}</span>
+                    </div>
+                )}
             </div>
         </div>
     );
