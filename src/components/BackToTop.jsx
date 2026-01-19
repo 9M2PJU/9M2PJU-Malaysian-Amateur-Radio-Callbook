@@ -49,7 +49,7 @@ const BackToTop = () => {
                     cursor: 'pointer',
                     transition: 'all 0.3s ease'
                 }}
-                className="hover:scale-110 group w-12 h-12 md:w-14 md:h-14"
+                className="hover:scale-110 group w-10 h-10 md:w-14 md:h-14"
                 aria-label="Back to top"
             >
                 <svg
@@ -63,7 +63,7 @@ const BackToTop = () => {
                         color: 'var(--primary)',
                         filter: 'drop-shadow(0 0 5px var(--primary))'
                     }}
-                    className="group-hover:text-white transition-colors duration-300 w-6 h-6 md:w-7 md:h-7"
+                    className="group-hover:text-white transition-colors duration-300 w-5 h-5 md:w-7 md:h-7"
                 >
                     <path d="M18 15l-6-6-6 6" />
                 </svg>
