@@ -5,7 +5,7 @@ const BackToTop = () => {
 
     // Toggle visibility based on scroll position
     const toggleVisibility = () => {
-        if (window.scrollY > 300) {
+        if (window.scrollY > 100) {
             setIsVisible(true);
         } else {
             setIsVisible(false);
@@ -33,8 +33,6 @@ const BackToTop = () => {
             className={`transition-all duration-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
             style={{
                 position: 'fixed',
-                bottom: '2rem',
-                right: '2rem',
                 zIndex: 99999
             }}
         >
@@ -42,8 +40,6 @@ const BackToTop = () => {
                 type="button"
                 onClick={scrollToTop}
                 style={{
-                    width: '3.5rem',
-                    height: '3.5rem',
                     borderRadius: '50%',
                     background: 'rgba(15, 23, 42, 0.9)', // Dark background
                     border: '1px solid var(--glass-border)',
@@ -54,23 +50,21 @@ const BackToTop = () => {
                     cursor: 'pointer',
                     transition: 'all 0.3s ease'
                 }}
-                className="hover:scale-110 group"
+                className="hover:scale-110 group fixed right-4 bottom-4 md:right-8 md:bottom-8 w-12 h-12 md:w-14 md:h-14"
                 aria-label="Back to top"
             >
                 <svg
-                    width="24"
-                    height="24"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="3"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     style={{
                         color: 'var(--primary)',
                         filter: 'drop-shadow(0 0 5px var(--primary))'
                     }}
-                    className="group-hover:text-white transition-colors duration-300"
+                    className="group-hover:text-white transition-colors duration-300 w-6 h-6 md:w-7 md:h-7"
                 >
                     <path d="M18 15l-6-6-6 6" />
                 </svg>
