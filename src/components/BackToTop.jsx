@@ -21,8 +21,9 @@ const BackToTop = () => {
     };
 
     useEffect(() => {
-        toggleVisibility();
         window.addEventListener('scroll', toggleVisibility);
+        // Check immediately
+        toggleVisibility();
         return () => {
             window.removeEventListener('scroll', toggleVisibility);
         };
@@ -30,9 +31,15 @@ const BackToTop = () => {
 
     return (
         <div
-            className={`fixed right-4 bottom-4 md:right-8 md:bottom-8 transition-all duration-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
+            className={`transition-all duration-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
             style={{
-                zIndex: 99999
+                position: 'fixed',
+                bottom: '2rem',
+                right: '2rem',
+                zIndex: 99999,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
             }}
         >
             <button
@@ -49,6 +56,7 @@ const BackToTop = () => {
                     cursor: 'pointer',
                     transition: 'all 0.3s ease'
                 }}
+                // Mobile: w-10 (40px), Desktop: w-14 (56px)
                 className="hover:scale-110 group w-10 h-10 md:w-14 md:h-14"
                 aria-label="Back to top"
             >
@@ -63,6 +71,7 @@ const BackToTop = () => {
                         color: 'var(--primary)',
                         filter: 'drop-shadow(0 0 5px var(--primary))'
                     }}
+                    // Mobile: w-5 (20px), Desktop: w-7 (28px)
                     className="group-hover:text-white transition-colors duration-300 w-5 h-5 md:w-7 md:h-7"
                 >
                     <path d="M18 15l-6-6-6 6" />
