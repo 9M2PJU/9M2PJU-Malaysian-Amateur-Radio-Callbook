@@ -29,9 +29,12 @@ const BackToTop = () => {
         };
     }, []);
 
+    // Don't render anything if not visible
+    if (!isVisible) return null;
+
     return (
         <div
-            className={`transition-all duration-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
+            className="transition-all duration-300 transform opacity-100 translate-y-0"
             style={{
                 position: 'fixed',
                 bottom: '2rem',
