@@ -30,39 +30,49 @@ const BackToTop = () => {
 
     return (
         <div
-            className={`transition-all duration-500 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
+            className={`transition-all duration-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
             style={{
                 position: 'fixed',
                 bottom: '2rem',
                 right: '2rem',
-                zIndex: 99
+                zIndex: 99999
             }}
         >
             <button
                 type="button"
                 onClick={scrollToTop}
-                className="group flex items-center justify-center w-12 h-12 rounded-full backdrop-blur-md transition-all duration-300 shadow-lg hover:shadow-cyan-500/50 border border-white/10"
                 style={{
-                    background: 'rgba(15, 23, 42, 0.6)',
+                    width: '3.5rem',
+                    height: '3.5rem',
+                    borderRadius: '50%',
+                    background: 'rgba(15, 23, 42, 0.9)', // Dark background
+                    border: '1px solid var(--glass-border)',
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease'
                 }}
+                className="hover:scale-110 group"
                 aria-label="Back to top"
             >
-                {/* Gradient Border Overlay */}
-                <div className="absolute inset-0 rounded-full p-[1px] bg-gradient-to-br from-cyan-400 to-blue-600 opacity-50 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
-
                 <svg
-                    className="w-6 h-6 text-cyan-400 group-hover:text-white transition-colors duration-300"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{
+                        color: 'var(--primary)',
+                        filter: 'drop-shadow(0 0 5px var(--primary))'
+                    }}
+                    className="group-hover:text-white transition-colors duration-300"
                 >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2.5"
-                        d="M5 15l7-7 7 7"
-                    ></path>
+                    <path d="M18 15l-6-6-6 6" />
                 </svg>
             </button>
         </div>
