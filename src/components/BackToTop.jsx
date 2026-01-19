@@ -5,7 +5,7 @@ const BackToTop = () => {
 
     // Toggle visibility based on scroll position
     const toggleVisibility = () => {
-        if (window.scrollY > 300) {
+        if (window.scrollY > 100) {
             setIsVisible(true);
         } else {
             setIsVisible(false);
@@ -28,15 +28,11 @@ const BackToTop = () => {
     }, []);
 
     return (
-        <div className="fixed bottom-4 right-4 z-50">
+        <div className={`fixed bottom-8 right-8 z-[100] transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
             <button
                 type="button"
                 onClick={scrollToTop}
-                className={`
-          ${isVisible ? 'opacity-100' : 'opacity-0'}
-          bg-blue-600 hover:bg-blue-700 text-white 
-          inline-flex items-center p-3 rounded-full shadow-lg transition-opacity duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
-        `}
+                className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transform hover:scale-110 transition-all duration-200"
                 aria-label="Back to top"
             >
                 <svg
