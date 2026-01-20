@@ -2,7 +2,7 @@ import React from 'react';
 import { FaSearch, FaFilter, FaTimes } from 'react-icons/fa';
 import { MALAYSIAN_DISTRICTS } from '../constants';
 
-const AdvancedSearch = ({ onSearch, onFilterChange, filters, states, searchTerm = '' }) => {
+const AdvancedSearch = ({ onSearch, onFilterChange, filters, states, searchTerm = '', onClear, hasActiveFilters }) => {
     // Local state to track input value (for immediate feedback)
     const [inputValue, setInputValue] = React.useState(searchTerm);
     const searchInputRef = React.useRef(null);
@@ -55,9 +55,30 @@ const AdvancedSearch = ({ onSearch, onFilterChange, filters, states, searchTerm 
     return (
         <div className="glass-panel" style={{ padding: '24px' }}>
             {/* Header */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
-                <FaFilter color="var(--primary)" />
-                <h3 style={{ margin: 0, color: 'var(--text-main)' }}>Search & Filter</h3>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <FaFilter color="var(--primary)" />
+                    <h3 style={{ margin: 0, color: 'var(--text-main)' }}>Search & Filter</h3>
+                </div>
+                {hasActiveFilters && (
+                    <button
+                        onClick={onClear}
+                        style={{
+                            background: 'transparent',
+                            border: '1px solid var(--glass-border)',
+                            color: 'var(--text-muted)',
+                            padding: '4px 10px',
+                            borderRadius: '6px',
+                            cursor: 'pointer',
+                            fontSize: '0.8rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '5px'
+                        }}
+                    >
+                        <FaTimes /> Clear
+                    </button>
+                )}
             </div>
 
             {/* Search Input - Full Width on Top */}

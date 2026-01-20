@@ -387,6 +387,18 @@ function Directory() {
         }
     };
 
+    const handleClearAll = () => {
+        const emptyFilters = { state: '', district: '', licenseClass: '', licenseStatus: '', recentOnly: '', contactInfo: '' };
+        setSearchTerm('');
+        setFilters(emptyFilters);
+        setCallsigns([]);
+        setPage(0);
+        clearSavedFilters();
+        fetchCallsigns(0, '', emptyFilters, true);
+    };
+
+    const hasActiveFilters = !!(searchTerm || filters.state || filters.district || filters.licenseClass || filters.licenseStatus || filters.recentOnly || filters.contactInfo);
+
     // Virtualization Logic
     const rowCount = Math.ceil(callsigns.length / columnCount);
 
@@ -441,6 +453,8 @@ function Directory() {
                     filters={filters}
                     states={states}
                     searchTerm={searchTerm}
+                    onClear={handleClearAll}
+                    hasActiveFilters={hasActiveFilters}
                 />
 
                 {loading && callsigns.length === 0 && (
@@ -477,37 +491,7 @@ function Directory() {
                     </div>
                 )}
 
-                {!loading && !error && callsigns.length > 0 && (searchTerm || filters.state || filters.district || filters.licenseClass || filters.licenseStatus || filters.recentOnly || filters.contactInfo) && (
-                    <div style={{
-                        color: 'var(--text-muted)',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                    }}>
-                        <button
-                            onClick={() => {
-                                const emptyFilters = { state: '', district: '', licenseClass: '', licenseStatus: '', recentOnly: '', contactInfo: '' };
-                                setSearchTerm('');
-                                setFilters(emptyFilters);
-                                setCallsigns([]);
-                                setPage(0);
-                                clearSavedFilters();
-                                fetchCallsigns(0, '', emptyFilters, true);
-                            }}
-                            style={{
-                                background: 'transparent',
-                                border: '1px solid var(--glass-border)',
-                                color: 'var(--text-muted)',
-                                padding: '6px 12px',
-                                borderRadius: '6px',
-                                cursor: 'pointer',
-                                fontSize: '0.85rem'
-                            }}
-                        >
-                            Clear Filters
-                        </button>
-                    </div>
-                )}
+
 
                 {/* Virtualized List */}
                 {callsigns.length > 0 && !error && (
