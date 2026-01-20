@@ -485,7 +485,7 @@ function Directory() {
                         justifyContent: 'space-between',
                         alignItems: 'center'
                     }}>
-                        <span>Showing {callsigns.length} of {totalCount} operators</span>
+
                         {(searchTerm || filters.state || filters.licenseClass || filters.licenseStatus || filters.recentOnly || filters.contactInfo) && (
                             <button
                                 onClick={() => {
