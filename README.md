@@ -81,10 +81,10 @@ We are obsessed with speed.
 
 Stay up to date with the latest evolution of the platform.
 
-### **v2.4.1** (Latest) - *2026-01-20*
-*   **UI Polish**: Standardized layout spacing for a balanced look. **OFFICIAL LAST STABLE** version.
+### **v2.4.2** (Latest) - *2026-01-20*
+*   **Security**: Comprehensive security audit performed. Verified session security, XSS protection, and bot mitigation.
 
-### **v2.4.0** - *2026-01-20*
+### **v2.4.1** - *2026-01-20*
 
 ### **v2.3.5** - *2026-01-20*
 *   **UI Branding**: Reverted logo to Gold version and optimized Login page layout for better mobile fit.
@@ -324,6 +324,16 @@ This `docker-compose.yml` spins up the **entire infrastructure** locally:
     *   **Email Inbox**: `http://localhost:8025` (View sent emails)
 
 > **Note**: This setup uses default "development" keys. For production use on a public server, please change the JWT secrets and passwords in `docker-compose.yml`.
+
+## 🛡️ Security
+
+The project undergoes regular security reviews to ensure the safety of user data.
+
+- **Authentication**: Powered by Supabase Auth with secure token handling.
+- **Protection**: Multi-layered bot mitigation (Altcha + Honeypot).
+- **Session Security**: Automatic 5-minute inactivity logout for public/shared terminals.
+- **Input Sanitization**: Strict URL normalization and no raw HTML rendering to prevent XSS.
+- **Privacy**: Role-based access control (RBAC) ensures only authorized administrators can modify global directory data.
 
 ---
 

@@ -2,6 +2,14 @@
 
 All notable changes to the Malaysian Amateur Radio Call Book will be documented in this file.
 
+## [2.4.2] - 2026-01-20
+### Security
+- **Security Audit**: Completed a comprehensive security audit of the repository.
+  - Verified no XSS vulnerabilities in frontend rendering.
+  - Confirmed robust bot protection via Altcha CAPTCHA and honeypots.
+  - Validated secure authentication and inactivity timeouts.
+  - Identified and documented minor recommendations for secret management hardening.
+
 ## [2.4.1] - 2026-01-20
 ### UI Polish
 - **Spacing**: Standardized vertical gaps between Statistics, Search Filter, and Cards grid for a more balanced and professional layout. This is the **OFFICIAL LAST STABLE** release.
