@@ -497,6 +497,7 @@ function Directory() {
                 {callsigns.length > 0 && !error && (
                     <>
                         <div style={{
+                            marginTop: '12px',
                             height: `${virtualizer.getTotalSize()}px`,
                             width: '100%',
                             position: 'relative',

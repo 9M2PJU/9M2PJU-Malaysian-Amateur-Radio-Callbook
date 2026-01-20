@@ -70,7 +70,7 @@ body {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    /* gap removed to allow manual margin control */
 }
 
 /* Mobile Responsive Styles */
