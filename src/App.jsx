@@ -501,6 +501,7 @@ function Directory() {
                             height: `${virtualizer.getTotalSize()}px`,
                             width: '100%',
                             position: 'relative',
+                            marginTop: '-12px',
                         }}>
                             {items.map((virtualRow) => {
                                 const rowStartIndex = virtualRow.index * columnCount;
