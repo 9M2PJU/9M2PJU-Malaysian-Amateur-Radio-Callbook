@@ -53,7 +53,7 @@ const AdvancedSearch = ({ onSearch, onFilterChange, filters, states, searchTerm 
     };
 
     return (
-        <div className="glass-panel" style={{ padding: '24px', marginBottom: '10px' }}>
+        <div className="glass-panel" style={{ padding: '24px', marginBottom: '24px' }}>
             {/* Header */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
                 <FaFilter color="var(--primary)" />

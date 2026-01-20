@@ -110,7 +110,7 @@ const StatsDashboard = ({ totalCount }) => {
     const totalOperators = totalCount || stats.total_operators;
 
     return (
-        <div className="glass-panel" style={{ padding: 'clamp(16px, 4vw, 24px)', marginBottom: '30px' }}>
+        <div className="glass-panel" style={{ padding: 'clamp(16px, 4vw, 24px)', marginBottom: '24px' }}>
             <h2 style={{
                 margin: '0 0 20px 0',
                 display: 'flex',
