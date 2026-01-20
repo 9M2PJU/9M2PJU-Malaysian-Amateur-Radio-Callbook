@@ -2,6 +2,11 @@
 
 All notable changes to the Malaysian Amateur Radio Call Book will be documented in this file.
 
+## [2.3.6] - 2026-01-20
+### Bug Fixes
+- **Telegram Integration**: Fixed generic error messages in "Test Telegram" button to show specific backend errors.
+- **Backend**: Resolved "non-2xx" errors by ensuring `telegram-test-message` Edge Function is correctly deployed and configured.
+
 ## [2.3.5] - 2026-01-20
 ### UI & Branding
 - **Branding**: Reverted brand logo to Gold version.

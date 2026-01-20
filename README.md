@@ -81,7 +81,10 @@ We are obsessed with speed.
 
 Stay up to date with the latest evolution of the platform.
 
-### **v2.3.5** (Latest) - *2026-01-20*
+### **v2.3.6** (Latest) - *2026-01-20*
+*   **Fix**: Resolved Telegram test button errors and Edge Function deployment.
+
+### **v2.3.5** - *2026-01-20*
 *   **UI Branding**: Reverted logo to Gold version and optimized Login page layout for better mobile fit.
 
 ### **v2.3.4** - *2026-01-20*
