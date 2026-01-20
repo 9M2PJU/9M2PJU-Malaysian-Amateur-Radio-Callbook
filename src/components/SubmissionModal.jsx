@@ -29,8 +29,6 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
         expiryDate: '',
         telegramChatId: '',
         botField: '', // Honeypot
-        telegramChatId: '',
-        botField: '', // Honeypot
         isPpmMember: false,
         isBsmmMember: false,
         isPppmMember: false,
@@ -64,8 +62,6 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                     district: initialData.district || '',
                     gridLocator: initialData.gridLocator || '',
                     aprsCallsign: initialData.aprsCallsign || '',
-                    expiryDate: initialData.expiryDate || '',
-                    telegramChatId: initialData.telegramChatId || '',
                     expiryDate: initialData.expiryDate || '',
                     telegramChatId: initialData.telegramChatId || '',
                     isPpmMember: initialData.isPpmMember || false,
@@ -117,6 +113,9 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
         }
     }, [isOpen, onClose]);
 
+    // State for Telegram test button
+    const [testingTelegram, setTestingTelegram] = useState(false);
+
     const handleChange = (e) => {
         let { name, value } = e.target;
 
@@ -140,6 +139,30 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
             setFormData(prev => ({ ...prev, [name]: e.target.checked }));
         } else {
             setFormData(prev => ({ ...prev, [name]: value }));
+        }
+    };
+
+    // Handle Telegram test message
+    const handleTestTelegram = async () => {
+        if (!formData.telegramChatId) {
+            toast.error("Please enter a Telegram Chat ID first");
+            return;
+        }
+
+        setTestingTelegram(true);
+        try {
+            const { data, error } = await supabase.functions.invoke('telegram-test-message', {
+                body: { chat_id: formData.telegramChatId }
+            });
+
+            if (error) throw error;
+
+            toast.success("Test message sent! Check your Telegram.");
+        } catch (err) {
+            console.error("Test Telegram Error:", err);
+            toast.error("Failed to send test message. Check the ID and try again.");
+        } finally {
+            setTestingTelegram(false);
         }
     };
 
@@ -238,9 +261,6 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                         aprs_callsign: formData.aprsCallsign || null,
                         expiry_date: formData.expiryDate || null,
                         telegram_chat_id: formData.telegramChatId || null,
-                        is_ppm_member: formData.isPpmMember,
-                        is_bsmm_member: formData.isBsmmMember,
-                        is_pppm_member: formData.isPppmMember,
                         is_ppm_member: formData.isPpmMember,
                         is_bsmm_member: formData.isBsmmMember,
                         is_pppm_member: formData.isPppmMember,
@@ -436,14 +456,47 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
 
                         <div style={{ marginBottom: '20px' }}>
                             <label style={labelStyle}>Telegram Chat ID (Optional)</label>
-                            <input
-                                type="text"
-                                name="telegramChatId"
-                                value={formData.telegramChatId}
-                                onChange={handleChange}
-                                placeholder="e.g. 123456789"
-                                style={inputStyle}
-                            />
+                            <div style={{ display: 'flex', gap: '8px' }}>
+                                <input
+                                    type="text"
+                                    name="telegramChatId"
+                                    value={formData.telegramChatId}
+                                    onChange={handleChange}
+                                    placeholder="e.g. 123456789"
+                                    style={{ ...inputStyle, flex: 1 }}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={handleTestTelegram}
+                                    disabled={!formData.telegramChatId || testingTelegram}
+                                    title="Send a test message to verify your Chat ID"
+                                    style={{
+                                        padding: '0 16px',
+                                        background: 'rgba(255, 255, 255, 0.1)',
+                                        border: '1px solid var(--glass-border)',
+                                        borderRadius: '8px',
+                                        color: 'var(--primary)',
+                                        fontWeight: '600',
+                                        cursor: (!formData.telegramChatId || testingTelegram) ? 'not-allowed' : 'pointer',
+                                        opacity: (!formData.telegramChatId || testingTelegram) ? 0.5 : 1,
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '6px',
+                                        whiteSpace: 'nowrap',
+                                        transition: 'all 0.2s'
+                                    }}
+                                    onMouseOver={(e) => {
+                                        if (formData.telegramChatId && !testingTelegram) {
+                                            e.currentTarget.style.background = 'rgba(79, 172, 254, 0.2)';
+                                        }
+                                    }}
+                                    onMouseOut={(e) => {
+                                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                                    }}
+                                >
+                                    {testingTelegram ? <FaSpinner className="spin" /> : 'Test'}
+                                </button>
+                            </div>
                             <small style={{ color: 'var(--text-muted)', display: 'block', marginTop: '6px', lineHeight: '1.5', fontSize: '0.85rem' }}>
                                 <div style={{ marginBottom: '8px', color: '#81e6d9' }}>
                                     🔔 <strong>Why add this?</strong> You will receive automated reminders via Telegram when your license is about to expire.
