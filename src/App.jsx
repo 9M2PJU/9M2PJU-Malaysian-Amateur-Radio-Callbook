@@ -349,8 +349,13 @@ function Directory() {
     }, [filters, searchTerm]);
 
     const loadMore = useCallback(() => {
-        fetchCallsigns(page + 1, searchTerm, filters, false);
-    }, [page, searchTerm, filters]);
+        if (loading) return;
+        setLoading(true);
+        // Add artificial delay to show loading animation
+        setTimeout(() => {
+            fetchCallsigns(page + 1, searchTerm, filters, false);
+        }, 1000);
+    }, [page, searchTerm, filters, loading]);
 
     const handleEdit = useCallback((data) => {
         setEditData(data);
