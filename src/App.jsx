@@ -460,7 +460,7 @@ function Directory() {
                     searchTerm={searchTerm}
                     onClear={handleClearAll}
                     hasActiveFilters={hasActiveFilters}
-                    style={{ marginTop: '-4px', marginBottom: '-8px' }}
+                    style={{ marginTop: '-4px', marginBottom: '16px' }}
                 />
 
                 {loading && callsigns.length === 0 && (
@@ -506,7 +506,7 @@ function Directory() {
                             height: `${virtualizer.getTotalSize()}px`,
                             width: '100%',
                             position: 'relative',
-                            marginTop: '-12px',
+                            marginTop: '0',
                         }}>
                             {items.map((virtualRow) => {
                                 const rowStartIndex = virtualRow.index * columnCount;
