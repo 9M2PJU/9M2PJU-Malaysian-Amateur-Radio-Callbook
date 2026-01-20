@@ -414,7 +414,7 @@ function Directory() {
             <Navbar />
 
             <main className="container" ref={listRef} style={{ minHeight: '80vh' }}>
-                <div style={{ textAlign: 'center', margin: '40px 0 40px' }}>
+                <div style={{ textAlign: 'center', margin: '40px 0 0' }}>
                     <h1 style={{
                         fontSize: 'clamp(2rem, 5vw, 3.5rem)',
                         fontWeight: '800',
@@ -479,7 +479,6 @@ function Directory() {
 
                 {!loading && !error && callsigns.length > 0 && (searchTerm || filters.state || filters.district || filters.licenseClass || filters.licenseStatus || filters.recentOnly || filters.contactInfo) && (
                     <div style={{
-                        marginBottom: '10px',
                         color: 'var(--text-muted)',
                         display: 'flex',
                         justifyContent: 'space-between',
