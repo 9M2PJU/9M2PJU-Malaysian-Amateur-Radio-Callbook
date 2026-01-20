@@ -477,39 +477,36 @@ function Directory() {
                     </div>
                 )}
 
-                {!loading && !error && callsigns.length > 0 && (
+                {!loading && !error && callsigns.length > 0 && (searchTerm || filters.state || filters.district || filters.licenseClass || filters.licenseStatus || filters.recentOnly || filters.contactInfo) && (
                     <div style={{
-                        marginBottom: '20px',
+                        marginBottom: '10px',
                         color: 'var(--text-muted)',
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center'
                     }}>
-
-                        {(searchTerm || filters.state || filters.licenseClass || filters.licenseStatus || filters.recentOnly || filters.contactInfo) && (
-                            <button
-                                onClick={() => {
-                                    const emptyFilters = { state: '', district: '', licenseClass: '', licenseStatus: '', recentOnly: '', contactInfo: '' };
-                                    setSearchTerm('');
-                                    setFilters(emptyFilters);
-                                    setCallsigns([]);
-                                    setPage(0);
-                                    clearSavedFilters();
-                                    fetchCallsigns(0, '', emptyFilters, true);
-                                }}
-                                style={{
-                                    background: 'transparent',
-                                    border: '1px solid var(--glass-border)',
-                                    color: 'var(--text-muted)',
-                                    padding: '6px 12px',
-                                    borderRadius: '6px',
-                                    cursor: 'pointer',
-                                    fontSize: '0.85rem'
-                                }}
-                            >
-                                Clear Filters
-                            </button>
-                        )}
+                        <button
+                            onClick={() => {
+                                const emptyFilters = { state: '', district: '', licenseClass: '', licenseStatus: '', recentOnly: '', contactInfo: '' };
+                                setSearchTerm('');
+                                setFilters(emptyFilters);
+                                setCallsigns([]);
+                                setPage(0);
+                                clearSavedFilters();
+                                fetchCallsigns(0, '', emptyFilters, true);
+                            }}
+                            style={{
+                                background: 'transparent',
+                                border: '1px solid var(--glass-border)',
+                                color: 'var(--text-muted)',
+                                padding: '6px 12px',
+                                borderRadius: '6px',
+                                cursor: 'pointer',
+                                fontSize: '0.85rem'
+                            }}
+                        >
+                            Clear Filters
+                        </button>
                     </div>
                 )}
 
