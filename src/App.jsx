@@ -444,7 +444,7 @@ function Directory() {
                 </div>
 
                 {!loading && !error && callsigns.length > 0 && (
-                    <StatsDashboard totalCount={totalCount} />
+                    <StatsDashboard totalCount={totalCount} style={{ marginBottom: '-4px' }} />
                 )}
 
                 <AdvancedSearch
@@ -455,7 +455,7 @@ function Directory() {
                     searchTerm={searchTerm}
                     onClear={handleClearAll}
                     hasActiveFilters={hasActiveFilters}
-                    style={{ marginBottom: '-6px' }}
+                    style={{ marginTop: '-4px', marginBottom: '-8px' }}
                 />
 
                 {loading && callsigns.length === 0 && (

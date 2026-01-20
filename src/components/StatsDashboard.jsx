@@ -3,7 +3,7 @@ import { FaUsers, FaMapMarkerAlt, FaClock, FaBroadcastTower, FaSpinner, FaEye, F
 import { supabase } from '../lib/supabase';
 import { useAuth } from './AuthContext';
 
-const StatsDashboard = ({ totalCount }) => {
+const StatsDashboard = ({ totalCount, style, className }) => {
     const { user } = useAuth();
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -99,7 +99,7 @@ const StatsDashboard = ({ totalCount }) => {
 
     if (loading) {
         return (
-            <div className="glass-panel" style={{ padding: 'clamp(16px, 4vw, 24px)', marginBottom: '30px', textAlign: 'center' }}>
+            <div className={`glass-panel ${className || ''}`} style={{ padding: 'clamp(16px, 4vw, 24px)', marginBottom: '30px', textAlign: 'center', ...style }}>
                 <FaSpinner className="spin" /> Loading statistics...
             </div>
         );
@@ -110,7 +110,7 @@ const StatsDashboard = ({ totalCount }) => {
     const totalOperators = totalCount || stats.total_operators;
 
     return (
-        <div className="glass-panel" style={{ padding: 'clamp(16px, 4vw, 24px)' }}>
+        <div className={`glass-panel ${className || ''}`} style={{ padding: 'clamp(16px, 4vw, 24px)', ...style }}>
             <h2 style={{
                 margin: '0 0 20px 0',
                 display: 'flex',
