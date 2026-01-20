@@ -2,7 +2,7 @@ import React from 'react';
 import { FaSearch, FaFilter, FaTimes } from 'react-icons/fa';
 import { MALAYSIAN_DISTRICTS } from '../constants';
 
-const AdvancedSearch = ({ onSearch, onFilterChange, filters, states, searchTerm = '', onClear, hasActiveFilters }) => {
+const AdvancedSearch = ({ onSearch, onFilterChange, filters, states, searchTerm = '', onClear, hasActiveFilters, style, className }) => {
     // Local state to track input value (for immediate feedback)
     const [inputValue, setInputValue] = React.useState(searchTerm);
     const searchInputRef = React.useRef(null);
@@ -53,9 +53,9 @@ const AdvancedSearch = ({ onSearch, onFilterChange, filters, states, searchTerm 
     };
 
     return (
-        <div className="glass-panel" style={{ padding: '24px' }}>
+        <div className={`glass-panel ${className || ''}`} style={{ padding: '20px', ...style }}>
             {/* Header */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <FaFilter color="var(--primary)" />
                     <h3 style={{ margin: 0, color: 'var(--text-main)' }}>Search & Filter</h3>
@@ -82,7 +82,7 @@ const AdvancedSearch = ({ onSearch, onFilterChange, filters, states, searchTerm 
             </div>
 
             {/* Search Input - Full Width on Top */}
-            <div style={{ position: 'relative', marginBottom: '20px' }}>
+            <div style={{ position: 'relative', marginBottom: '16px' }}>
                 <FaSearch style={{
                     position: 'absolute',
                     left: '16px',
@@ -138,7 +138,7 @@ const AdvancedSearch = ({ onSearch, onFilterChange, filters, states, searchTerm 
             <div style={{
                 fontSize: '0.85rem',
                 color: 'var(--text-muted)',
-                marginBottom: '12px',
+                marginBottom: '10px',
                 textTransform: 'uppercase',
                 letterSpacing: '0.5px',
                 fontWeight: '500'

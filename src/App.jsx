@@ -455,6 +455,7 @@ function Directory() {
                     searchTerm={searchTerm}
                     onClear={handleClearAll}
                     hasActiveFilters={hasActiveFilters}
+                    style={{ marginBottom: '-6px' }}
                 />
 
                 {loading && callsigns.length === 0 && (
