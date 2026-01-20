@@ -290,7 +290,9 @@ function Directory() {
             }
 
             setTotalCount(count);
-            setHasMore(transformedData.length === ITEMS_PER_PAGE);
+            // More accurate hasMore check: if we have fewer items than total, there's more to fetch
+            const currentTotalLoaded = from + transformedData.length;
+            setHasMore(currentTotalLoaded < count);
             setPage(pageToFetch);
             setLoading(false);
         } catch (err) {
@@ -517,51 +519,64 @@ function Directory() {
                                     gap: '10px'
                                 }}>
                                     <div className="loading-spinner" style={{
-                                        width: '20px',
-                                        height: '20px',
-                                        border: '2px solid var(--glass-border)',
-                                        borderTop: '2px solid var(--primary)',
+                                        width: '24px',
+                                        height: '24px',
+                                        border: '3px solid var(--glass-border)',
+                                        borderTop: '3px solid var(--primary)',
                                         borderRadius: '50%',
                                         animation: 'spin 1s linear infinite'
                                     }} />
-                                    Loading more...
+                                    <span style={{ fontSize: '1.1rem', fontWeight: '500' }}>Searching Database...</span>
                                 </div>
                             )}
 
                             {!loading && hasMore && (
                                 <button
                                     onClick={loadMore}
+                                    className="glass-panel"
                                     style={{
-                                        background: 'var(--glass-bg)',
                                         border: '1px solid var(--glass-border)',
                                         color: 'var(--text-main)',
-                                        padding: '12px 32px',
-                                        borderRadius: '12px',
-                                        fontSize: '1rem',
-                                        fontWeight: '600',
+                                        padding: '16px 48px',
+                                        borderRadius: '16px',
+                                        fontSize: '1.1rem',
+                                        fontWeight: '700',
                                         cursor: 'pointer',
-                                        transition: 'all 0.2s ease',
-                                        backdropFilter: 'blur(10px)',
-                                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '12px',
+                                        letterSpacing: '0.02em'
                                     }}
                                     onMouseOver={(e) => {
-                                        e.currentTarget.style.transform = 'translateY(-2px)';
-                                        e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
-                                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                                        e.currentTarget.style.transform = 'translateY(-4px) scale(1.02)';
+                                        e.currentTarget.style.boxShadow = '0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 242, 254, 0.2)';
+                                        e.currentTarget.style.borderColor = 'var(--primary)';
+                                        e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08))';
                                     }}
                                     onMouseOut={(e) => {
-                                        e.currentTarget.style.transform = 'translateY(0)';
-                                        e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
-                                        e.currentTarget.style.background = 'var(--glass-bg)';
+                                        e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                                        e.currentTarget.style.boxShadow = 'var(--glass-shadow)';
+                                        e.currentTarget.style.borderColor = 'var(--glass-border)';
+                                        e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))';
                                     }}
                                 >
-                                    Load More Callsigns
+                                    <span>Load More Callsigns</span>
+                                    <span style={{ fontSize: '1.2rem' }}>📡</span>
                                 </button>
                             )}
 
                             {!hasMore && callsigns.length > 0 && (
-                                <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                                    ✓ All {totalCount} operators loaded
+                                <div className="glass-panel" style={{
+                                    padding: '12px 24px',
+                                    color: 'var(--text-muted)',
+                                    fontSize: '0.95rem',
+                                    fontWeight: '500',
+                                    border: '1px solid var(--glass-border)',
+                                    background: 'rgba(255, 255, 255, 0.02)'
+                                }}>
+                                    ✨ End of results • {totalCount.toLocaleString()} operators listed
                                 </div>
                             )}
                         </div>
