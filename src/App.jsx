@@ -411,7 +411,7 @@ function Directory() {
     const virtualizer = useWindowVirtualizer({
         count: rowCount,
         estimateSize: () => 400, // Approximate height of a card including gap
-        overscan: 5,
+        overscan: 12,
         scrollMargin: listRef.current?.offsetTop ?? 0,
     });
 
@@ -448,7 +448,7 @@ function Directory() {
                     </p>
                 </div>
 
-                {!loading && !error && callsigns.length > 0 && (
+                {(callsigns.length > 0 || totalCount > 0) && !error && (
                     <StatsDashboard totalCount={totalCount} style={{ marginBottom: '-4px' }} />
                 )}
 
