@@ -155,12 +155,35 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
                 body: { chat_id: formData.telegramChatId }
             });
 
-            if (error) throw error;
+            if (error) {
+                // Try to extract the specific error message from the backend response
+                let errorMessage = error.message || "Failed to send test message.";
+
+                // If it's a specialized FunctionsHttpError, the response body might contain the custom error message
+                if (error.context && typeof error.context.json === 'function') {
+                    try {
+                        const body = await error.context.json();
+                        if (body && body.error) {
+                            errorMessage = body.error;
+                        }
+                    } catch (e) {
+                        // Failed to parse body, stick to the default error message
+                        console.warn("Could not parse error response body", e);
+                    }
+                }
+
+                throw new Error(errorMessage);
+            }
+
+            // Also check data payload just in case status was 200 but logic failed
+            if (data && data.success === false) {
+                throw new Error(data.error || "Unknown error occurred");
+            }
 
             toast.success("Test message sent! Check your Telegram.");
         } catch (err) {
             console.error("Test Telegram Error:", err);
-            toast.error("Failed to send test message. Check the ID and try again.");
+            toast.error(err.message || "Failed to send test message. Check the ID and try again.");
         } finally {
             setTestingTelegram(false);
         }
