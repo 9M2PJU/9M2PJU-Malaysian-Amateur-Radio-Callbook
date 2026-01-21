@@ -19,6 +19,7 @@
 
 * {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -42,7 +43,7 @@ body {
     border: 1px solid var(--glass-border);
     border-radius: 16px;
     box-shadow: var(--glass-shadow);
-    
+
     /* Hardware Acceleration for Legacy GPUs */
     will-change: transform;
     transform: translateZ(0);

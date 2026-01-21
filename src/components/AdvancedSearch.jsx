@@ -106,7 +106,15 @@ const AdvancedSearch = ({ onSearch, onFilterChange, filters, states, searchTerm 
             </div>
 
             {/* Search Input - Full Width on Top */}
-            <div style={{ position: 'relative', marginBottom: '16px' }}>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    if (debounceTimeoutRef.current) clearTimeout(debounceTimeoutRef.current);
+                    onSearch(inputValue);
+                    if (searchInputRef.current) searchInputRef.current.blur();
+                }}
+                style={{ position: 'relative', marginBottom: '16px' }}
+            >
                 <FaSearch style={{
                     position: 'absolute',
                     left: '16px',
@@ -117,7 +125,9 @@ const AdvancedSearch = ({ onSearch, onFilterChange, filters, states, searchTerm 
                 }} />
                 <input
                     ref={searchInputRef}
-                    type="text"
+                    type="search"
+                    inputMode="search"
+                    enterKeyHint="search"
                     placeholder="Search by callsign, name, or location..."
                     value={inputValue}
                     onChange={handleInputChange}
@@ -132,6 +142,7 @@ const AdvancedSearch = ({ onSearch, onFilterChange, filters, states, searchTerm 
                 />
                 {inputValue && (
                     <button
+                        type="button"
                         onClick={handleClear}
                         style={{
                             position: 'absolute',
@@ -156,7 +167,7 @@ const AdvancedSearch = ({ onSearch, onFilterChange, filters, states, searchTerm 
                         <FaTimes />
                     </button>
                 )}
-            </div>
+            </form>
 
             {/* Filter Label */}
             <div style={{
