@@ -137,6 +137,8 @@ const Register = () => {
                                 <FaEnvelope style={{ position: 'absolute', left: '12px', top: '13px', color: 'var(--text-muted)', fontSize: '0.9rem' }} />
                                 <input
                                     type="email"
+                                    inputMode="email"
+                                    enterKeyHint="next"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
@@ -160,6 +162,7 @@ const Register = () => {
                                 <FaLock style={{ position: 'absolute', left: '12px', top: '13px', color: 'var(--text-muted)', fontSize: '0.9rem' }} />
                                 <input
                                     type="password"
+                                    enterKeyHint="next"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
@@ -183,6 +186,7 @@ const Register = () => {
                                 <FaLock style={{ position: 'absolute', left: '12px', top: '13px', color: 'var(--text-muted)', fontSize: '0.9rem' }} />
                                 <input
                                     type="password"
+                                    enterKeyHint="go"
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     required

@@ -180,6 +180,8 @@ const Login = () => {
                                 <FaEnvelope style={{ position: 'absolute', left: '10px', top: '10px', color: 'var(--text-muted)', fontSize: '0.8rem' }} />
                                 <input
                                     type="email"
+                                    inputMode="email"
+                                    enterKeyHint="next"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
@@ -203,6 +205,7 @@ const Login = () => {
                                 <FaLock style={{ position: 'absolute', left: '10px', top: '10px', color: 'var(--text-muted)', fontSize: '0.8rem' }} />
                                 <input
                                     type="password"
+                                    enterKeyHint="go"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
