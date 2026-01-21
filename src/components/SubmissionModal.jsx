@@ -5,6 +5,7 @@ import { useAuth } from './AuthContext';
 import { useToast } from './Toast';
 
 import { MALAYSIAN_STATES, MALAYSIAN_DISTRICTS } from '../constants';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
     const toast = useToast();
@@ -84,20 +85,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
         }
     }, [isOpen, user, initialData]);
 
-    // Handle Altcha verification
-    useEffect(() => {
-        const handleStateChange = (ev) => {
-            if (ev.detail.state === 'verified') {
-                setIsCaptchaVerified(true);
-            }
-        };
 
-        const widget = document.querySelector('altcha-widget');
-        if (widget) {
-            widget.addEventListener('statechange', handleStateChange);
-            return () => widget.removeEventListener('statechange', handleStateChange);
-        }
-    }, [isOpen]);
 
     // Handle ESC key to close modal
     useEffect(() => {
@@ -804,10 +792,12 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
 
                         <div style={{ marginBottom: '20px' }}>
                             <label style={labelStyle}>Security Check</label>
-                            <altcha-widget
-                                challengeurl="/api/challenge"
-                                style={{ width: '100%' }}
-                            ></altcha-widget>
+                            <Turnstile
+                                siteKey="0x4AAAAAACM4A9z-qhrcwAcp"
+                                onSuccess={() => setIsCaptchaVerified(true)}
+                                onExpire={() => setIsCaptchaVerified(false)}
+                                onError={() => setIsCaptchaVerified(false)}
+                            />
                         </div>
 
                         {/* Honeypot field - hidden from humans */}
