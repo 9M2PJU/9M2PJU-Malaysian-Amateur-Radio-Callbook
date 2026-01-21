@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="public/icon-512.png" alt="MY-Callbook Logo" width="160" height="auto" />
+  <img src="public/logo.png" alt="MY-Callbook Logo" width="160" height="auto" />
 
   # 🇲🇾 Malaysian Amateur Radio Callbook
   
