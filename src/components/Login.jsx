@@ -92,111 +92,110 @@ const Login = () => {
                     
                     .main-wrapper {
                         height: 100dvh !important;
-                        padding: 10px 0 !important;
+                        padding: 5px 0 !important; /* Reduced padding */
                         justify-content: space-between !important;
-                        background-attachment: scroll !important; /* Performance */
+                        background-attachment: scroll !important;
                     }
                     
-                    /* Main Container becomes the flexible column */
                     .login-container {
                         height: 100% !important;
                         max-height: 100% !important;
-                        padding: 0 20px !important;
+                        padding: 0 15px !important;
                         width: 100% !important;
                         display: flex !important;
                         flex-direction: column !important;
-                        justify-content: space-evenly !important; /* Even spacing */
-                        gap: 10px !important;
+                        justify-content: center !important; /* Center content, space via gap */
+                        gap: 8px !important; /* Tighter gap */
                     }
                     
-                    /* 1. Header Section (Logo + Title) */
+                    /* 1. Header Section */
                     .header-section {
                         margin: 0 !important;
                         flex-shrink: 0 !important;
                     }
                     
                     .logo-img {
-                        width: 75px !important; /* Balanced size */
-                        height: 75px !important;
-                        margin-bottom: 5px !important;
+                        width: 60px !important; /* Smaller logo */
+                        height: 60px !important;
+                        margin-bottom: 2px !important;
                         opacity: 1 !important;
                         display: block !important;
                     }
 
                     .header-section h1 {
-                        font-family: sans-serif; /* Clean font */
-                        font-size: 1.1rem !important;
-                        line-height: 1.2 !important;
-                        margin-bottom: 2px !important;
+                        font-family: sans-serif;
+                        font-size: 1rem !important; /* Slightly smaller */
+                        line-height: 1.1 !important;
+                        margin-bottom: 0 !important;
                     }
 
                     .header-section h2 {
-                        font-size: 0.9rem !important;
+                        font-size: 0.85rem !important;
                         opacity: 0.9 !important;
                     }
                     
-                    /* Hide lengthy subtitle */
                     .header-section > p { display: none !important; }
 
-                    /* 2. Stats Section (Middle Top) */
+                    /* 2. Stats Section */
                     .header-section > div:last-child {
-                        transform: scale(0.8) !important;
-                        margin: 5px 0 !important;
+                        transform: scale(0.75) !important; /* Smaller stats */
+                        margin: 0 !important;
                         position: static !important;
                     }
 
-                    /* 3. Login Card (Main Content) */
+                    /* 3. Login Card */
                     .login-card { 
                         width: 100% !important;
-                        padding: 20px 20px !important; /* Comfortable padding */
+                        padding: 15px 15px !important; /* Compact padding */
                         margin: 0 !important;
-                        flex-shrink: 0 !important;
-                        background: rgba(255, 255, 255, 0.08) !important; /* Slightly lighter for readability */
+                        flex-shrink: 1 !important; /* Allow shrinking if absolutely needed */
+                        background: rgba(255, 255, 255, 0.08) !important;
                     }
                     
                     .login-card h2 {
-                        font-size: 1.2rem !important;
-                        margin-bottom: 10px !important;
+                        font-size: 1.1rem !important;
+                        margin-bottom: 5px !important;
                     }
                     
                     .restricted-info {
-                        padding: 6px 10px !important;
-                        margin-bottom: 10px !important;
+                        padding: 5px 8px !important;
+                        margin-bottom: 8px !important;
                         font-size: 0.7rem !important;
-                        display: block !important; /* Show alert */
+                        display: block !important;
                     }
 
-                    /* Form Inputs */
+                    /* Compact Form Inputs */
+                    .login-card label { margin-bottom: 2px !important; font-size: 0.75rem !important; }
                     .login-card input {
-                        padding: 10px 10px 10px 35px !important; /* Taller target */
-                        font-size: 1rem !important; /* Prevent iOS zoom */
+                        padding: 8px 10px 8px 30px !important;
+                        font-size: 0.9rem !important;
                     }
                     
-                    /* Turnstile */
                     .turnstile-wrapper {
-                        transform: scale(0.85);
-                        min-height: 60px !important;
+                        transform: scale(0.75);
+                        min-height: 55px !important;
                         margin-bottom: 5px !important;
                     }
                     
                     .login-card button {
-                        padding: 12px !important; /* Big tap target */
-                        font-size: 1rem !important;
+                        padding: 10px !important;
+                        font-size: 0.95rem !important;
                     }
 
-                    /* 4. Footer (Bottom) */
+                    /* 4. Footer */
                     .footer-section { 
                         margin-top: 5px !important;
-                        font-size: 0.7rem !important; 
+                        font-size: 0.65rem !important; 
                         opacity: 0.7 !important;
                         flex-shrink: 0 !important;
+                        padding-bottom: 5px !important;
                     }
                     
-                    /* Fallback for VERY small screens (iPhone SE 1st gen) */
+                    /* Ultra-small screen fallback */
                     @media (max-height: 600px) {
-                        .logo-img { width: 60px !important; height: 60px !important; }
+                        .logo-img { width: 50px !important; height: 50px !important; }
                         .restricted-info { display: none !important; }
-                        .header-section > div:last-child { transform: scale(0.7) !important; margin: 0 !important; }
+                        .login-card { padding: 10px !important; }
                     }
                 }
             `}</style>
