@@ -61,7 +61,7 @@ const Login = () => {
 
     return (
         <div style={{
-            minHeight: '100dvh',
+            height: '100dvh', // Forced height for both mobile and desktop
             width: '100vw',
             display: 'flex',
             flexDirection: 'column',
@@ -70,60 +70,97 @@ const Login = () => {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed',
-            overflow: 'hidden' // Default to hidden for desktop
+            overflow: 'hidden'
         }}>
             <style>{`
-                /* Desktop Defaults */
+                /* Global Defaults */
                 html, body { 
                     overflow: hidden !important; 
                     height: 100% !important; 
                     margin: 0 !important; 
                     padding: 0 !important;
                     width: 100%;
+                    overscroll-behavior: none; /* Prevent pull-to-refresh */
                 }
 
                 /* Mobile & Small Screen Optimization */
                 @media (max-width: 768px), (max-height: 700px) {
-                    html, body {
-                        overflow-y: auto !important;
-                        position: static !important;
-                        height: auto !important;
-                    }
-                    /* Hide scrollbar for Chrome, Safari and Opera */
-                    html::-webkit-scrollbar, body::-webkit-scrollbar {
-                        display: none;
-                    }
-                    /* Hide scrollbar for IE, Edge and Firefox */
-                    html, body {
-                        -ms-overflow-style: none;  /* IE and Edge */
-                        scrollbar-width: none;  /* Firefox */
-                    }
-                    
                     .main-wrapper {
-                        height: auto !important;
-                        min-height: 100dvh;
-                        padding: 30px 0 !important;
-                        overflow-y: visible !important;
+                        height: 100% !important;
+                        min-height: 0 !important;
+                        padding: 10px 0 !important;
+                        overflow: hidden !important;
+                        justify-content: flex-start !important;
                     }
                     
-                    /* Ensure logo is visible and sized correctly */
+                    .login-container {
+                        padding: 0 15px !important;
+                        justify-content: flex-start !important;
+                        gap: 0 !important;
+                    }
+                    
+                    /* Compact Logo */
                     .logo-img {
-                        width: 100px !important;
-                        height: 100px !important;
+                        width: 60px !important;
+                        height: 60px !important;
                         display: block !important; 
                         opacity: 1 !important;
+                        margin-bottom: 0 !important;
                     }
 
-                    .login-card { 
-                        padding: 20px !important;
-                        margin: 10px auto !important;
-                        width: 90% !important;
+                    /* Compact Header */
+                    .header-section {
+                        margin-bottom: 5px !important;
+                    }
+                    .header-section h1 {
+                        font-size: 1rem !important;
+                        margin-bottom: 0 !important;
+                        line-height: 1.1 !important;
+                    }
+                    .header-section h2 {
+                        font-size: 0.95rem !important;
+                        margin: 0 !important;
+                    }
+                    /* Hide subtitle on mobile */
+                    .header-section > p {
+                        display: none !important;
                     }
                     
-                    .turnstile-wrapper {
-                        transform: scale(0.85);
-                        transform-origin: center;
+                    /* Hide PublicStats on mobile to save space */
+                    .header-section > div:last-child {
+                        display: none !important;
                     }
+
+                    /* Compact Card */
+                    .login-card { 
+                        padding: 12px 15px !important;
+                        margin: 5px auto !important;
+                        width: 100% !important;
+                        max-width: none !important;
+                    }
+                    .login-card h2 {
+                        font-size: 1rem !important;
+                        margin-bottom: 0 !important;
+                    }
+                    
+                    /* Compact Form Elements */
+                    .login-card label { margin-bottom: 2px !important; font-size: 0.75rem !important; }
+                    .login-card input { padding: 8px 10px 8px 30px !important; font-size: 0.85rem !important; }
+                    .login-card .turnstile-wrapper {
+                        transform: scale(0.7);
+                        transform-origin: center;
+                        margin: 0 !important;
+                        min-height: 50px !important;
+                    }
+                    .login-card button { padding: 8px !important; font-size: 0.9rem !important; }
+                    
+                    .restricted-info { display: none !important; }
+                    
+                    .footer-section { 
+                        margin-top: 5px !important;
+                        font-size: 0.65rem !important; 
+                    }
+                    .footer-section p { margin: 0 !important; }
                 }
             `}</style>
 
@@ -134,7 +171,7 @@ const Login = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                overflow: 'hidden' // Default for desktop
+                overflow: 'hidden'
             }}>
                 <div className="login-container" style={{
                     margin: '0 auto',
