@@ -12,10 +12,11 @@ The **Malaysian Amateur Radio Callbook** is a next-generation, community-driven 
 
 ## 🚀 Quick Links
 
-*   **[User Guide](User-Guide)**: Learn how to register, search, and manage your callsign.
-*   **[Technical Architecture](Technical-Architecture)**: Understand the "Zero-Cost" stack powering this project.
-*   **[Self Hosting](Self-Hosting)**: How to deploy your own instance using Docker.
-*   **[Future Roadmap](Future-Roadmap)**: The vision for future improvements.
+*   **[About the Project](About-Project)**: Introduction, History, and Vision.
+*   **[User Guide](User-Guide)**: Instructions for Operators and Visitors.
+*   **[Technical Architecture](Technical-Architecture)**: Deep dive into the tech stack.
+*   **[Self Hosting](Self-Hosting)**: Deploy your own instance.
+*   **[Future Roadmap](Future-Roadmap)**: What's coming next.
 
 ---
 

@@ -30,9 +30,18 @@ You can update your details at any time:
 
 ---
 
-## 🔍 For Visitors
+## 🔍 Usages & How-To
 
-### Search Tips
-*   **Global Search**: Type any part of a callsign or name in the main search bar.
-*   **Filters**: Use the filter buttons to narrow down by **State** (e.g., Selangor) or **Class**.
-*   **Export**: View a profile and click **"Save to Contacts (vCard)"** to instantly save the operator's details to your phone.
+### for Visitors (Public Access)
+You do not need to login to search the directory.
+*   **Simple Search**: Just type "Faizul" or "9M2" in the search box.
+*   **Advanced Filter**: Click the filter icon to find operators in a specific state (e.g., "Sabah") or verify Class A operators only.
+*   **Export vCard**: When viewing a profile, click **"Save to Contacts"** to download a `.vcf` file. You can import this directly into your phone's address book.
+
+### 📱 Installing as an App (PWA)
+MY-Callbook is a Progressive Web App. You can install it without an App Store:
+*   **iOS (iPhone/iPad)**: Open in Safari -> Tap 'Share' -> select **"Add to Home Screen"**.
+*   **Android (Chrome)**: Tap the menu (3 dots) -> select **"Install App"** or "Add to Home Screen".
+*   **Desktop (Chrome/Edge)**: Click the Install icon in the address bar (right side).
+
+This gives you a fullscreen, native app experience that launches instantly.
