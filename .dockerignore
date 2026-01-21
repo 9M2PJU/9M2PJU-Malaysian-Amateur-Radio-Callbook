@@ -1,0 +1,12 @@
+node_modules
+.git
+.gitignore
+.env
+.env.example
+dist
+backups
+.github
+README.md
+CHANGELOG.md
+docker-compose.yml
+backup-db.sh
