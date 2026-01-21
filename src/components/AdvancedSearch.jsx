@@ -13,6 +13,9 @@ const AdvancedSearch = ({ onSearch, onFilterChange, filters, states, searchTerm 
     }, [searchTerm]);
 
     const handleClear = () => {
+        if (debounceTimeoutRef.current) {
+            clearTimeout(debounceTimeoutRef.current);
+        }
         setInputValue('');
         onSearch('');
         if (searchInputRef.current) {
@@ -20,11 +23,32 @@ const AdvancedSearch = ({ onSearch, onFilterChange, filters, states, searchTerm 
         }
     };
 
+    // Debounce timer ref
+    const debounceTimeoutRef = React.useRef(null);
+
     const handleInputChange = (e) => {
         const value = e.target.value;
         setInputValue(value);
-        onSearch(value);
+
+        // Clear existing timeout
+        if (debounceTimeoutRef.current) {
+            clearTimeout(debounceTimeoutRef.current);
+        }
+
+        // Set new timeout
+        debounceTimeoutRef.current = setTimeout(() => {
+            onSearch(value);
+        }, 500); // Wait 500ms after user stops typing
     };
+
+    // Cleanup timeout on unmount
+    React.useEffect(() => {
+        return () => {
+            if (debounceTimeoutRef.current) {
+                clearTimeout(debounceTimeoutRef.current);
+            }
+        };
+    }, []);
 
     const inputStyle = {
         padding: '12px 16px',

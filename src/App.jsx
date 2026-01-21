@@ -297,7 +297,13 @@ function Directory() {
             setLoading(false);
         } catch (err) {
             console.error('Error fetching data:', err);
-            setError(err.message);
+
+            // Handle AbortError (timeout or cancellation)
+            if (err.name === 'AbortError' || err.message.includes('aborted')) {
+                setError('Request timed out. Please check your connection and retry.');
+            } else {
+                setError(err.message || 'An unexpected error occurred');
+            }
             setLoading(false);
         }
     };
