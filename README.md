@@ -145,9 +145,14 @@ Every single technical decision, from the database choice to the hosting platfor
 ### 🏛️ The "Zero-Cost" Architecture
 We leverage the incredibly generous free tiers of modern cloud infrastructure to guarantee longevity:
 
-1.  **Database (Supabase)**: We store efficient text-based callsign data. With approximately **11,000 records** currently, we utilize **less than 6%** of the free 500MB limit. This massive capacity headroom allows the directory to grow to **100,000+ operators**—sufficient for the next 10-20 years of growth—without ever needing a paid plan.
+1.  **Database (Supabase)**: We store efficient text-based callsign data.
+    *   **Average Record Size**: ~0.5 KB per operator.
+    *   **Current Load (11k users)**: ~5.5 MB (Only **1.1%** of the free 500MB limit).
+    *   **Capacity**: The free tier can comfortably support **~500,000+ operators**—enough for the next 50 years of growth.
 2.  **Hosting (Vercel)**: The frontend is a static site cached globally. It handles high traffic volumes effortlessly within the generous 100GB/month bandwidth limit.
 3.  **Authentication**: Supabase Auth handles up to **50,000 monthly active users**, a number far exceeding the total size of our diverse local community.
+
+> **Capacity Verdict**: The current architecture is utilizing **~1%** of the available free resources. There is sufficient "breathing room" to run this project exclusively on free tiers for decades. The only potential bottlenecks to watch are **Email Sending** (limited to 100/day) and **Image Storage** (if enabled in the future). Keeps photos external (Gravatar/Facebook) to ensure zero costs.
 
 ```mermaid
 graph TD
