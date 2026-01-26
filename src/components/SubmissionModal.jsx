@@ -179,8 +179,9 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
 
     const validateCallsign = (callsign) => {
         // Allow Malaysian callsigns: 9M or 9W followed by numbers and letters
-        // Examples: 9M2ABC, 9W2XYZ, 9M4IOTA, 9M59MY, 9M2PJU
-        const regex = /^9[MW][0-9][A-Z0-9]{1,6}$/i;
+        // Examples: 9M2ABC, 9W2XYZ, 9M4IOTA
+        // Also allow Reciprocal/Visitor callsigns: 9M2/SP5APW, 9W3/9V1BJ
+        const regex = /^9[MW][0-9](?:[A-Z0-9]{1,6}|\/[A-Z0-9]+)$/i;
         return regex.test(callsign.toUpperCase());
     };
 
@@ -222,7 +223,7 @@ const SubmissionModal = ({ isOpen, onClose, initialData = null }) => {
 
         // Validate callsign
         if (!validateCallsign(formData.callsign)) {
-            setError('Invalid callsign format. Must be Malaysian format (e.g., 9M2ABC, 9W2XYZ)');
+            setError('Invalid callsign format. Must be Malaysian format (e.g., 9M2ABC) or Reciprocal (e.g., 9M2/SP5APW)');
             return;
         }
 
