@@ -2,6 +2,12 @@
 
 All notable changes to the Malaysian Amateur Radio Call Book will be documented in this file.
 
+## [2.4.5] - 2026-01-26
+### Documentation & Stability
+- **Architecture Diagram**: Added **Telegram Bot API** visualization to the architecture Mermaid chart in README to accurately reflect the notification system.
+- **Badges**: Added a comprehensive "Badges Legend" section to README explaining the status, licencing, and tech stack indicators.
+- **Stability**: This release marks the current codebase as the **LAST STABLE** version for the v2.4.x series.
+
 ## [2.4.4] - 2026-01-21
 ### Security & UX
 - **Cloudflare Turnstile**: Replaced Altcha with Cloudflare Turnstile for more robust and user-friendly spam protection.
